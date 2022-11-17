@@ -4,16 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18dfa35d-5572-4d70-828f-db93d7f48b13" name="Changes" comment="Server test">
+    <list default="true" id="18dfa35d-5572-4d70-828f-db93d7f48b13" name="Changes" comment="server refactor">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/GameCharacter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientTest/ClientTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ClientTest/ClientTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientTest/target/classes/client/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientTest/target/classes/org/example/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/org/diseno_de_softwareIC/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/org/diseno_de_softwareIC/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/server/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/target/classes/server/Server$ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/target/classes/server/Server$ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/target/classes/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/target/classes/server/Server.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,24 +48,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;18&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Daniel/Documents/_TEC/Diseño de software/Projects/ConsoleGame-ProjectII/Socket Server&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "18",
+    "last_opened_file_path": "C:/Users/Daniel/Documents/_TEC/Diseño de software/Projects/ConsoleGame-ProjectII/Socket Server",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "inlay.hints"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Daniel\Documents\_TEC\Diseño de software\Projects\ConsoleGame-ProjectII" />
@@ -121,7 +134,8 @@
       <workItem from="1668661503598" duration="273000" />
       <workItem from="1668662173548" duration="92000" />
       <workItem from="1668662283156" duration="102000" />
-      <workItem from="1668662402746" duration="426000" />
+      <workItem from="1668662402746" duration="657000" />
+      <workItem from="1669078774385" duration="1689000" />
     </task>
     <task id="LOCAL-00001" summary="Server test">
       <created>1668661160001</created>
@@ -137,7 +151,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668661731850</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="IntelliJ server config">
+      <created>1668662887535</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668662887535</updated>
+    </task>
+    <task id="LOCAL-00004" summary="server refactor">
+      <created>1668663016112</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668663016112</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +194,8 @@
       <path value="$PROJECT_DIR$/Socket Server" />
     </ignored-roots>
     <MESSAGE value="Server test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Server test" />
+    <MESSAGE value="IntelliJ server config" />
+    <MESSAGE value="server refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="server refactor" />
   </component>
 </project>

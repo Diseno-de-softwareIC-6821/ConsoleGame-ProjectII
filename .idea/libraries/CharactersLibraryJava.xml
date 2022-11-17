@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CharactersLibraryJava">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Socket Server/src/lib/CharactersLibraryJava.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
