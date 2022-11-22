@@ -52,7 +52,7 @@ public class Menu extends javax.swing.JDialog {
     private void musica(){
         
         try{
-           File musicPath = new File("StarWarsTheme.wav");
+           File musicPath = new File("src\\main\\java\\Sound Effects\\MortalKombat.wav");
         AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
         Clip clip = AudioSystem.getClip();
         clip.open(audioInput);
@@ -81,7 +81,6 @@ public class Menu extends javax.swing.JDialog {
         ignore1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
@@ -120,21 +119,13 @@ public class Menu extends javax.swing.JDialog {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, 340));
 
-        jButton1.setText("Exit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 210, 50));
-
         jButton2.setText("Start Game");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 210, 50));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 210, 50));
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
 
         getAccessibleContext().setAccessibleName("Main Menu");
@@ -147,10 +138,6 @@ public class Menu extends javax.swing.JDialog {
         GameScreen createGameScreen = new GameScreen(new javax.swing.JDialog(), true, this); 
         createGameScreen.setVisible(true); 
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,7 +188,6 @@ public class Menu extends javax.swing.JDialog {
     private javax.swing.JButton btnRight;
     private javax.swing.JLabel ignore;
     private javax.swing.JLabel ignore1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
