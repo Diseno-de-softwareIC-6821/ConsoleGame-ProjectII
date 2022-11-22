@@ -16,7 +16,7 @@ import javax.swing.JLabel;
  *
  * @author Daniel
  */
-public class CreateWarrior extends javax.swing.JDialog {
+public class CreateClass extends javax.swing.JDialog {
 
     private ImageIcon imagen;
     private Icon icono;
@@ -24,7 +24,7 @@ public class CreateWarrior extends javax.swing.JDialog {
     /**
      * Creates new form CreateWarrior
      */
-    public CreateWarrior(java.awt.Frame parent, boolean modal) {
+    public CreateClass(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -182,20 +182,21 @@ public class CreateWarrior extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateWarrior.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateWarrior.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateWarrior.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateWarrior.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CreateWarrior dialog = new CreateWarrior(new javax.swing.JFrame(), true);
+                CreateClass dialog = new CreateClass(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

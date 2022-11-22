@@ -196,7 +196,7 @@ public class GameScreen extends javax.swing.JDialog {
         taLog.setForeground(new java.awt.Color(51, 255, 0));
         taLog.setLineWrap(true);
         taLog.setRows(5);
-        taLog.setText("Console log...");
+        taLog.setText("Console log...\n");
         taLog.setSelectionColor(new java.awt.Color(255, 153, 0));
         jScrollPane6.setViewportView(taLog);
 
