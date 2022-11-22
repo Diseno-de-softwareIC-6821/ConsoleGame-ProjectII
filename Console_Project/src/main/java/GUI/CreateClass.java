@@ -20,13 +20,17 @@ public class CreateClass extends javax.swing.JDialog {
 
     private ImageIcon imagen;
     private Icon icono;
+    private int counter = 0;
     
     /**
      * Creates new form CreateWarrior
      */
-    public CreateClass(java.awt.Frame parent, boolean modal) {
+    public CreateClass(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        //WINDOW IN MIDDLE OF THE SCREEN
+        this.setLocationRelativeTo(this);
         
         this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
         this.pintarImagen(this.lblActImg, "src\\main\\java\\Images\\PennyWise.jpg");
@@ -96,11 +100,16 @@ public class CreateClass extends javax.swing.JDialog {
 
         btnLeft.setBorderPainted(false);
         btnLeft.setContentAreaFilled(false);
-        getContentPane().add(btnLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 60, 50));
+        getContentPane().add(btnLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 60, 50));
 
         btnRight.setBorderPainted(false);
         btnRight.setContentAreaFilled(false);
-        getContentPane().add(btnRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, 60, 50));
+        btnRight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 440, 60, 50));
 
         lblChoosenClass.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblChoosenClass.setForeground(new java.awt.Color(255, 255, 255));
@@ -112,18 +121,19 @@ public class CreateClass extends javax.swing.JDialog {
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setText("Choose Your Warrior:");
         getContentPane().add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
-        getContentPane().add(lblActImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 420, 310));
+        getContentPane().add(lblActImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 420, 330));
 
         jTable1.setBackground(new java.awt.Color(0, 0, 0));
         jTable1.setForeground(new java.awt.Color(51, 255, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Warrior:", null},
+                {"Element:", null},
                 {"Weapon 1:", null},
                 {"Weapon 2:", null},
                 {"Weapon 3:", null},
                 {"Weapon 4:", null},
-                {"Weapon 1:", null}
+                {"Weapon5:", null}
             },
             new String [] {
                 "", ""
@@ -131,19 +141,19 @@ public class CreateClass extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 110));
-        getContentPane().add(lblSelWarrior, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 80, 80));
-        getContentPane().add(lblSelWeapon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 80, 80));
-        getContentPane().add(lblSelWeapon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 250, 80, 80));
-        getContentPane().add(lblSelWeapon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 340, 80, 80));
-        getContentPane().add(lblSelWeapon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 340, 80, 80));
-        getContentPane().add(lblSelWeapon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, 80, 80));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 130));
+        getContentPane().add(lblSelWarrior, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 80, 80));
+        getContentPane().add(lblSelWeapon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 80, 80));
+        getContentPane().add(lblSelWeapon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 80, 80));
+        getContentPane().add(lblSelWeapon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 80, 80));
+        getContentPane().add(lblSelWeapon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 80, 80));
+        getContentPane().add(lblSelWeapon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 80, 80));
 
         lblAttackedByText3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblAttackedByText3.setForeground(new java.awt.Color(255, 255, 255));
         lblAttackedByText3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAttackedByText3.setText("NameWarrior");
-        getContentPane().add(lblAttackedByText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 420, -1));
+        getContentPane().add(lblAttackedByText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 420, -1));
 
         ignore.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ignore.setForeground(new java.awt.Color(255, 255, 255));
@@ -153,17 +163,47 @@ public class CreateClass extends javax.swing.JDialog {
         ignore1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ignore1.setForeground(new java.awt.Color(255, 255, 255));
         ignore1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(ignore1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 420, 20));
+        getContentPane().add(ignore1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 550, 420, 20));
 
         btnContinue.setText("Continue");
+        btnContinue.setEnabled(false);
+        btnContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinueActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnContinue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, 80, 40));
 
         btnSelect.setText("Select");
-        getContentPane().add(btnSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 480, 80, 40));
+        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 80, 40));
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+        //CODE TO ADD WARRIOR AND WEAPONS
+        
+        counter++;
+        
+        if (counter == 6){
+            btnSelect.setEnabled(false);
+            btnContinue.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnSelectActionPerformed
+
+    private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnContinueActionPerformed
+
+    private void btnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRightActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,7 +236,7 @@ public class CreateClass extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CreateClass dialog = new CreateClass(new javax.swing.JFrame(), true);
+                CreateClass dialog = new CreateClass(new javax.swing.JDialog(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

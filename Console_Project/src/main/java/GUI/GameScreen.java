@@ -22,13 +22,23 @@ public class GameScreen extends javax.swing.JDialog {
     private ImageIcon imagen;
     private Icon icono;
     private Timer temporizador;
+    private static Menu menuScreen;
     
     /**
      * Creates new form GameScreen
      */
-    public GameScreen(java.awt.Frame parent, boolean modal) {
+    public GameScreen(javax.swing.JDialog parent, boolean modal, Menu menuScreen) {
         super(parent, modal);
         initComponents();
+        
+        //WINDOW IN MIDDLE OF THE SCREEN
+        this.setLocationRelativeTo(this);
+        
+        //EXECUTE CREATE CLASS SCREEN
+        CreateClass createClassScreen = new CreateClass(new javax.swing.JDialog(), true);
+        createClassScreen.setVisible(true);
+        
+        this.menuScreen = menuScreen;
         //change background color
         this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
         //taConsole.setBackground(Color.BLACK);
@@ -88,7 +98,8 @@ public class GameScreen extends javax.swing.JDialog {
         jScrollPane6 = new javax.swing.JScrollPane();
         taLog = new javax.swing.JTextArea();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        tpConsole = new javax.swing.JTextPane();
+        tfEnterCommand = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tRanking = new javax.swing.JTable();
         pTeam = new javax.swing.JPanel();
@@ -192,26 +203,43 @@ public class GameScreen extends javax.swing.JDialog {
         taLog.setSelectionColor(new java.awt.Color(255, 153, 0));
         jScrollPane6.setViewportView(taLog);
 
-        jTextPane1.setBackground(new java.awt.Color(0, 0, 0));
-        jTextPane1.setForeground(new java.awt.Color(51, 255, 0));
-        jScrollPane7.setViewportView(jTextPane1);
+        tpConsole.setBackground(new java.awt.Color(0, 0, 0));
+        tpConsole.setForeground(new java.awt.Color(51, 255, 0));
+        jScrollPane7.setViewportView(tpConsole);
+
+        tfEnterCommand.setBackground(new java.awt.Color(0, 0, 0));
+        tfEnterCommand.setForeground(new java.awt.Color(51, 255, 0));
+        tfEnterCommand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterCommand(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tfEnterCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE))
+                    .addComponent(jScrollPane7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7))
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfEnterCommand)))
+                .addGap(2, 2, 2))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 526, 1189, 190));
@@ -459,6 +487,28 @@ public class GameScreen extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void EnterCommand(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterCommand
+        //CODE TO SEND COMMAND
+        
+        
+        switch(tfEnterCommand.getText()){
+            case("MORITE"):{
+                dispose();
+                menuScreen.setVisible(true);
+                break;
+            }
+            case(""):{
+                break;
+            }
+            default:{
+                tpConsole.setText(tpConsole.getText() + "\n" + tfEnterCommand.getText());
+                tfEnterCommand.setText("");
+            }     
+        }
+        
+        
+    }//GEN-LAST:event_EnterCommand
+
     /**
      * @param args the command line arguments
      */
@@ -489,7 +539,7 @@ public class GameScreen extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GameScreen dialog = new GameScreen(new javax.swing.JFrame(), true);
+                GameScreen dialog = new GameScreen(new javax.swing.JDialog(), true, menuScreen);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -510,7 +560,6 @@ public class GameScreen extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lblActChar;
     private javax.swing.JLabel lblAttackedByImg;
     private javax.swing.JLabel lblAttackedByStats1;
@@ -544,5 +593,7 @@ public class GameScreen extends javax.swing.JDialog {
     private javax.swing.JTable tUserStats;
     private javax.swing.JTable tUserStats1;
     private javax.swing.JTextArea taLog;
+    private javax.swing.JTextField tfEnterCommand;
+    private javax.swing.JTextPane tpConsole;
     // End of variables declaration//GEN-END:variables
 }

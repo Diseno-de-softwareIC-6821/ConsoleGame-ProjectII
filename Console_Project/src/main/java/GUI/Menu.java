@@ -28,6 +28,8 @@ public class Menu extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+        //WINDOW IN MIDDLE OF THE SCREEN
+        this.setLocationRelativeTo(this);
         this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
         
     }
@@ -100,14 +102,36 @@ public class Menu extends javax.swing.JDialog {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, -1, 340));
 
         jButton1.setText("Exit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 210, 50));
 
         jButton2.setText("Start Game");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 210, 50));
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
 
+        getAccessibleContext().setAccessibleName("Main Menu");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+        GameScreen createGameScreen = new GameScreen(new javax.swing.JDialog(), true, this); 
+        createGameScreen.setVisible(true); 
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
