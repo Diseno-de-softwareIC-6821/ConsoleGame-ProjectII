@@ -60,9 +60,19 @@ public class GameScreen extends javax.swing.JDialog {
         jScrollPane5 = new javax.swing.JScrollPane();
         tUserStats1 = new javax.swing.JTable();
         pAtacckedBy = new javax.swing.JLayeredPane();
-        lblAttackedBy = new javax.swing.JLabel();
+        lblAttackedByText = new javax.swing.JLabel();
+        lblAttackedByText1 = new javax.swing.JLabel();
+        lblAttackedByStats1 = new javax.swing.JLabel();
+        lblAttackedByStats2 = new javax.swing.JLabel();
+        lblAttackedByStats3 = new javax.swing.JLabel();
+        lblAttackedByStats4 = new javax.swing.JLabel();
+        lblAttackedByImg = new javax.swing.JLabel();
         pAtaccking = new javax.swing.JLayeredPane();
-        lblAttacking = new javax.swing.JLabel();
+        lblAttackingImg = new javax.swing.JLabel();
+        lblAtackingText1 = new javax.swing.JLabel();
+        lblAtackingText2 = new javax.swing.JLabel();
+        lblAtackingDamage = new javax.swing.JLabel();
+        lblAtackingDamageCircle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Game Screen");
@@ -75,7 +85,7 @@ public class GameScreen extends javax.swing.JDialog {
                 {"Wins:", null},
                 {"Losses:", ""},
                 {"Attacks:", null},
-                {"Success;", null},
+                {"Success:", null},
                 {"Failed:", null},
                 {"Giveup:", null}
             },
@@ -100,7 +110,7 @@ public class GameScreen extends javax.swing.JDialog {
                 {"Wins:", null},
                 {"Losses:", ""},
                 {"Attacks:", null},
-                {"Success;", null},
+                {"Success:", null},
                 {"Failed:", null},
                 {"Giveup:", null}
             },
@@ -317,34 +327,185 @@ public class GameScreen extends javax.swing.JDialog {
 
         pAtacckedBy.setBackground(new java.awt.Color(0, 0, 0));
         pAtacckedBy.setForeground(new java.awt.Color(0, 0, 0));
+        pAtacckedBy.setOpaque(true);
 
-        pAtacckedBy.setLayer(lblAttackedBy, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        lblAttackedByText.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAttackedByText.setForeground(new java.awt.Color(255, 255, 255));
+        lblAttackedByText.setText("Attacked by Player 1 with SUB-ZERO [ICE]");
+
+        lblAttackedByText1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAttackedByText1.setForeground(new java.awt.Color(255, 255, 255));
+        lblAttackedByText1.setText("Weapon: Ice Shoot");
+
+        lblAttackedByStats1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAttackedByStats1.setForeground(new java.awt.Color(255, 255, 255));
+        lblAttackedByStats1.setText("WW: 0%");
+
+        lblAttackedByStats2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAttackedByStats2.setForeground(new java.awt.Color(255, 255, 255));
+        lblAttackedByStats2.setText("PW: -71%");
+
+        lblAttackedByStats3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAttackedByStats3.setForeground(new java.awt.Color(255, 255, 255));
+        lblAttackedByStats3.setText("SP: 0%");
+
+        lblAttackedByStats4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAttackedByStats4.setForeground(new java.awt.Color(255, 255, 255));
+        lblAttackedByStats4.setText("AW: -22%");
+
+        pAtacckedBy.setLayer(lblAttackedByText, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtacckedBy.setLayer(lblAttackedByText1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtacckedBy.setLayer(lblAttackedByStats1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtacckedBy.setLayer(lblAttackedByStats2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtacckedBy.setLayer(lblAttackedByStats3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtacckedBy.setLayer(lblAttackedByStats4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtacckedBy.setLayer(lblAttackedByImg, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pAtacckedByLayout = new javax.swing.GroupLayout(pAtacckedBy);
         pAtacckedBy.setLayout(pAtacckedByLayout);
         pAtacckedByLayout.setHorizontalGroup(
             pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAttackedBy, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+            .addComponent(lblAttackedByImg, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(30, 30, 30)
+                    .addComponent(lblAttackedByText, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(121, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addComponent(lblAttackedByText1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(108, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(30, 30, 30)
+                    .addComponent(lblAttackedByStats1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(98, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(30, 30, 30)
+                    .addComponent(lblAttackedByStats2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(88, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addComponent(lblAttackedByStats3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(78, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addComponent(lblAttackedByStats4, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(68, Short.MAX_VALUE)))
         );
         pAtacckedByLayout.setVerticalGroup(
             pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAttackedBy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblAttackedByImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(lblAttackedByText, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(198, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(35, 35, 35)
+                    .addComponent(lblAttackedByText1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(168, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckedByLayout.createSequentialGroup()
+                    .addGap(108, 108, 108)
+                    .addComponent(lblAttackedByStats1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(105, Short.MAX_VALUE)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAtacckedByLayout.createSequentialGroup()
+                    .addContainerGap(129, Short.MAX_VALUE)
+                    .addComponent(lblAttackedByStats2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(87, 87, 87)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAtacckedByLayout.createSequentialGroup()
+                    .addContainerGap(147, Short.MAX_VALUE)
+                    .addComponent(lblAttackedByStats3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(61, 61, 61)))
+            .addGroup(pAtacckedByLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAtacckedByLayout.createSequentialGroup()
+                    .addContainerGap(161, Short.MAX_VALUE)
+                    .addComponent(lblAttackedByStats4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(35, 35, 35)))
         );
 
         pAtaccking.setBackground(new java.awt.Color(0, 0, 0));
         pAtaccking.setForeground(new java.awt.Color(0, 0, 0));
+        pAtaccking.setOpaque(true);
 
-        pAtaccking.setLayer(lblAttacking, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        lblAtackingText1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAtackingText1.setForeground(new java.awt.Color(255, 255, 255));
+        lblAtackingText1.setText("You attacked Player 2 with PENNYWISE [ESPIRITUAL]");
+
+        lblAtackingText2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAtackingText2.setForeground(new java.awt.Color(255, 255, 255));
+        lblAtackingText2.setText("You attacked Player 2 with PENNYWISE [ESPIRITUAL]");
+
+        lblAtackingDamage.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        lblAtackingDamage.setForeground(new java.awt.Color(255, 255, 255));
+        lblAtackingDamage.setText("-127%");
+
+        lblAtackingDamageCircle.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        lblAtackingDamageCircle.setForeground(new java.awt.Color(255, 255, 255));
+
+        pAtaccking.setLayer(lblAttackingImg, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtaccking.setLayer(lblAtackingText1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtaccking.setLayer(lblAtackingText2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtaccking.setLayer(lblAtackingDamage, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pAtaccking.setLayer(lblAtackingDamageCircle, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pAtacckingLayout = new javax.swing.GroupLayout(pAtaccking);
         pAtaccking.setLayout(pAtacckingLayout);
         pAtacckingLayout.setHorizontalGroup(
             pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAttacking, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+            .addComponent(lblAttackingImg, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckingLayout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addComponent(lblAtackingText1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckingLayout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addComponent(lblAtackingText2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(16, Short.MAX_VALUE)))
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAtacckingLayout.createSequentialGroup()
+                    .addContainerGap(79, Short.MAX_VALUE)
+                    .addComponent(lblAtackingDamage, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(305, 305, 305)))
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckingLayout.createSequentialGroup()
+                    .addGap(45, 45, 45)
+                    .addComponent(lblAtackingDamageCircle, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(295, Short.MAX_VALUE)))
         );
         pAtacckingLayout.setVerticalGroup(
             pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAttacking, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblAttackingImg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckingLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lblAtackingText1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(192, Short.MAX_VALUE)))
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckingLayout.createSequentialGroup()
+                    .addGap(35, 35, 35)
+                    .addComponent(lblAtackingText2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(173, Short.MAX_VALUE)))
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAtacckingLayout.createSequentialGroup()
+                    .addGap(131, 131, 131)
+                    .addComponent(lblAtackingDamage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(66, Short.MAX_VALUE)))
+            .addGroup(pAtacckingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAtacckingLayout.createSequentialGroup()
+                    .addContainerGap(99, Short.MAX_VALUE)
+                    .addComponent(lblAtackingDamageCircle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(36, 36, 36)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -381,10 +542,10 @@ public class GameScreen extends javax.swing.JDialog {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pAtacckedBy)
-                        .addGap(3, 3, 3)
-                        .addComponent(pAtaccking))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pAtaccking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(12, 12, 12)
+                .addGap(28, 28, 28)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -441,8 +602,18 @@ public class GameScreen extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lblActChar;
-    private javax.swing.JLabel lblAttackedBy;
-    private javax.swing.JLabel lblAttacking;
+    private javax.swing.JLabel lblAtackingDamage;
+    private javax.swing.JLabel lblAtackingDamageCircle;
+    private javax.swing.JLabel lblAtackingText1;
+    private javax.swing.JLabel lblAtackingText2;
+    private javax.swing.JLabel lblAttackedByImg;
+    private javax.swing.JLabel lblAttackedByStats1;
+    private javax.swing.JLabel lblAttackedByStats2;
+    private javax.swing.JLabel lblAttackedByStats3;
+    private javax.swing.JLabel lblAttackedByStats4;
+    private javax.swing.JLabel lblAttackedByText;
+    private javax.swing.JLabel lblAttackedByText1;
+    private javax.swing.JLabel lblAttackingImg;
     private javax.swing.JLabel lblLifeActChar;
     private javax.swing.JLabel lblLifeChar1;
     private javax.swing.JLabel lblLifeChar2;
