@@ -79,7 +79,11 @@ public class Player extends Thread{
                         clientSocket.close();
                         return;
                     }
-
+                    //temporal method, just to test receiving user name
+                    default -> {
+                        Server.getInstance().sendToAll("User " + inputLine + " connected");
+                        System.out.println("User " + inputLine + " connected");
+                    }
                 }
             }
 

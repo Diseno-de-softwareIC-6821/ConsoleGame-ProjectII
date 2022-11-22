@@ -9,6 +9,8 @@ import SocketClient.Client;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,6 +18,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,7 +32,7 @@ public class Menu extends javax.swing.JDialog {
     /**
      * Creates new form CreateWarrior
      */
-    public Menu(java.awt.Frame parent, boolean modal) {
+    public Menu(java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
         initComponents();
         
@@ -39,6 +42,15 @@ public class Menu extends javax.swing.JDialog {
         this.pintarImagen(this.lblTitle, "src\\main\\java\\Images\\MortalDSKombat.png");
         
         musica();
+        
+        //        create a new client
+        Client client = new Client(this);
+        client.startConnection("localhost", 8080);
+        
+        String name = JOptionPane.showInputDialog("Type your user name please");
+        JOptionPane.showMessageDialog(null, "Welcome " + name);
+        
+        client.sendMessage(name);
     }
 
     private void pintarImagen(JLabel lbl, String ruta){
@@ -66,6 +78,10 @@ public class Menu extends javax.swing.JDialog {
             
         } 
     }
+    
+    public void addPlayerConnected(String userName){
+        taUsers.setText(taUsers.getText() + "\n" + userName);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,7 +98,7 @@ public class Menu extends javax.swing.JDialog {
         ignore = new javax.swing.JLabel();
         ignore1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taUsers = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
@@ -111,13 +127,13 @@ public class Menu extends javax.swing.JDialog {
         ignore1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(ignore1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 420, 20));
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(51, 255, 0));
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Users connected...");
-        jScrollPane1.setViewportView(jTextArea1);
+        taUsers.setEditable(false);
+        taUsers.setBackground(new java.awt.Color(0, 0, 0));
+        taUsers.setColumns(20);
+        taUsers.setForeground(new java.awt.Color(51, 255, 0));
+        taUsers.setRows(5);
+        taUsers.setText("Users connected...");
+        jScrollPane1.setViewportView(taUsers);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, 340));
 
@@ -169,14 +185,15 @@ public class Menu extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
 
-//        create a new client
-        Client client = new Client();
-        client.startConnection("localhost", 8080);
-
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Menu dialog = new Menu(new javax.swing.JFrame(), true);
+                Menu dialog = null;
+                try {
+                    dialog = new Menu(new javax.swing.JFrame(), true);
+                } catch (Exception ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -196,7 +213,7 @@ public class Menu extends javax.swing.JDialog {
     private javax.swing.JLabel ignore1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JTextArea taUsers;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,6 @@
 package SocketClient;
 
+import GUI.Menu;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +12,15 @@ public class Client  {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+    private Menu menuScreen;
 
+    public Client() {
+    }
+
+    public Client(Menu menuScreen) {
+        this.menuScreen = menuScreen;
+    }
+    
     public void startConnection(String ip, int port) throws Exception {
         clientSocket = new Socket(ip, port);
 
@@ -29,6 +38,11 @@ public class Client  {
 
     public void sendMessage(String msg) throws Exception {
         out.println(msg);
+        
+    }
+    
+    private String getAnswer() throws IOException{
+        return in.readLine();
     }
 
     public void stopConnection() throws Exception {
@@ -43,7 +57,9 @@ public class Client  {
                 while ((inputLine = in.readLine()) != null) {
 
                     //meter funciones para que haga cosas
-
+                    
+                    this.menuScreen.addPlayerConnected(inputLine);
+                    
                     System.out.println(inputLine);
                 }
             } catch (IOException e) {
