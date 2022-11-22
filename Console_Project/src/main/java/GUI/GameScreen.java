@@ -85,10 +85,10 @@ public class GameScreen extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tAgainstStats = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        taConsole = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
         taLog = new javax.swing.JTextArea();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         tRanking = new javax.swing.JTable();
         pTeam = new javax.swing.JPanel();
@@ -182,14 +182,6 @@ public class GameScreen extends javax.swing.JDialog {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 208, 125));
 
-        taConsole.setBackground(new java.awt.Color(0, 0, 0));
-        taConsole.setColumns(20);
-        taConsole.setForeground(new java.awt.Color(51, 255, 0));
-        taConsole.setLineWrap(true);
-        taConsole.setRows(5);
-        taConsole.setSelectionColor(new java.awt.Color(255, 153, 0));
-        jScrollPane4.setViewportView(taConsole);
-
         taLog.setEditable(false);
         taLog.setBackground(new java.awt.Color(0, 0, 0));
         taLog.setColumns(20);
@@ -200,13 +192,17 @@ public class GameScreen extends javax.swing.JDialog {
         taLog.setSelectionColor(new java.awt.Color(255, 153, 0));
         jScrollPane6.setViewportView(taLog);
 
+        jTextPane1.setBackground(new java.awt.Color(0, 0, 0));
+        jTextPane1.setForeground(new java.awt.Color(51, 255, 0));
+        jScrollPane7.setViewportView(jTextPane1);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -214,7 +210,7 @@ public class GameScreen extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4))
+                    .addComponent(jScrollPane7))
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
@@ -511,9 +507,10 @@ public class GameScreen extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lblActChar;
     private javax.swing.JLabel lblAttackedByImg;
     private javax.swing.JLabel lblAttackedByStats1;
@@ -546,7 +543,6 @@ public class GameScreen extends javax.swing.JDialog {
     private javax.swing.JTable tRanking;
     private javax.swing.JTable tUserStats;
     private javax.swing.JTable tUserStats1;
-    private javax.swing.JTextArea taConsole;
     private javax.swing.JTextArea taLog;
     // End of variables declaration//GEN-END:variables
 }
