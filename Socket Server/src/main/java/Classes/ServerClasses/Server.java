@@ -1,4 +1,4 @@
-package Classes;
+package Classes.ServerClasses;
 
 import java.net.*;
 import java.util.HashMap;

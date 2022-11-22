@@ -1,4 +1,7 @@
-package Classes;
+package Classes.Objects;
+
+import Classes.Character;
+import Classes.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;

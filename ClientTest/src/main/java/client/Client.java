@@ -39,10 +39,13 @@ public class Client  {
             String inputLine;
             try {
                 while ((inputLine = in.readLine()) != null) {
+
+
+
                     System.out.println(inputLine);
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("Connection closed");
             }
         }).start();
     }
