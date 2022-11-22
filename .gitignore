@@ -2,3 +2,6 @@
 /Socket Server/target/
 /ClientTest/target/
 /Console_Project/target/
+
+.xml
+.iml
