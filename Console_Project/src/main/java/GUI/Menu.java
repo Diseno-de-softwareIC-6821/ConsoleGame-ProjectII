@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -31,7 +34,9 @@ public class Menu extends javax.swing.JDialog {
         //WINDOW IN MIDDLE OF THE SCREEN
         this.setLocationRelativeTo(this);
         this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
+        this.pintarImagen(this.lblTitle, "src\\main\\java\\Images\\MortalDSKombat.png");
         
+        musica();
     }
 
     private void pintarImagen(JLabel lbl, String ruta){
@@ -42,6 +47,22 @@ public class Menu extends javax.swing.JDialog {
                                     Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
+    }
+    
+    private void musica(){
+        
+        try{
+           File musicPath = new File("StarWarsTheme.wav");
+        AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInput);
+        clip.start(); 
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+        
+        catch (Exception e){
+            
+        } 
     }
 
     /**
@@ -65,7 +86,6 @@ public class Menu extends javax.swing.JDialog {
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Select your Class");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnLeft.setBorderPainted(false);
@@ -78,8 +98,7 @@ public class Menu extends javax.swing.JDialog {
 
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitle.setText("Mortal Kombat DS");
-        getContentPane().add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, -1, -1));
+        getContentPane().add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 730, 130));
 
         ignore.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ignore.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,7 +118,7 @@ public class Menu extends javax.swing.JDialog {
         jTextArea1.setText("Users connected...");
         jScrollPane1.setViewportView(jTextArea1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, -1, 340));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, 340));
 
         jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +126,7 @@ public class Menu extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 210, 50));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 210, 50));
 
         jButton2.setText("Start Game");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +134,7 @@ public class Menu extends javax.swing.JDialog {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 210, 50));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 210, 50));
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
 
         getAccessibleContext().setAccessibleName("Main Menu");
