@@ -7,7 +7,13 @@
     <groupId>org.diseno-de-softwareIC-6821</groupId>
     <artifactId>socket-server</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <dependencies>
+        <dependency>
+            <groupId>CharacterLibrary</groupId>
+            <artifactId>CharacterLibrary</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
