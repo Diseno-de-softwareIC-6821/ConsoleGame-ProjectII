@@ -3,6 +3,8 @@
 /ClientTest/target/
 /Console_Project/target/
 
-.idea/*
-.xml
-.iml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
