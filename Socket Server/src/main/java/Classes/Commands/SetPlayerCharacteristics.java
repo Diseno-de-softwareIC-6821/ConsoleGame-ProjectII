@@ -1,18 +1,22 @@
 package Classes.Commands;
 
+import Classes.Abstract.Command;
+import Classes.ServerClasses.Player;
 import Classes.ServerClasses.Server;
 import Interfaces.iCommand;
 
-public class SetPlayerCharacteristics implements iCommand {
+import java.io.IOException;
 
-    private final Server server;
+public class SetPlayerCharacteristics extends Command {
 
-    public SetPlayerCharacteristics() throws Exception {
-        this.server = Server.getInstance();
+
+
+    public SetPlayerCharacteristics(Player player) throws Exception {
+        super(player);
     }
 
     @Override
-    public void execute(String[] args) {
+    public int execute(String[] args) {
 
         //args[0] = nuevo nombre del jugador;
 
@@ -27,7 +31,21 @@ public class SetPlayerCharacteristics implements iCommand {
 
         //args[length-1] = id del jugador;
 
-        this.server.getPlayerById(args[1]).setName(args[0]);
+        if(this.server.getPlayerByName(args[0]) != null){
+            try {
+                // le envia al cliente un 0 porque ya existe un jugador con ese nombre
+                // y cierra la conexion
+                this.player.sendMessage("0");
+                this.player.getSocket().close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return 0;
+        }
 
+        this.player.setPlayerName(args[0]);
+        this.server.addPlayer(args[0], player);
+
+        return 1;
     }
 }

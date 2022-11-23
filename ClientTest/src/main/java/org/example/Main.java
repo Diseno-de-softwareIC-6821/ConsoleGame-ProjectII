@@ -8,9 +8,15 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        String name = reader.readLine();
+
+        String characteristics = "setCharacteristics "+name;
 
         Client client = new Client();
         client.startConnection("localhost", 8080);
+        client.sendMessage(characteristics);
 
         System.out.println("1. Greet server");
         System.out.println("2. Notify all clients");
@@ -21,12 +27,12 @@ public class Main {
 
         while (true) {
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
             String input = reader.readLine();
 
             switch (input) {
                 case "1" -> {
-                    client.sendMessage("chat hola esto es un test para todos");
+                    client.sendMessage("dm esteban hola esto es un test para esteban");
                 }
                 case "2" -> {
                     client.sendMessage("02");

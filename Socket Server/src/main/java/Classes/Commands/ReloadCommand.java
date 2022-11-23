@@ -1,12 +1,19 @@
 package Classes.Commands;
 
+import Classes.Abstract.Command;
+import Classes.ServerClasses.Player;
 import Interfaces.iCommand;
 
-public class ReloadCommand implements iCommand {
+public class ReloadCommand extends Command {
+
+
+    public ReloadCommand(Player player) throws Exception {
+        super(player);
+    }
 
     @Override
-    public void execute(String[] args) {
-        args[0] = "";
+    public int execute(String[] args) {
+        return -1;
     }
 
 }

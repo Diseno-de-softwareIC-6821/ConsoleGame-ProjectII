@@ -1,12 +1,18 @@
 package Classes.Commands;
 
-import Interfaces.iCommand;
+import Classes.Abstract.Command;
+import Classes.ServerClasses.Player;
 
-public class SurrenderCommand implements iCommand {
+public class SurrenderCommand extends Command {
+
+    public SurrenderCommand(Player player) throws Exception {
+        super(player);
+    }
 
     @Override
-    public void execute(String[] args) {
+    public int execute(String[] args) {
 
+        return -1;
     }
 }
 

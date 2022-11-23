@@ -1,12 +1,18 @@
 package Classes.Commands;
 
-import Interfaces.iCommand;
+import Classes.Abstract.Command;
+import Classes.ServerClasses.Player;
 
-public class TieCommand implements iCommand {
+public class TieCommand extends Command {
+
+    public TieCommand(Player player) throws Exception {
+        super(player);
+    }
 
     @Override
-    public void execute(String[] args) {
-        args[0] = "";
+    public int execute(String[] args) {
+
+        return -1;
     }
 }
 
