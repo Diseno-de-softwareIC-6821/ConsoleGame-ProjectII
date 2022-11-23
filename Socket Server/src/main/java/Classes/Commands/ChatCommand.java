@@ -24,7 +24,7 @@ public class ChatCommand extends Command {
         }
 
         try {
-            server.sendToAll(message.toString());
+            server.notifyAllObservers(message.toString());
 
         } catch (Exception e) {
             System.out.println("Chat server error");

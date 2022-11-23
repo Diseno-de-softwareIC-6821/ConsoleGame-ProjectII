@@ -1,13 +1,16 @@
 package Classes.ServerClasses;
 
+import Interfaces.iObservable;
+import Interfaces.iObserver;
+
 import java.net.*;
 import java.util.HashMap;
 
 
-public class Server {
+public class Server implements iObservable {
     private static Server instance;
     private final ServerSocket serverSocket;
-    private final HashMap<String, Player> players;
+    private final HashMap<String, iObserver> players;
 
 
     public Server(int port) throws Exception {
@@ -37,34 +40,34 @@ public class Server {
         return instance;
     }
 
-    public void sendToPlayer(String name, String message) throws Exception {
-
-        for(Player player : players.values()){
-            System.out.println(player.getPlayerName());
-        }
-
-        players.get(name).sendMessage(message);
+    @Override
+    public void notifyObserver(String name, String message) throws Exception {
+        players.get(name).update(message);
     }
-    public void sendToAll(String message) throws Exception {
-        for (Player player : players.values()) {
-            player.sendMessage(message);
+    @Override
+    public void notifyAllObservers(String message) throws Exception {
+        for (iObserver player : players.values()) {
+            player.update(message);
         }
+    }
+
+    @Override
+    public void addObserver(String name, iObserver player) {
+        players.put(name, player);
+    }
+
+    @Override
+    public void removeObserver(String name) {
+        players.remove(name);
     }
 
     public Player getPlayerByName(String name){
-        return this.players.get(name);
+        return (Player) this.players.get(name);
     }
 
-    public void removeClient(String id) {
-        players.remove(id);
-    }
 
     public void stop() throws Exception {
         serverSocket.close();
     }
 
-
-    public void addPlayer(String name, Player player) {
-        players.put(name, player);
-    }
 }

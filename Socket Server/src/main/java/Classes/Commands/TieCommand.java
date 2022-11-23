@@ -12,7 +12,17 @@ public class TieCommand extends Command {
     @Override
     public int execute(String[] args) {
 
-        return -1;
+        //args[length-1] = nombre del jugador que envio el mensaje
+
+        try {
+            server.notifyAllObservers("Player " + args[args.length-1] + " wants to tie");
+        } catch (Exception e) {
+            System.out.println("Tie server error");
+            return 0;
+        }
+
+
+        return 1;
     }
 }
 
