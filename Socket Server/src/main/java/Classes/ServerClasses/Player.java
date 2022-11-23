@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Arrays.copyOfRange;
+
 public class Player extends Thread{
 
     private final String id;
@@ -23,16 +25,20 @@ public class Player extends Thread{
     private BufferedReader in;
     private HashMap<String, iCommand> commands;
     private ArrayList<Character> characters;
+
+    private Server server;
+
     // 0: max [1,2,3,4]
     // 1: cornejo
     // 2: sambucci
     // 3: esteban
 
 
-    public Player(String id ,Socket socket) {
+    public Player(String id ,Socket socket) throws Exception {
         this.id = id;
         this.clientSocket = socket;
         this.name = "";
+        this.server = Server.getInstance();
         commands = new HashMap<>(
                 Map.of(
                         "attack", new AttackCommand(),
@@ -43,7 +49,8 @@ public class Player extends Thread{
                         "skip", new SkipCommand(),
                         "surrender", new SurrenderCommand(),
                         "tie", new TieCommand(),
-                        "wildcard", new WildcardCommand()
+                        "wildcard", new WildcardCommand(),
+                        "setCharacteristics", new SetPlayerCharacteristics()
                 )
         );
     }
@@ -58,6 +65,9 @@ public class Player extends Thread{
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            this.server.setPlayerName(this.name, this.id);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -69,39 +79,52 @@ public class Player extends Thread{
             this.sendMessage(this.id);
             while (true) {
 
-                // out.println(); Send message to current client
-                // Server.getInstance().sendToAll(); Send message to all clients connected to the server instance
 
-                inputLine = in.readLine().split(" ");
-                Server server = Server.getInstance();
+                inputLine = (in.readLine()+" "+this.id).split(" ");
+                String command = inputLine[0];
+                String[] args = copyOfRange(inputLine, 1, inputLine.length);
 
-                switch (inputLine[0]) {
+                switch (command) {
                     case "attack" -> {
+
+                        this.commands.get("attack").execute(args);
                         this.sendMessage("An attack has been made ");
                     }
                     case "chat" -> {
-                        server.sendToAll("A chat message has been sent");
+                        this.commands.get("chat").execute(args);
+                        this.sendMessage("message sent");
                     }
                     case "dm" -> {
+
                         this.sendMessage("A dm message has been sent");
                     }
                     case "info" -> {
+
                         this.sendMessage("Player info has been requested");
                     }
                     case "reload" -> {
+
                         this.sendMessage("Weapons have been reloaded");
                     }
                     case "skip" -> {
+
                         this.sendMessage("Turn has been skipped");
                     }
                     case "surrender" -> {
-                        server.sendToAll(this.name + " has surrendered");
+
+                        this.server.sendToAll(this.name + " has surrendered");
                     }
                     case "tie" -> {
-                        server.sendToAll("A tie has been requested");
+
+                        this.server.sendToAll("A tie has been requested");
                     }
                     case "wildcard" -> {
-                        server.sendToAll(this.name + "has used a wildcard");
+
+                        this.server.sendToAll(this.name + "has used a wildcard");
+                    }
+                    case "setCharacteristics" -> {
+
+                        this.commands.get("setCharacteristics").execute(args);
                     }
 
                     default -> {
@@ -119,5 +142,9 @@ public class Player extends Thread{
                 throw new RuntimeException(ex);
             }
         }
+    }
+
+    public String getPlayerId() {
+        return this.id;
     }
 }
