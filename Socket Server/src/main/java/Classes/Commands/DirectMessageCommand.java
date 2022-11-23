@@ -24,7 +24,7 @@ public class DirectMessageCommand extends Command {
         }
 
         try {
-            server.sendToPlayer(args[0], message.toString());
+            server.notifyObserver(args[0], message.toString());
         } catch (Exception e) {
             System.out.println("Direct message server error");
             return 0;
