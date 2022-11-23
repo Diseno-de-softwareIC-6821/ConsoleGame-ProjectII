@@ -1,19 +1,20 @@
 package Classes.Commands;
 
 import Classes.Abstract.Command;
+import Classes.ServerClasses.Player;
 import Interfaces.iCommand;
 
 public class ChatCommand extends Command {
 
-    public ChatCommand() throws Exception {
-        super();
+    public ChatCommand(Player player) throws Exception {
+        super(player);
     }
 
     @Override
-    public void execute(String[] args) {
+    public int execute(String[] args) {
 
         // args[0 to length-1] = mensaje
-        // args[length-1] = id del jugador que envio el mensaje
+        // args[length-1] = nombre del jugador que envio el mensaje
 
         System.out.println(args[args.length-1]);
         StringBuilder message = new StringBuilder();
@@ -23,11 +24,14 @@ public class ChatCommand extends Command {
         }
 
         try {
-
             server.sendToAll(message.toString());
+
         } catch (Exception e) {
             System.out.println("Chat server error");
+            return 0;
         }
+
+        return 1;
 
     }
 }

@@ -8,11 +8,11 @@ public class Server {
     private static Server instance;
     private final ServerSocket serverSocket;
     private final HashMap<String, Player> players;
-    private final HashMap<String, String> nameMap;
+
 
     public Server(int port) throws Exception {
         this.players  = new HashMap<>();
-        this.nameMap = new HashMap<>();
+
         this.serverSocket = new ServerSocket(port);
 
     }
@@ -20,9 +20,7 @@ public class Server {
     public void start() throws Exception {
 
         while(true){
-            String id = String.valueOf(java.util.UUID.randomUUID());
-            Player client = new Player(id, serverSocket.accept());
-            players.put(id, client);
+            Player client = new Player(serverSocket.accept());
 
             client.start();
 
@@ -39,23 +37,23 @@ public class Server {
         return instance;
     }
 
+    public void sendToPlayer(String name, String message) throws Exception {
+
+        for(Player player : players.values()){
+            System.out.println(player.getPlayerName());
+        }
+
+        players.get(name).sendMessage(message);
+    }
     public void sendToAll(String message) throws Exception {
         for (Player player : players.values()) {
             player.sendMessage(message);
         }
     }
 
-    public void setPlayerName(String name, String id){
-        this.nameMap.put(name, id);
-    }
-
-    public Player getPlayerById(String id){
-        return this.players.get(id);
-    }
     public Player getPlayerByName(String name){
-        return players.get(nameMap.get(name));
+        return this.players.get(name);
     }
-
 
     public void removeClient(String id) {
         players.remove(id);
@@ -66,4 +64,7 @@ public class Server {
     }
 
 
+    public void addPlayer(String name, Player player) {
+        players.put(name, player);
+    }
 }

@@ -17,8 +17,7 @@ import static java.util.Arrays.copyOfRange;
 
 public class Player extends Thread{
 
-    private final String id;
-    private final String name;
+    private String name;
 
     private final Socket clientSocket;
     private PrintWriter out;
@@ -34,23 +33,23 @@ public class Player extends Thread{
     // 3: esteban
 
 
-    public Player(String id ,Socket socket) throws Exception {
-        this.id = id;
+    public Player(Socket socket) throws Exception {
+
         this.clientSocket = socket;
         this.name = "";
         this.server = Server.getInstance();
         commands = new HashMap<>(
                 Map.of(
-                        "attack", new AttackCommand(),
-                        "chat", new ChatCommand(),
-                        "dm", new DirectMessageCommand(),
-                        "info", new PlayerInformationCommand(),
-                        "reload", new ReloadCommand(),
-                        "skip", new SkipCommand(),
-                        "surrender", new SurrenderCommand(),
-                        "tie", new TieCommand(),
-                        "wildcard", new WildcardCommand(),
-                        "setCharacteristics", new SetPlayerCharacteristics()
+                        "attack", new AttackCommand(this),
+                        "chat", new ChatCommand(this),
+                        "dm", new DirectMessageCommand(this),
+                        "info", new PlayerInformationCommand(this),
+                        "reload", new ReloadCommand(this),
+                        "skip", new SkipCommand(this),
+                        "surrender", new SurrenderCommand(this),
+                        "tie", new TieCommand(this),
+                        "wildcard", new WildcardCommand(this),
+                        "setCharacteristics", new SetPlayerCharacteristics(this)
                 )
         );
     }
@@ -66,8 +65,6 @@ public class Player extends Thread{
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            this.server.setPlayerName(this.name, this.id);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -76,13 +73,18 @@ public class Player extends Thread{
 
 
         try {
-            this.sendMessage(this.id);
+
             while (true) {
+                //"dm esteban hola esto es un test para esteban max"
 
-
-                inputLine = (in.readLine()+" "+this.id).split(" ");
+                inputLine = (in.readLine()+" "+this.name).split(" ");
                 String command = inputLine[0];
                 String[] args = copyOfRange(inputLine, 1, inputLine.length);
+
+                if(this.name.equals("") && command.equals("setCharacteristics")){
+                    this.commands.get("setCharacteristics").execute(args);
+                    continue;
+                }
 
                 switch (command) {
                     case "attack" -> {
@@ -95,7 +97,7 @@ public class Player extends Thread{
                         this.sendMessage("message sent");
                     }
                     case "dm" -> {
-
+                        this.commands.get("dm").execute(args);
                         this.sendMessage("A dm message has been sent");
                     }
                     case "info" -> {
@@ -122,11 +124,6 @@ public class Player extends Thread{
 
                         this.server.sendToAll(this.name + "has used a wildcard");
                     }
-                    case "setCharacteristics" -> {
-
-                        this.commands.get("setCharacteristics").execute(args);
-                    }
-
                     default -> {
                         Server.getInstance().sendToAll("User " + inputLine[0] + " connected");
                         System.out.println("User " + inputLine[0] + " connected");
@@ -137,14 +134,20 @@ public class Player extends Thread{
 
         } catch (Exception e) {
             try {
-                Server.getInstance().removeClient(this.id);
+                Server.getInstance().removeClient(this.name);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
     }
 
-    public String getPlayerId() {
-        return this.id;
+    public String getPlayerName() {
+        return this.name;
+    }
+    public void setPlayerName(String name) {
+        this.name = name;
+    }
+    public Socket getSocket() {
+        return this.clientSocket;
     }
 }
