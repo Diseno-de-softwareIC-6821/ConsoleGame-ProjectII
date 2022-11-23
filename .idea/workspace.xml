@@ -4,27 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18dfa35d-5572-4d70-828f-db93d7f48b13" name="Changes" comment="server refactor">
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/AttackCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/ChatCommands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/DrawCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/PrivateMessageCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/ReloadCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SelectPlayerCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SkipCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SurrenderCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/WildcardCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Data/Database.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Interfaces/iCommand.java" afterDir="false" />
+    <list default="true" id="18dfa35d-5572-4d70-828f-db93d7f48b13" name="Changes" comment="Work: Commands&#10;global chat command complete and command abstract class created">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientTest/src/main/java/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientTest/src/main/java/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/GameCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Objects/GameCharacter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/ServerClasses/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/ServerClasses/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/org/diseno_de_softwareIC/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/org/diseno_de_softwareIC/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/target/classes/org/diseno_de_softwareIC/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/target/classes/org/diseno_de_softwareIC/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/target/classes/server/Server$ClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/target/classes/server/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientTest/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientTest/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Abstract/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Abstract/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/AttackCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/AttackCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/ChatCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/ChatCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/DirectMessageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/DirectMessageCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/PlayerInformationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/PlayerInformationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/ReloadCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/ReloadCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SetPlayerCharacteristics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SetPlayerCharacteristics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SkipCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SkipCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SurrenderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/SurrenderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/TieCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/TieCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/WildcardCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/Commands/WildcardCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/ServerClasses/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/ServerClasses/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/ServerClasses/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Classes/ServerClasses/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket Server/src/main/java/Interfaces/iCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/Socket Server/src/main/java/Interfaces/iCommand.java" afterDir="false" />
     </list>
     <list id="b0db662c-d9d2-489e-b12a-2fcfa0c971a8" name="Changes by Esteb" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +73,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
@@ -153,6 +149,7 @@
       <workItem from="1668662402746" duration="657000" />
       <workItem from="1669078774385" duration="5032000" />
       <workItem from="1669090458447" duration="3597000" />
+      <workItem from="1669184209598" duration="1314000" />
     </task>
     <task id="LOCAL-00001" summary="Server test">
       <created>1668661160001</created>

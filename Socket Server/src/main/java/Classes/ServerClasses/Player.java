@@ -1,8 +1,9 @@
 package Classes.ServerClasses;
 
 import Classes.Character;
-import Classes.Commands.AttackCommand;
+import Classes.Commands.*;
 import Interfaces.iCommand;
+import Interfaces.iObserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,34 +14,52 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player extends Thread{
+import static java.util.Arrays.copyOfRange;
 
-    private final String id;
-    private final String name;
+public class Player extends Thread implements iObserver {
+
+    private String name;
 
     private final Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
     private HashMap<String, iCommand> commands;
     private ArrayList<Character> characters;
+
+    private boolean wildCardIsReady;
+
+    private Server server;
+
     // 0: max [1,2,3,4]
     // 1: cornejo
     // 2: sambucci
     // 3: esteban
 
 
-    public Player(String id ,Socket socket) {
-        this.id = id;
+    public Player(Socket socket) throws Exception {
+
         this.clientSocket = socket;
         this.name = "";
+        this.server = Server.getInstance();
+        this.wildCardIsReady = false;
         commands = new HashMap<>(
                 Map.of(
-                        "attack", new AttackCommand()
+                        "attack", new AttackCommand(this),
+                        "chat", new ChatCommand(this),
+                        "dm", new DirectMessageCommand(this),
+                        "info", new PlayerInformationCommand(this),
+                        "reload", new ReloadCommand(this),
+                        "skip", new SkipCommand(this),
+                        "surrender", new SurrenderCommand(this),
+                        "tie", new TieCommand(this),
+                        "wildcard", new WildcardCommand(this),
+                        "setCharacteristics", new SetPlayerCharacteristics(this)
                 )
         );
     }
 
-    public void sendMessage(String message) throws Exception {
+    @Override
+    public void update(String message) throws Exception {
         out.println(message);
     }
 
@@ -50,39 +69,68 @@ public class Player extends Thread{
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        String inputLine;
+        String[] inputLine;
+
 
         try {
-            this.sendMessage(this.id);
+
             while (true) {
 
-                // out.println(); Send message to current client
-                // Server.getInstance().sendToAll(); Send message to all clients connected to the server instance
+                inputLine = (in.readLine()+" "+this.name).split(" ");
+                String command = inputLine[0];
+                String[] args = copyOfRange(inputLine, 1, inputLine.length);
 
-                inputLine = in.readLine();
+                if(this.name.equals("") && command.equals("setCharacteristics")){
+                    this.commands.get("setCharacteristics").execute(args);
+                    continue;
+                }
 
-                switch (inputLine) {
+                switch (command) {
                     case "attack" -> {
-                        this.sendMessage("An attack has been made");
+
+                        this.commands.get("attack").execute(args);
+                        this.update("An attack has been made ");
                     }
-                    case "02" -> {
-                        out.println("Hello from the server");
+                    case "chat" -> {
+                        this.commands.get("chat").execute(args);
+                        this.update("message sent");
                     }
-                    case "00" -> {
-                        out.println("bye");
-                        in.close();
-                        out.close();
-                        clientSocket.close();
-                        return;
+                    case "dm" -> {
+                        this.commands.get("dm").execute(args);
+                        this.update("A dm message has been sent");
                     }
-                    //temporal method, just to test receiving user name
+                    case "info" -> {
+
+                        this.update("Player info has been requested");
+                    }
+                    case "reload" -> {
+
+                        this.update("Weapons have been reloaded");
+                    }
+                    case "skip" -> {
+
+                        this.update("Turn has been skipped");
+                    }
+                    case "surrender" -> {
+
+                        this.server.notifyAllObservers(this.name + " has surrendered");
+                    }
+                    case "tie" -> {
+
+                        this.server.notifyAllObservers("A tie has been requested");
+                    }
+                    case "wildcard" -> {
+
+                        this.server.notifyAllObservers(this.name + "has used a wildcard");
+                    }
                     default -> {
-                        Server.getInstance().sendToAll("User " + inputLine + " connected");
-                        System.out.println("User " + inputLine + " connected");
+                        Server.getInstance().notifyAllObservers("User " + inputLine[0] + " connected");
+                        System.out.println("User " + inputLine[0] + " connected");
                     }
                 }
             }
@@ -90,10 +138,31 @@ public class Player extends Thread{
 
         } catch (Exception e) {
             try {
-                Server.getInstance().removeClient(this.id);
+                this.server.removeObserver(this.name);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }
     }
+
+    public String getPlayerName() {
+        return this.name;
+    }
+    public void setPlayerName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getWildCardIsReady() {
+        return this.wildCardIsReady;
+    }
+
+    public void setWildCardIsReady(Boolean wildCardIsReady) {
+        this.wildCardIsReady = wildCardIsReady;
+    }
+
+    public Socket getSocket() {
+        return this.clientSocket;
+    }
+
+
 }

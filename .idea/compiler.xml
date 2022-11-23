@@ -8,10 +8,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="socket-server" />
         <module name="ClientTest" />
+        <module name="Console_Project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ClientTest" target="19" />
+      <module name="Console_Project" target="18" />
       <module name="socket-server" target="19" />
     </bytecodeTargetLevel>
   </component>

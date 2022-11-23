@@ -1,5 +1,8 @@
 package Interfaces;
 
 public interface iCommand {
-    public void execute(String[] args);
+    public int execute(String[] args);
+    // -1 = not implemented
+    // 0 = error
+    // 1 = success
 }
