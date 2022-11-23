@@ -2,7 +2,7 @@ package Classes.Commands;
 
 import Interfaces.iCommand;
 
-public class SelectPlayerCommand implements iCommand {
+public class PlayerInformationCommand implements iCommand {
 
     @Override
     public void execute(String[] args) {

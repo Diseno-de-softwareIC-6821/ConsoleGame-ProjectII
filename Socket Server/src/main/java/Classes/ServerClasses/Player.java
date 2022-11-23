@@ -1,7 +1,7 @@
 package Classes.ServerClasses;
 
 import Classes.Character;
-import Classes.Commands.AttackCommand;
+import Classes.Commands.*;
 import Interfaces.iCommand;
 
 import java.io.BufferedReader;
@@ -35,7 +35,15 @@ public class Player extends Thread{
         this.name = "";
         commands = new HashMap<>(
                 Map.of(
-                        "attack", new AttackCommand()
+                        "attack", new AttackCommand(),
+                        "chat", new ChatCommand(),
+                        "dm", new DirectMessageCommand(),
+                        "info", new PlayerInformationCommand(),
+                        "reload", new ReloadCommand(),
+                        "skip", new SkipCommand(),
+                        "surrender", new SurrenderCommand(),
+                        "tie", new TieCommand(),
+                        "wildcard", new WildcardCommand()
                 )
         );
     }
@@ -54,7 +62,8 @@ public class Player extends Thread{
             throw new RuntimeException(e);
         }
 
-        String inputLine;
+        String[] inputLine;
+
 
         try {
             this.sendMessage(this.id);
@@ -63,26 +72,41 @@ public class Player extends Thread{
                 // out.println(); Send message to current client
                 // Server.getInstance().sendToAll(); Send message to all clients connected to the server instance
 
-                inputLine = in.readLine();
+                inputLine = in.readLine().split(" ");
+                Server server = Server.getInstance();
 
-                switch (inputLine) {
+                switch (inputLine[0]) {
                     case "attack" -> {
-                        this.sendMessage("An attack has been made");
+                        this.sendMessage("An attack has been made ");
                     }
-                    case "02" -> {
-                        out.println("Hello from the server");
+                    case "chat" -> {
+                        server.sendToAll("A chat message has been sent");
                     }
-                    case "00" -> {
-                        out.println("bye");
-                        in.close();
-                        out.close();
-                        clientSocket.close();
-                        return;
+                    case "dm" -> {
+                        this.sendMessage("A dm message has been sent");
                     }
-                    //temporal method, just to test receiving user name
+                    case "info" -> {
+                        this.sendMessage("Player info has been requested");
+                    }
+                    case "reload" -> {
+                        this.sendMessage("Weapons have been reloaded");
+                    }
+                    case "skip" -> {
+                        this.sendMessage("Turn has been skipped");
+                    }
+                    case "surrender" -> {
+                        server.sendToAll(this.name + " has surrendered");
+                    }
+                    case "tie" -> {
+                        server.sendToAll("A tie has been requested");
+                    }
+                    case "wildcard" -> {
+                        server.sendToAll(this.name + "has used a wildcard");
+                    }
+
                     default -> {
-                        Server.getInstance().sendToAll("User " + inputLine + " connected");
-                        System.out.println("User " + inputLine + " connected");
+                        Server.getInstance().sendToAll("User " + inputLine[0] + " connected");
+                        System.out.println("User " + inputLine[0] + " connected");
                     }
                 }
             }
