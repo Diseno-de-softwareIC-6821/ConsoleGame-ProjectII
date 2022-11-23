@@ -40,10 +40,6 @@ public class Client  {
         out.println(msg);
         
     }
-    
-    private String getAnswer() throws IOException{
-        return in.readLine();
-    }
 
     public void stopConnection() throws Exception {
         in.close();
@@ -57,8 +53,21 @@ public class Client  {
                 while ((inputLine = in.readLine()) != null) {
 
                     //meter funciones para que haga cosas
+                    switch(inputLine){
+                        
+                        
+                        default ->{
+                            if (inputLine.equals("0")){
+                                menuScreen.registerName = false;
+                            }
+                            else{
+                                menuScreen.registerName = true;
+                                this.menuScreen.addPlayerConnected(inputLine);
+                            }
+                           
+                        }
+                    }
                     
-                    this.menuScreen.addPlayerConnected(inputLine);
                     
                     System.out.println(inputLine);
                 }

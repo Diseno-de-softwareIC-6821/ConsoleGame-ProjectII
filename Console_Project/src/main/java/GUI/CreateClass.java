@@ -4,13 +4,17 @@
  */
 package GUI;
 
-import java.awt.Color;
+import SocketClient.Client;
 import java.awt.Image;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,14 +24,19 @@ public class CreateClass extends javax.swing.JDialog {
 
     private ImageIcon imagen;
     private Icon icono;
-    private int counter = 0;
+    private int counterChars = 0;
+    private int warriorCount = 1;
+    private static Client client;
+    private String setCharacteristicsCommand = "setCharacteristics";
     
     /**
      * Creates new form CreateWarrior
      */
-    public CreateClass(javax.swing.JDialog parent, boolean modal) {
+    public CreateClass(javax.swing.JDialog parent, boolean modal, Client client) {
         super(parent, modal);
         initComponents();
+        
+        this.client = client;
         
         //WINDOW IN MIDDLE OF THE SCREEN
         this.setLocationRelativeTo(this);
@@ -50,9 +59,11 @@ public class CreateClass extends javax.swing.JDialog {
                 imagenBtn = image.getScaledInstance(btnRight.getWidth(), btnRight.getHeight(), image.SCALE_DEFAULT);
                 btnRight.setIcon(new ImageIcon(imagenBtn));
             }
-            catch (Exception e){
+        catch (Exception e){
 
-            }
+        }
+        
+        
     }
     
     private void pintarImagen(JLabel lbl, String ruta){
@@ -80,14 +91,14 @@ public class CreateClass extends javax.swing.JDialog {
         lblTitle = new javax.swing.JLabel();
         lblActImg = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tCharacteristics = new javax.swing.JTable();
         lblSelWarrior = new javax.swing.JLabel();
         lblSelWeapon1 = new javax.swing.JLabel();
         lblSelWeapon2 = new javax.swing.JLabel();
         lblSelWeapon3 = new javax.swing.JLabel();
         lblSelWeapon4 = new javax.swing.JLabel();
         lblSelWeapon5 = new javax.swing.JLabel();
-        lblAttackedByText3 = new javax.swing.JLabel();
+        lblActSelection = new javax.swing.JLabel();
         ignore = new javax.swing.JLabel();
         ignore1 = new javax.swing.JLabel();
         btnContinue = new javax.swing.JButton();
@@ -114,7 +125,7 @@ public class CreateClass extends javax.swing.JDialog {
         lblChoosenClass.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblChoosenClass.setForeground(new java.awt.Color(255, 255, 255));
         lblChoosenClass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblChoosenClass.setText("Choosen Class:");
+        lblChoosenClass.setText("Choosen Class 1:");
         getContentPane().add(lblChoosenClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 260, -1));
 
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -123,9 +134,9 @@ public class CreateClass extends javax.swing.JDialog {
         getContentPane().add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
         getContentPane().add(lblActImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 420, 330));
 
-        jTable1.setBackground(new java.awt.Color(0, 0, 0));
-        jTable1.setForeground(new java.awt.Color(51, 255, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tCharacteristics.setBackground(new java.awt.Color(0, 0, 0));
+        tCharacteristics.setForeground(new java.awt.Color(51, 255, 0));
+        tCharacteristics.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Warrior:", null},
                 {"Element:", null},
@@ -139,7 +150,7 @@ public class CreateClass extends javax.swing.JDialog {
                 "", ""
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tCharacteristics);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 130));
         getContentPane().add(lblSelWarrior, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 80, 80));
@@ -149,11 +160,11 @@ public class CreateClass extends javax.swing.JDialog {
         getContentPane().add(lblSelWeapon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 80, 80));
         getContentPane().add(lblSelWeapon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 80, 80));
 
-        lblAttackedByText3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblAttackedByText3.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByText3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAttackedByText3.setText("NameWarrior");
-        getContentPane().add(lblAttackedByText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 420, -1));
+        lblActSelection.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblActSelection.setForeground(new java.awt.Color(255, 255, 255));
+        lblActSelection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblActSelection.setText("NameWarrior");
+        getContentPane().add(lblActSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 420, -1));
 
         ignore.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ignore.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,17 +199,55 @@ public class CreateClass extends javax.swing.JDialog {
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         //CODE TO ADD WARRIOR AND WEAPONS
-        
-        counter++;
-        
-        if (counter == 6){
-            btnSelect.setEnabled(false);
-            btnContinue.setEnabled(true);
+        DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+
+        switch(counterChars){
+            case 6 ->{
+                
+                btnSelect.setEnabled(false);
+                btnContinue.setEnabled(true);        
+                this.setCharacteristicsCommand += " " + lblActSelection.getText();
+                tCharacteristics.setValueAt(lblActSelection.getText(), counterChars, 1);
+                System.out.println(setCharacteristicsCommand);
+            }
+            default ->{
+                this.setCharacteristicsCommand += " " + lblActSelection.getText();
+                tCharacteristics.setValueAt(lblActSelection.getText(), counterChars, 1);
+            }
         }
+        
+        counterChars++;
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
-        dispose();
+        
+        switch(this.warriorCount){
+            case 4 ->{
+                try {
+                    //SENDING INFO TO SERVER
+                    client.sendMessage(setCharacteristicsCommand);
+                    JOptionPane.showMessageDialog(null, "Class #" + warriorCount + " created succesfully");
+                    dispose();
+                } 
+                catch (Exception ex) {
+                    System.out.println("ERROR SENDING CHARACTERISTICS TO SERVER");
+                }
+            }            
+            default -> { 
+                JOptionPane.showMessageDialog(null, "Class #" + warriorCount + " created succesfully");
+                DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+                for (int i = 0; i < 7; i++){
+                    tCharacteristics.setValueAt("", i, 1);
+                }
+                warriorCount++;
+                lblChoosenClass.setText("Choosen Class " + warriorCount + ":");
+                counterChars = 0;
+                
+                btnSelect.setEnabled(true);
+                btnContinue.setEnabled(false);   
+                
+            }
+        }
     }//GEN-LAST:event_btnContinueActionPerformed
 
     private void btnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightActionPerformed
@@ -236,7 +285,7 @@ public class CreateClass extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CreateClass dialog = new CreateClass(new javax.swing.JDialog(), true);
+                CreateClass dialog = new CreateClass(new javax.swing.JDialog(), true, client);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -257,9 +306,8 @@ public class CreateClass extends javax.swing.JDialog {
     private javax.swing.JLabel ignore;
     private javax.swing.JLabel ignore1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblActImg;
-    private javax.swing.JLabel lblAttackedByText3;
+    private javax.swing.JLabel lblActSelection;
     private javax.swing.JLabel lblChoosenClass;
     private javax.swing.JLabel lblSelWarrior;
     private javax.swing.JLabel lblSelWeapon1;
@@ -268,5 +316,6 @@ public class CreateClass extends javax.swing.JDialog {
     private javax.swing.JLabel lblSelWeapon4;
     private javax.swing.JLabel lblSelWeapon5;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JTable tCharacteristics;
     // End of variables declaration//GEN-END:variables
 }
