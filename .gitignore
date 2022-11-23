@@ -3,5 +3,6 @@
 /ClientTest/target/
 /Console_Project/target/
 
+.idea
 .xml
 .iml
