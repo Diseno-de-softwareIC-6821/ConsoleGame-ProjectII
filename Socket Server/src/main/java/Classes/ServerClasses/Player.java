@@ -1,7 +1,7 @@
 package Classes.ServerClasses;
 
 import Classes.Character;
-import Classes.Commands.AttackCommand;
+import Classes.Commands.*;
 import Interfaces.iCommand;
 
 import java.io.BufferedReader;
@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Arrays.copyOfRange;
+
 public class Player extends Thread{
 
     private final String id;
@@ -23,19 +25,32 @@ public class Player extends Thread{
     private BufferedReader in;
     private HashMap<String, iCommand> commands;
     private ArrayList<Character> characters;
+
+    private Server server;
+
     // 0: max [1,2,3,4]
     // 1: cornejo
     // 2: sambucci
     // 3: esteban
 
 
-    public Player(String id ,Socket socket) {
+    public Player(String id ,Socket socket) throws Exception {
         this.id = id;
         this.clientSocket = socket;
         this.name = "";
+        this.server = Server.getInstance();
         commands = new HashMap<>(
                 Map.of(
-                        "attack", new AttackCommand()
+                        "attack", new AttackCommand(),
+                        "chat", new ChatCommand(),
+                        "dm", new DirectMessageCommand(),
+                        "info", new PlayerInformationCommand(),
+                        "reload", new ReloadCommand(),
+                        "skip", new SkipCommand(),
+                        "surrender", new SurrenderCommand(),
+                        "tie", new TieCommand(),
+                        "wildcard", new WildcardCommand(),
+                        "setCharacteristics", new SetPlayerCharacteristics()
                 )
         );
     }
@@ -50,39 +65,71 @@ public class Player extends Thread{
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            this.server.setPlayerName(this.name, this.id);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        String inputLine;
+        String[] inputLine;
+
 
         try {
             this.sendMessage(this.id);
             while (true) {
 
-                // out.println(); Send message to current client
-                // Server.getInstance().sendToAll(); Send message to all clients connected to the server instance
 
-                inputLine = in.readLine();
+                inputLine = (in.readLine()+" "+this.id).split(" ");
+                String command = inputLine[0];
+                String[] args = copyOfRange(inputLine, 1, inputLine.length);
 
-                switch (inputLine) {
+                switch (command) {
                     case "attack" -> {
-                        this.sendMessage("An attack has been made");
+
+                        this.commands.get("attack").execute(args);
+                        this.sendMessage("An attack has been made ");
                     }
-                    case "02" -> {
-                        out.println("Hello from the server");
+                    case "chat" -> {
+                        this.commands.get("chat").execute(args);
+                        this.sendMessage("message sent");
                     }
-                    case "00" -> {
-                        out.println("bye");
-                        in.close();
-                        out.close();
-                        clientSocket.close();
-                        return;
+                    case "dm" -> {
+
+                        this.sendMessage("A dm message has been sent");
                     }
-                    //temporal method, just to test receiving user name
+                    case "info" -> {
+
+                        this.sendMessage("Player info has been requested");
+                    }
+                    case "reload" -> {
+
+                        this.sendMessage("Weapons have been reloaded");
+                    }
+                    case "skip" -> {
+
+                        this.sendMessage("Turn has been skipped");
+                    }
+                    case "surrender" -> {
+
+                        this.server.sendToAll(this.name + " has surrendered");
+                    }
+                    case "tie" -> {
+
+                        this.server.sendToAll("A tie has been requested");
+                    }
+                    case "wildcard" -> {
+
+                        this.server.sendToAll(this.name + "has used a wildcard");
+                    }
+                    case "setCharacteristics" -> {
+
+                        this.commands.get("setCharacteristics").execute(args);
+                    }
+
                     default -> {
-                        Server.getInstance().sendToAll("User " + inputLine + " connected");
-                        System.out.println("User " + inputLine + " connected");
+                        Server.getInstance().sendToAll("User " + inputLine[0] + " connected");
+                        System.out.println("User " + inputLine[0] + " connected");
                     }
                 }
             }
@@ -95,5 +142,9 @@ public class Player extends Thread{
                 throw new RuntimeException(ex);
             }
         }
+    }
+
+    public String getPlayerId() {
+        return this.id;
     }
 }

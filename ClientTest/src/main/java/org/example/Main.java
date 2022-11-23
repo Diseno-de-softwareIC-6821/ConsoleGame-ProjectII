@@ -26,7 +26,7 @@ public class Main {
 
             switch (input) {
                 case "1" -> {
-                    client.sendMessage("01");
+                    client.sendMessage("chat hola esto es un test para todos");
                 }
                 case "2" -> {
                     client.sendMessage("02");

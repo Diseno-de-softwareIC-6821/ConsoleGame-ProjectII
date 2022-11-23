@@ -8,9 +8,11 @@ public class Server {
     private static Server instance;
     private final ServerSocket serverSocket;
     private final HashMap<String, Player> players;
+    private final HashMap<String, String> nameMap;
 
     public Server(int port) throws Exception {
         this.players  = new HashMap<>();
+        this.nameMap = new HashMap<>();
         this.serverSocket = new ServerSocket(port);
 
     }
@@ -42,6 +44,18 @@ public class Server {
             player.sendMessage(message);
         }
     }
+
+    public void setPlayerName(String name, String id){
+        this.nameMap.put(name, id);
+    }
+
+    public Player getPlayerById(String id){
+        return this.players.get(id);
+    }
+    public Player getPlayerByName(String name){
+        return players.get(nameMap.get(name));
+    }
+
 
     public void removeClient(String id) {
         players.remove(id);
