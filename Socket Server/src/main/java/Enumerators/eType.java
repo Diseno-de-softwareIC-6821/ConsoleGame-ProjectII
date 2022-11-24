@@ -4,13 +4,13 @@ public enum eType {
     FUEGO,
     AIRE,
     AGUA,
-    TIERRA,
-    MAGIA_BLANCA,
-    MAGIA_NEGRA,
+    MAGIABLANCA,
+    MAGIANEGRA,
     ELECTRICIDAD,
     HIELO,
     ACIDO,
     ESPIRITUALIDAD,
-    HIERRO
+    HIERRO,
+    NONE
 
 }

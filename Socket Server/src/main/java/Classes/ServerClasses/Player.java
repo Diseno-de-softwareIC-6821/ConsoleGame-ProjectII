@@ -2,6 +2,7 @@ package Classes.ServerClasses;
 
 import Classes.Character;
 import Classes.Commands.*;
+import Classes.GameObjects.GameCharacter;
 import Interfaces.iCommand;
 import Interfaces.iObserver;
 
@@ -24,7 +25,7 @@ public class Player extends Thread implements iObserver {
     private PrintWriter out;
     private BufferedReader in;
     private HashMap<String, iCommand> commands;
-    private ArrayList<Character> characters;
+    private HashMap<String, GameCharacter> characters;
 
     private boolean wildCardIsReady;
 
@@ -42,6 +43,7 @@ public class Player extends Thread implements iObserver {
         this.name = "";
         this.server = Server.getInstance();
         this.wildCardIsReady = false;
+        this.characters = new HashMap<>();
         commands = new HashMap<>(
                 Map.of(
                         "attack", new AttackCommand(this),
@@ -158,6 +160,14 @@ public class Player extends Thread implements iObserver {
 
     public void setWildCardIsReady(Boolean wildCardIsReady) {
         this.wildCardIsReady = wildCardIsReady;
+    }
+
+    public void addCharacter(String characterName,GameCharacter character) {
+        this.characters.put(characterName, character);
+    }
+
+    public GameCharacter getCharacter(String characterName) {
+        return this.characters.get(characterName);
     }
 
     public Socket getSocket() {
