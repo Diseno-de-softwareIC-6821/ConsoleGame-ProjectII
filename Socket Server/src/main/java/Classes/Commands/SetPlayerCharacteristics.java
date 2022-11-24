@@ -17,7 +17,7 @@ public class SetPlayerCharacteristics extends Command {
     }
 
     @Override
-    public int execute(String[] args) {
+    public int execute(String[] args, Player player) {
 
         //args[0] = nuevo nombre del jugador;
 

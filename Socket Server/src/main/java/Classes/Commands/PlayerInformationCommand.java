@@ -11,7 +11,7 @@ public class PlayerInformationCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args) {
+    public int execute(String[] args, Player player) {
         // args[0] = nombre del jugador buscado
         // args[length-1] = nombre del jugador que envio el mensaje
 
