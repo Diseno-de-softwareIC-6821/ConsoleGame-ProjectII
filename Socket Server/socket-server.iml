@@ -12,6 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="CharactersLibraryJava" level="project" />
-    <orderEntry type="library" name="Maven: CharacterLibrary:CharacterLibrary:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20220924" level="project" />
   </component>
 </module>
