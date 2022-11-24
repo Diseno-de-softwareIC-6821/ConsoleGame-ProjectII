@@ -9,13 +9,13 @@ import java.util.HashMap;
 
 public class GameWeapon extends Item {
 
-    private HashMap<eType, double> damageMap;
+    private HashMap<eType, Double> damageMap;
     private eType effect;
 
     private boolean available;
     private GameWeapon(HashMap<Integer, String> textureMap, eItemClass itemClass, eItemEffect itemEffect, String name,
                        int level, int range, int coolDown, int damage, int explosionRadius, int ammo,
-                       HashMap<eType, double> damageMap, eType effect, boolean available) {
+                       HashMap<eType, Double> damageMap, eType effect, boolean available) {
         super(textureMap, itemClass, itemEffect, name,level,range,coolDown,damage,explosionRadius,ammo);
         this.damageMap = damageMap;
         this.effect = effect;
@@ -32,12 +32,12 @@ public class GameWeapon extends Item {
     public boolean isAvailable(){
         return this.available;
     }
-    public Double getDamage(eType effect){
+    public double getDamage(eType effect){
         return this.damageMap.get(effect);
     }
 
     public static class GameWeaponBuilder {
-        private HashMap<eType, double> damageMap = new HashMap<eType, double>();
+        private HashMap<eType, Double> damageMap = new HashMap<eType, Double>();
 
         private eType effect;
         private boolean available = true;
