@@ -31,7 +31,7 @@ public class GameScreen extends javax.swing.JDialog {
     /**
      * Creates new form GameScreen
      */
-    public GameScreen(javax.swing.JDialog parent, boolean modal, Menu menuScreen, Client client) {
+    public GameScreen(javax.swing.JDialog parent, boolean modal, Menu menuScreen) {
         super(parent, modal);
         initComponents();
         
@@ -548,7 +548,7 @@ public class GameScreen extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GameScreen dialog = new GameScreen(new javax.swing.JDialog(), true, menuScreen, client);
+                GameScreen dialog = new GameScreen(new javax.swing.JDialog(), true, menuScreen);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

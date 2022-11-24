@@ -28,8 +28,6 @@ public class Menu extends javax.swing.JDialog {
 
     private ImageIcon imagen;
     private Icon icono;
-    private static Client client;
-    public boolean registerName = false;
     
     /**
      * Creates new form CreateWarrior
@@ -43,18 +41,7 @@ public class Menu extends javax.swing.JDialog {
         this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
         this.pintarImagen(this.lblTitle, "src\\main\\java\\Images\\MortalDSKombat.png");
         
-        musica();
-        
-        //        create a new client
-        this.client = new Client(this);
-        client.startConnection("localhost", 8080);
-        
-        String name = "";
-        //while(!registerName){
-            name = JOptionPane.showInputDialog("Type your user name please");
-            client.sendMessage(name);
-        //}
-        JOptionPane.showMessageDialog(null, "Welcome " + name);
+        musica();     
     }
 
     private void pintarImagen(JLabel lbl, String ruta){
@@ -157,7 +144,7 @@ public class Menu extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-        GameScreen createGameScreen = new GameScreen(new javax.swing.JDialog(), true, this, client); 
+        GameScreen createGameScreen = new GameScreen(new javax.swing.JDialog(), true, this); 
         createGameScreen.setVisible(true); 
     }//GEN-LAST:event_jButton2ActionPerformed
 

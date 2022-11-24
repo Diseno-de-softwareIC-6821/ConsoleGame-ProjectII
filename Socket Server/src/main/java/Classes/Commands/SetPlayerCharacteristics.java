@@ -36,7 +36,7 @@ public class SetPlayerCharacteristics extends Command {
                 // le envia al cliente un 0 porque ya existe un jugador con ese nombre
                 // y cierra la conexion
                 this.player.update("0");
-                //this.player.getSocket().close();
+                this.player.getSocket().close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

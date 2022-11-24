@@ -12,13 +12,11 @@ public class Client  {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
-    private Menu menuScreen;
 
     public Client() {
     }
 
     public Client(Menu menuScreen) {
-        this.menuScreen = menuScreen;
     }
     
     public void startConnection(String ip, int port) throws Exception {
@@ -58,11 +56,11 @@ public class Client  {
                         
                         default ->{
                             if (inputLine.equals("0")){
-                                menuScreen.registerName = false;
+                                //menuScreen.registerName = false;
                             }
                             else{
-                                menuScreen.registerName = true;
-                                this.menuScreen.addPlayerConnected(inputLine);
+                                //menuScreen.registerName = true;
+                                //this.menuScreen.addPlayerConnected(inputLine);
                             }
                            
                         }
