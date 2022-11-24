@@ -99,12 +99,10 @@ public class CreateClass extends javax.swing.JDialog {
         lblActImg = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tCharacteristics = new javax.swing.JTable();
-        lblSelWarrior = new javax.swing.JLabel();
-        lblSelWeapon1 = new javax.swing.JLabel();
-        lblSelWeapon2 = new javax.swing.JLabel();
-        lblSelWeapon3 = new javax.swing.JLabel();
-        lblSelWeapon4 = new javax.swing.JLabel();
-        lblSelWeapon5 = new javax.swing.JLabel();
+        lblSelWarrior1 = new javax.swing.JLabel();
+        lblSelWarrior2 = new javax.swing.JLabel();
+        lblSelWarrior3 = new javax.swing.JLabel();
+        lblSelWarrior4 = new javax.swing.JLabel();
         cbElements = new javax.swing.JComboBox<>();
         tfActSelection = new javax.swing.JTextField();
         ignore = new javax.swing.JLabel();
@@ -150,12 +148,10 @@ public class CreateClass extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tCharacteristics);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 130));
-        getContentPane().add(lblSelWarrior, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 80, 80));
-        getContentPane().add(lblSelWeapon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 80, 80));
-        getContentPane().add(lblSelWeapon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 80, 80));
-        getContentPane().add(lblSelWeapon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 80, 80));
-        getContentPane().add(lblSelWeapon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 80, 80));
-        getContentPane().add(lblSelWeapon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 80, 80));
+        getContentPane().add(lblSelWarrior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 90, 90));
+        getContentPane().add(lblSelWarrior2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 90, 90));
+        getContentPane().add(lblSelWarrior3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 90, 90));
+        getContentPane().add(lblSelWarrior4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 90, 90));
 
         cbElements.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fire", "Wind", "Water", "White Magic", "Black Magic", "Electricity", "Ice", "Acid", "Spirituality", "Iron" }));
         getContentPane().add(cbElements, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 160, -1));
@@ -178,7 +174,7 @@ public class CreateClass extends javax.swing.JDialog {
                 btnContinueActionPerformed(evt);
             }
         });
-        getContentPane().add(btnContinue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, 80, 40));
+        getContentPane().add(btnContinue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 80, 40));
 
         btnSelectImg.setText("Select Image");
         btnSelectImg.setEnabled(false);
@@ -323,12 +319,6 @@ public class CreateClass extends javax.swing.JDialog {
                 btnContinue.setEnabled(false);   
                 usedWeapons.removeAll(usedWeapons);
                 this.pintarImagen(this.lblActImg, "");
-                this.pintarImagen(this.lblSelWarrior, "");
-                this.pintarImagen(this.lblSelWeapon1, "");
-                this.pintarImagen(this.lblSelWeapon2, "");
-                this.pintarImagen(this.lblSelWeapon3, "");
-                this.pintarImagen(this.lblSelWeapon4, "");
-                this.pintarImagen(this.lblSelWeapon5, "");
                 this.setCharacteristicsCommand += ",";
                 System.out.println(setCharacteristicsCommand);
             }
@@ -343,31 +333,26 @@ public class CreateClass extends javax.swing.JDialog {
             File fichero = fc.getSelectedFile(); 
             String rute = fichero.getAbsolutePath();
             this.pintarImagen(this.lblActImg, rute);
-            switch(counterChars){
+            switch(warriorCount){
                 case 1 ->{
-                    this.pintarImagen(this.lblSelWarrior, rute);
-                    btnSelect.setEnabled(true);
-                    cbElements.setEnabled(true);
+                    this.pintarImagen(this.lblSelWarrior1, rute);
+                }
+                case 2 ->{
+                    this.pintarImagen(this.lblSelWarrior2, rute);
                 }
                 case 3 ->{
-                    this.pintarImagen(this.lblSelWeapon1, rute);
+                    this.pintarImagen(this.lblSelWarrior3, rute);
                 }
                 case 4 ->{
-                    this.pintarImagen(this.lblSelWeapon2, rute);
-                }
-                case 5 ->{
-                    this.pintarImagen(this.lblSelWeapon3, rute);
-                }
-                case 6 ->{
-                    this.pintarImagen(this.lblSelWeapon4, rute);
-                }
-                case 7 ->{
-                    this.pintarImagen(this.lblSelWeapon5, rute);
+                    this.pintarImagen(this.lblSelWarrior4, rute);
                 }
             }
-            this.setCharacteristicsCommand += jsonKeys.get(counterChars) + rute + "\",";
+            btnSelect.setEnabled(true);
+            cbElements.setEnabled(true);
             btnSelectImg.setEnabled(false);
             tfActSelection.setEnabled(true);
+            this.setCharacteristicsCommand += jsonKeys.get(counterChars) + rute + "\",";
+            
         }
         
     }//GEN-LAST:event_btnSelectImgActionPerformed
@@ -445,12 +430,10 @@ public class CreateClass extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblActImg;
     private javax.swing.JLabel lblChoosenClass;
-    private javax.swing.JLabel lblSelWarrior;
-    private javax.swing.JLabel lblSelWeapon1;
-    private javax.swing.JLabel lblSelWeapon2;
-    private javax.swing.JLabel lblSelWeapon3;
-    private javax.swing.JLabel lblSelWeapon4;
-    private javax.swing.JLabel lblSelWeapon5;
+    private javax.swing.JLabel lblSelWarrior1;
+    private javax.swing.JLabel lblSelWarrior2;
+    private javax.swing.JLabel lblSelWarrior3;
+    private javax.swing.JLabel lblSelWarrior4;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tCharacteristics;
     private javax.swing.JTextField tfActSelection;
