@@ -25,7 +25,7 @@ public class CommandManger {
    }
 
    public void setBasicsCommands( ) throws Exception {
-       addCommand("attack", new AttackCommand();
+       addCommand("attack", new AttackCommand());
        addCommand("chat", new ChatCommand());
        addCommand("dm", new DirectMessageCommand());
        addCommand("info", new PlayerInformationCommand());

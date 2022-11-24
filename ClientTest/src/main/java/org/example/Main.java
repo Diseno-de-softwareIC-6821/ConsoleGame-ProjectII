@@ -18,7 +18,7 @@ public class Main {
         System.out.println("3. chat");
 
         String testString = "setCharacteristics daniel [{\"name\":\"Penny_Wise\",\"image\":\"src/main/java/Images/PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src/main/java/Images/MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src/main/java/Images/Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src/main/java/Images/Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
-        String testString2 = "setCharacteristics daniel [{\"name\":\"Penny_Wise\",\"image\":\"src/main/java/Images/PennyWise.jpg\",\"type\":\"MagiaNegra\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src/main/java/Images/MichaelMyers.jpg\",\"type\":\"Black_Magic\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src/main/java/Images/Chayanne.jpg\",\"type\":\"Iron\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src/main/java/Images/Toledo.jpg\",\"type\":\"Acid\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
+        String testString2 = "setCharacteristics esteban [{\"name\":\"Penny_Wise\",\"image\":\"src/main/java/Images/PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src/main/java/Images/MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src/main/java/Images/Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src/main/java/Images/Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
 
 
         // Read user input
@@ -38,7 +38,7 @@ public class Main {
                 }
                 case "3" -> {
                     client.sendMessage("dm esteban hola bro");
-                    client.stopConnection();
+
                     return;
                 }
                 default -> System.out.println("?");
