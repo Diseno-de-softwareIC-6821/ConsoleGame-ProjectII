@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import Enums.eType;
 import SocketClient.Client;
 import java.awt.Image;
 import java.io.File;
@@ -154,6 +155,11 @@ public class CreateClass extends javax.swing.JDialog {
         getContentPane().add(lblSelWarrior4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 90, 90));
 
         cbElements.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fire", "Wind", "Water", "White Magic", "Black Magic", "Electricity", "Ice", "Acid", "Spirituality", "Iron" }));
+        cbElements.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbElementsActionPerformed(evt);
+            }
+        });
         getContentPane().add(cbElements, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 160, -1));
         getContentPane().add(tfActSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 160, -1));
 
@@ -206,7 +212,7 @@ public class CreateClass extends javax.swing.JDialog {
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         //CODE TO ADD WARRIOR AND WEAPONS
-        DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+        //DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
         String actSel = tfActSelection.getText();
         System.out.println(counterChars);
         if (!actSel.equals("") || counterChars == 1){
@@ -231,8 +237,43 @@ public class CreateClass extends javax.swing.JDialog {
                 }
                 case 1 ->{
                     actSel = (String) cbElements.getSelectedItem();
-                    this.setCharacteristicsCommand += jsonKeys.get(counterChars + 1) + actSel + "\",";
                     tCharacteristics.setValueAt(actSel, counterChars, 1);
+                    switch(actSel){
+                        case "Fire" ->{
+                            actSel = eType.FUEGO.toString();
+                        }
+                        case "Wind" ->{
+                            actSel = eType.AIRE.toString();
+                        }
+                        case "Water" ->{
+                            actSel = eType.AGUA.toString();
+                        }
+                        case "White Magic" ->{
+                            actSel = eType.MAGIABLANCA.toString();
+                        }
+                        case "Black Magic" ->{
+                            actSel = eType.MAGIANEGRA.toString();
+                        }
+                        case "Electricity" ->{
+                            actSel = eType.ELECTRICIDAD.toString();
+                        }
+                        case "Ice" ->{
+                            actSel = eType.HIELO.toString();
+                        }
+                        case "Acid" ->{
+                            actSel = eType.ACIDO.toString();
+                        }
+                        case "Spirituality" ->{
+                            actSel = eType.ESPIRITUALIDAD.toString();
+                        }
+                        case "Iron" ->{
+                            actSel = eType.HIERRO.toString();
+                        }
+                        default -> {
+                            actSel = eType.NONE.toString();
+                        }
+                    }
+                    this.setCharacteristicsCommand += jsonKeys.get(counterChars + 1) + actSel + "\",";
                     cbElements.setVisible(false);
                     tfActSelection.setVisible(true);
                     //tfActSelection.setEnabled(true);
@@ -293,6 +334,9 @@ public class CreateClass extends javax.swing.JDialog {
                     //client.sendMessage(name);
                     //}
                     JOptionPane.showMessageDialog(null, "Welcome " + name);
+                    //CHANGES ALL " " FOR "_" SERVER NEEDS IT
+                    setCharacteristicsCommand = setCharacteristicsCommand.replace(' ', '_');
+                    name = name.replace(' ','_');
                     setCharacteristicsCommand = "setCharacteristics " + name + " " + setCharacteristicsCommand + "]";
                     //        create a new client
                     System.out.println(setCharacteristicsCommand);
@@ -307,7 +351,7 @@ public class CreateClass extends javax.swing.JDialog {
             }            
             default -> { 
                 JOptionPane.showMessageDialog(null, "Class #" + warriorCount + " created succesfully");
-                DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+                //DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
                 for (int i = 0; i < 7; i++){
                     tCharacteristics.setValueAt("", i, 1);
                 }
@@ -358,7 +402,7 @@ public class CreateClass extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSelectImgActionPerformed
 
     private void btnAutoSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoSelectActionPerformed
-        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny Wise\",\"image\":\"src\\main\\java\\Images\\PennyWise.jpg\",\"type\":\"White Magic\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael Myers\",\"image\":\"src\\main\\java\\Images\\MichaelMyers.jpg\",\"type\":\"Black Magic\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\main\\java\\Images\\Chayanne.jpg\",\"type\":\"Iron\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\main\\java\\Images\\Toledo.jpg\",\"type\":\"Acid\",\"weapons\":[\"Estar Ebrio\",\"El Puro\",\"El Chopo\",\"Rap\",\"Flow\"]}]";
+        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny_Wise\",\"image\":\"src\\main\\java\\Images\\PennyWise.jpg\",\"type\":\"White_Magic\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src\\main\\java\\Images\\MichaelMyers.jpg\",\"type\":\"Black_Magic\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\main\\java\\Images\\Chayanne.jpg\",\"type\":\"Iron\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\main\\java\\Images\\Toledo.jpg\",\"type\":\"Acid\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
         this.client = new Client();
         try {
             client.startConnection("localhost", 8080);
@@ -374,6 +418,10 @@ public class CreateClass extends javax.swing.JDialog {
         }
         dispose();
     }//GEN-LAST:event_btnAutoSelectActionPerformed
+
+    private void cbElementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbElementsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbElementsActionPerformed
 
     /**
      * @param args the command line arguments
