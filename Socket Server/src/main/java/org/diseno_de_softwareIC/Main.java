@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-//        Server.getInstance();
+        Server.getInstance();
 //
 //        String test = "[{\"name\":\"michael myers\",\"type\":\"FIRE\",\"image\":\"<path to image>\",\"weapons\":[\"knife\",\"gun\"]},{\"name\":\"michael myers\",\"type\":\"FIRE\",\"image\":\"<path to image>\",\"weapons\":[\"knife\",\"gun\"]}]";
 //        JSONArray jsonObject = new JSONArray(test);
@@ -33,12 +33,12 @@ public class Main {
 //            System.out.println("image: " + image);
 //            System.out.println("weapons: " + Arrays.toString(weaponArray));
 //        }
-
-        HashMap<Integer, Double> test = new HashMap<>();
-        test.put(1, 1.0);
-        test.put(2, 2.0);
-
-        System.out.println(test.get(1)+1);
+//
+//        HashMap<Integer, Double> test = new HashMap<>();
+//        test.put(1, 1.0);
+//        test.put(2, 2.0);
+//
+//        System.out.println(test.get(1)+1);
 
 
 

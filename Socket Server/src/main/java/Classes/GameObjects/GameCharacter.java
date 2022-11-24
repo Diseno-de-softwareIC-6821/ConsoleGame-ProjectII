@@ -26,6 +26,14 @@ public class GameCharacter extends Character {
         this.setHealth(this.getHealth() - damage);
     }
 
+    public Item getItemByName(String name){
+        for (Item item: this.getItems()) {
+            if(item.getName().equals(name)){
+                return item;
+            }
+        }
+        return null;
+    }
 
     public static class GameCharacterBuilder {
         private CharacterBuilder characterB = new Character.CharacterBuilder().setDamage(0);

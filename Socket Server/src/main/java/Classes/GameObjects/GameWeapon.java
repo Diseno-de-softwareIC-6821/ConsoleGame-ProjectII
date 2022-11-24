@@ -10,15 +10,15 @@ import java.util.HashMap;
 public class GameWeapon extends Item {
 
     private HashMap<eType, Double> damageMap;
-    private eType effect;
+    private eType type;
 
     private boolean available;
     private GameWeapon(HashMap<Integer, String> textureMap, eItemClass itemClass, eItemEffect itemEffect, String name,
                        int level, int range, int coolDown, int damage, int explosionRadius, int ammo,
-                       HashMap<eType, Double> damageMap, eType effect, boolean available) {
+                       HashMap<eType, Double> damageMap, eType type, boolean available) {
         super(textureMap, itemClass, itemEffect, name,level,range,coolDown,damage,explosionRadius,ammo);
         this.damageMap = damageMap;
-        this.effect = effect;
+        this.type = type;
         this.available = available;
     }
 
@@ -39,7 +39,7 @@ public class GameWeapon extends Item {
     public static class GameWeaponBuilder {
         private HashMap<eType, Double> damageMap = new HashMap<eType, Double>();
 
-        private eType effect;
+        private eType type;
         private boolean available = true;
 
         private HashMap<Integer, String> textureMap;
@@ -58,8 +58,20 @@ public class GameWeapon extends Item {
             damageMap.put(effect, damage);
             return this;
         }
-        public GameWeaponBuilder setEffect(eType effect){
-            this.effect = effect;
+
+        public GameWeaponBuilder randomizeDamage(){
+            for(int i = 0; i < 10; i++){
+
+                //create a random value between 0.2 and 1
+                double randomValue = 0.2 + (Math.random() * (1 - 0.2));
+                this.damageMap.put(eType.values()[i], randomValue);
+
+            };
+            return this;
+        }
+
+        public GameWeaponBuilder setType(eType type){
+            this.type = type;
             return this;
         }
         public GameWeaponBuilder setName(String name){
@@ -68,7 +80,7 @@ public class GameWeapon extends Item {
         }
         public GameWeapon build() {
             return new GameWeapon(textureMap, itemClass, itemEffect, name, level, range, coolDown, damage,
-                    explosionRadius, ammo, damageMap, effect, available);
+                    explosionRadius, ammo, damageMap, type, available);
         }
     }
 
