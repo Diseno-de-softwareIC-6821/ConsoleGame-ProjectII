@@ -8,7 +8,6 @@ import Enums.eItemEffect;
 import java.util.HashMap;
 
 public class GameWeapon extends Item {
-
     private HashMap<eType, double> damageMap;
     private eType effect;
 
@@ -32,7 +31,7 @@ public class GameWeapon extends Item {
     public boolean isAvailable(){
         return this.available;
     }
-    public Double getDamage(eType effect){
+    public double getDamage(eType effect){
         return this.damageMap.get(effect);
     }
 
