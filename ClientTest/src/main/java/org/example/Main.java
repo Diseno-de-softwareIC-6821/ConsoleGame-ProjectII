@@ -22,6 +22,7 @@ public class Main {
         System.out.println("2. Notify all clients");
         System.out.println("3. Exit");
 
+        String testString = "setCharacteristics Daniel [{\"name\":\"Penny Wise\",\"image\":\"src\\main\\java\\Images\\PennyWise.jpg\",\"type\":\"White Magic\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael Myers\",\"image\":\"src\\main\\java\\Images\\MichaelMyers.jpg\",\"type\":\"Black Magic\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\main\\java\\Images\\Chayanne.jpg\",\"type\":\"Iron\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\main\\java\\Images\\Toledo.jpg\",\"type\":\"Acid\",\"weapons\":[\"Estar Ebrio\",\"El Puro\",\"El Chopo\",\"Rap\",\"Flow\"]}]";
         // Read user input
 
 
