@@ -4,10 +4,13 @@
  */
 package GUI;
 
+import SocketClient.Client;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -23,6 +26,7 @@ public class GameScreen extends javax.swing.JDialog {
     private Icon icono;
     private Timer temporizador;
     private static Menu menuScreen;
+    private static Client client;
     
     /**
      * Creates new form GameScreen
@@ -31,11 +35,13 @@ public class GameScreen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+        this.client = client;
+        
         //WINDOW IN MIDDLE OF THE SCREEN
         this.setLocationRelativeTo(this);
         
         //EXECUTE CREATE CLASS SCREEN
-        CreateClass createClassScreen = new CreateClass(new javax.swing.JDialog(), true);
+        CreateClass createClassScreen = new CreateClass(new javax.swing.JDialog(), true, client);
         createClassScreen.setVisible(true);
         
         this.menuScreen = menuScreen;
@@ -490,8 +496,8 @@ public class GameScreen extends javax.swing.JDialog {
     private void EnterCommand(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterCommand
         //CODE TO SEND COMMAND
         
-        
-        switch(tfEnterCommand.getText()){
+        String consoleInp = tfEnterCommand.getText();
+        switch(consoleInp){
             case("MORITE"):{
                 dispose();
                 menuScreen.setVisible(true);
@@ -501,12 +507,15 @@ public class GameScreen extends javax.swing.JDialog {
                 break;
             }
             default:{
-                tpConsole.setText(tpConsole.getText() + "\n" + tfEnterCommand.getText());
+                tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
                 tfEnterCommand.setText("");
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    System.out.println("ERROR SENDING CONSOLE INPUT TO SERVER");
+                }
             }     
-        }
-        
-        
+        }        
     }//GEN-LAST:event_EnterCommand
 
     /**

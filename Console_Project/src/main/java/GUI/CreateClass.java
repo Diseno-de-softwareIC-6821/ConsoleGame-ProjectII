@@ -4,13 +4,21 @@
  */
 package GUI;
 
-import java.awt.Color;
+import SocketClient.Client;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,39 +28,51 @@ public class CreateClass extends javax.swing.JDialog {
 
     private ImageIcon imagen;
     private Icon icono;
-    private int counter = 0;
+    private int counterChars = 0;
+    private int warriorCount = 1;
+    private static Client client;
+    private String setCharacteristicsCommand = "[";
+    private ArrayList<String> usedNames = new ArrayList<>();
+    private ArrayList<String> usedWeapons = new ArrayList<>();
+    private ArrayList<String> jsonKeys = new ArrayList<>();
+    private String actImg;
     
     /**
      * Creates new form CreateWarrior
      */
-    public CreateClass(javax.swing.JDialog parent, boolean modal) {
+    public CreateClass(javax.swing.JDialog parent, boolean modal, Client client) {
         super(parent, modal);
         initComponents();
+        
+        jsonKeys.add("{\"name\":\"");
+        jsonKeys.add("\"image\":\"");
+        jsonKeys.add("\"type\":\"");
+        jsonKeys.add("\"weapons\":");
+        
+        cbElements.setVisible(false);
+        
+        this.client = client;
         
         //WINDOW IN MIDDLE OF THE SCREEN
         this.setLocationRelativeTo(this);
         
-        this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
+        try{
+            Image image = ImageIO.read(new File("src\\main\\java\\Images\\fondoEstrellado.jpg"));
+            Image imagenBtn = image.getScaledInstance(btnAutoSelect.getWidth(), btnAutoSelect.getHeight(), image.SCALE_DEFAULT);
+            btnAutoSelect.setIcon(new ImageIcon(imagenBtn));
+        }
+        catch(Exception e){
+            
+        }
+        
+        this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");/*
         this.pintarImagen(this.lblActImg, "src\\main\\java\\Images\\PennyWise.jpg");
         this.pintarImagen(this.lblSelWarrior, "src\\main\\java\\Images\\PennyWise.jpg");
         this.pintarImagen(this.lblSelWeapon1, "src\\main\\java\\Images\\PennyWise.jpg");
         this.pintarImagen(this.lblSelWeapon2, "src\\main\\java\\Images\\PennyWise.jpg");
         this.pintarImagen(this.lblSelWeapon3, "src\\main\\java\\Images\\PennyWise.jpg");
         this.pintarImagen(this.lblSelWeapon4, "src\\main\\java\\Images\\PennyWise.jpg");
-        this.pintarImagen(this.lblSelWeapon5, "src\\main\\java\\Images\\PennyWise.jpg");
-        
-        try{
-                Image image = ImageIO.read(new File("src\\main\\java\\Images\\Left.png"));
-                Image imagenBtn = image.getScaledInstance(btnLeft.getWidth(), btnLeft.getHeight(), image.SCALE_DEFAULT);
-                btnLeft.setIcon(new ImageIcon(imagenBtn));
-                
-                image = ImageIO.read(new File("src\\main\\java\\Images\\Right.png"));
-                imagenBtn = image.getScaledInstance(btnRight.getWidth(), btnRight.getHeight(), image.SCALE_DEFAULT);
-                btnRight.setIcon(new ImageIcon(imagenBtn));
-            }
-            catch (Exception e){
-
-            }
+        this.pintarImagen(this.lblSelWeapon5, "src\\main\\java\\Images\\PennyWise.jpg");  */
     }
     
     private void pintarImagen(JLabel lbl, String ruta){
@@ -74,47 +94,33 @@ public class CreateClass extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnLeft = new javax.swing.JButton();
-        btnRight = new javax.swing.JButton();
         lblChoosenClass = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         lblActImg = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        lblSelWarrior = new javax.swing.JLabel();
-        lblSelWeapon1 = new javax.swing.JLabel();
-        lblSelWeapon2 = new javax.swing.JLabel();
-        lblSelWeapon3 = new javax.swing.JLabel();
-        lblSelWeapon4 = new javax.swing.JLabel();
-        lblSelWeapon5 = new javax.swing.JLabel();
-        lblAttackedByText3 = new javax.swing.JLabel();
+        tCharacteristics = new javax.swing.JTable();
+        lblSelWarrior1 = new javax.swing.JLabel();
+        lblSelWarrior2 = new javax.swing.JLabel();
+        lblSelWarrior3 = new javax.swing.JLabel();
+        lblSelWarrior4 = new javax.swing.JLabel();
+        cbElements = new javax.swing.JComboBox<>();
+        tfActSelection = new javax.swing.JTextField();
         ignore = new javax.swing.JLabel();
         ignore1 = new javax.swing.JLabel();
         btnContinue = new javax.swing.JButton();
+        btnSelectImg = new javax.swing.JButton();
         btnSelect = new javax.swing.JButton();
+        btnAutoSelect = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Select your Class");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnLeft.setBorderPainted(false);
-        btnLeft.setContentAreaFilled(false);
-        getContentPane().add(btnLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 60, 50));
-
-        btnRight.setBorderPainted(false);
-        btnRight.setContentAreaFilled(false);
-        btnRight.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRightActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 440, 60, 50));
-
         lblChoosenClass.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblChoosenClass.setForeground(new java.awt.Color(255, 255, 255));
         lblChoosenClass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblChoosenClass.setText("Choosen Class:");
+        lblChoosenClass.setText("Choosen Class 1:");
         getContentPane().add(lblChoosenClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 260, -1));
 
         lblTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -123,9 +129,9 @@ public class CreateClass extends javax.swing.JDialog {
         getContentPane().add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
         getContentPane().add(lblActImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 420, 330));
 
-        jTable1.setBackground(new java.awt.Color(0, 0, 0));
-        jTable1.setForeground(new java.awt.Color(51, 255, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tCharacteristics.setBackground(new java.awt.Color(0, 0, 0));
+        tCharacteristics.setForeground(new java.awt.Color(51, 255, 0));
+        tCharacteristics.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Warrior:", null},
                 {"Element:", null},
@@ -133,27 +139,23 @@ public class CreateClass extends javax.swing.JDialog {
                 {"Weapon 2:", null},
                 {"Weapon 3:", null},
                 {"Weapon 4:", null},
-                {"Weapon5:", null}
+                {"Weapon 5:", null}
             },
             new String [] {
                 "", ""
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tCharacteristics);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 130));
-        getContentPane().add(lblSelWarrior, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 80, 80));
-        getContentPane().add(lblSelWeapon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 80, 80));
-        getContentPane().add(lblSelWeapon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 80, 80));
-        getContentPane().add(lblSelWeapon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 80, 80));
-        getContentPane().add(lblSelWeapon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 80, 80));
-        getContentPane().add(lblSelWeapon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 80, 80));
+        getContentPane().add(lblSelWarrior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 90, 90));
+        getContentPane().add(lblSelWarrior2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 90, 90));
+        getContentPane().add(lblSelWarrior3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 90, 90));
+        getContentPane().add(lblSelWarrior4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 90, 90));
 
-        lblAttackedByText3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblAttackedByText3.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByText3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAttackedByText3.setText("NameWarrior");
-        getContentPane().add(lblAttackedByText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 420, -1));
+        cbElements.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fire", "Wind", "Water", "White Magic", "Black Magic", "Electricity", "Ice", "Acid", "Spirituality", "Iron" }));
+        getContentPane().add(cbElements, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 160, -1));
+        getContentPane().add(tfActSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 160, -1));
 
         ignore.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ignore.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,7 +174,16 @@ public class CreateClass extends javax.swing.JDialog {
                 btnContinueActionPerformed(evt);
             }
         });
-        getContentPane().add(btnContinue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, 80, 40));
+        getContentPane().add(btnContinue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 80, 40));
+
+        btnSelectImg.setText("Select Image");
+        btnSelectImg.setEnabled(false);
+        btnSelectImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectImgActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSelectImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 460, 100, 40));
 
         btnSelect.setText("Select");
         btnSelect.addActionListener(new java.awt.event.ActionListener() {
@@ -180,30 +191,189 @@ public class CreateClass extends javax.swing.JDialog {
                 btnSelectActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 80, 40));
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
+        getContentPane().add(btnSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 80, 40));
+
+        btnAutoSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutoSelectActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAutoSelect, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 550, 50, 30));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         //CODE TO ADD WARRIOR AND WEAPONS
-        
-        counter++;
-        
-        if (counter == 6){
-            btnSelect.setEnabled(false);
-            btnContinue.setEnabled(true);
+        DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+        String actSel = tfActSelection.getText();
+        System.out.println(counterChars);
+        if (!actSel.equals("") || counterChars == 1){
+            switch(counterChars){
+                case 0 ->{
+                    if (!usedNames.contains(actSel)){
+                        this.setCharacteristicsCommand += jsonKeys.get(counterChars) + actSel + "\",";
+                        tCharacteristics.setValueAt(actSel, counterChars, 1);
+                        usedNames.add(actSel);
+                        cbElements.setVisible(true);
+                        tfActSelection.setVisible(false);
+                        tfActSelection.setText("");
+                        counterChars++;
+                        cbElements.setEnabled(false);
+                        btnSelectImg.setEnabled(true);
+                        tfActSelection.setEnabled(false);
+                        btnSelect.setEnabled(false);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "The warrior name " + actSel + " has been already used.\nSelect another name.");
+                    }
+                }
+                case 1 ->{
+                    actSel = (String) cbElements.getSelectedItem();
+                    this.setCharacteristicsCommand += jsonKeys.get(counterChars + 1) + actSel + "\",";
+                    tCharacteristics.setValueAt(actSel, counterChars, 1);
+                    cbElements.setVisible(false);
+                    tfActSelection.setVisible(true);
+                    //tfActSelection.setEnabled(true);
+                    cbElements.setEnabled(false);
+                    counterChars++;
+                }
+                case 6 ->{
+                    if (!usedWeapons.contains(actSel)){
+                        btnSelect.setEnabled(false);
+                        btnContinue.setEnabled(true);        
+                        this.setCharacteristicsCommand += "\"" + actSel + "\"]}";
+                        tCharacteristics.setValueAt(actSel, counterChars, 1);
+                        tfActSelection.setText("");  
+                        //btnSelectImg.setEnabled(true);
+                        tfActSelection.setEnabled(false);
+                        //usedWeapons.add(actSel);
+                        counterChars++;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "The weapon name " + actSel + " has been already used.\nSelect another name.");
+                    }
+                }
+                default ->{
+                    if (!usedWeapons.contains(actSel)){
+                        if (counterChars == 2){
+                            this.setCharacteristicsCommand += jsonKeys.get(counterChars+1) + "[";
+                        }
+                        this.setCharacteristicsCommand += "\"" + actSel + "\",";
+                        tCharacteristics.setValueAt(actSel, counterChars, 1);
+                        usedWeapons.add(actSel);
+                        tfActSelection.setText("");  
+                        counterChars++;
+                        //btnSelectImg.setEnabled(true);
+                       // tfActSelection.setEnabled(false);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "The weapon name " + actSel + " has been already used.\nSelect another name.");
+                    }
+                }
+            }
         }
+        else{
+            JOptionPane.showMessageDialog(null, "You need to enter a name");
+        }
+
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
-        dispose();
+        
+        switch(this.warriorCount){
+            case 4 ->{
+                try {
+                    //SENDING INFO TO SERVER
+                    
+                    JOptionPane.showMessageDialog(null, "Class #" + warriorCount + " created succesfully");
+                    //while(!registerName){
+                    String name = JOptionPane.showInputDialog("Type your user name please");
+                    //client.sendMessage(name);
+                    //}
+                    JOptionPane.showMessageDialog(null, "Welcome " + name);
+                    setCharacteristicsCommand = "setCharacteristics " + name + " " + setCharacteristicsCommand + "]";
+                    //        create a new client
+                    System.out.println(setCharacteristicsCommand);
+                    this.client = new Client();
+                    client.startConnection("localhost", 8080);
+                    client.sendMessage(setCharacteristicsCommand);
+                    dispose();
+                } 
+                catch (Exception ex) {
+                    System.out.println("ERROR SENDING CHARACTERISTICS TO SERVER");
+                }
+            }            
+            default -> { 
+                JOptionPane.showMessageDialog(null, "Class #" + warriorCount + " created succesfully");
+                DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+                for (int i = 0; i < 7; i++){
+                    tCharacteristics.setValueAt("", i, 1);
+                }
+                warriorCount++;
+                lblChoosenClass.setText("Choosen Class " + warriorCount + ":");
+                counterChars = 0;
+                tfActSelection.setEnabled(true);
+                btnSelect.setEnabled(true);
+                btnContinue.setEnabled(false);   
+                usedWeapons.removeAll(usedWeapons);
+                this.pintarImagen(this.lblActImg, "");
+                this.setCharacteristicsCommand += ",";
+                System.out.println(setCharacteristicsCommand);
+            }
+        }
     }//GEN-LAST:event_btnContinueActionPerformed
 
-    private void btnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRightActionPerformed
+    private void btnSelectImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectImgActionPerformed
+        JFileChooser fc = new JFileChooser();
+        int selection = fc.showOpenDialog(null);
+        if (selection == JFileChooser.APPROVE_OPTION) {
+            //méFile fichero = fc.getSelectedFile();todo para leer el archivo y mostrarlo en el textArea
+            File fichero = fc.getSelectedFile(); 
+            String rute = fichero.getAbsolutePath();
+            this.pintarImagen(this.lblActImg, rute);
+            switch(warriorCount){
+                case 1 ->{
+                    this.pintarImagen(this.lblSelWarrior1, rute);
+                }
+                case 2 ->{
+                    this.pintarImagen(this.lblSelWarrior2, rute);
+                }
+                case 3 ->{
+                    this.pintarImagen(this.lblSelWarrior3, rute);
+                }
+                case 4 ->{
+                    this.pintarImagen(this.lblSelWarrior4, rute);
+                }
+            }
+            btnSelect.setEnabled(true);
+            cbElements.setEnabled(true);
+            btnSelectImg.setEnabled(false);
+            tfActSelection.setEnabled(true);
+            this.setCharacteristicsCommand += jsonKeys.get(counterChars) + rute + "\",";
+            
+        }
+        
+    }//GEN-LAST:event_btnSelectImgActionPerformed
+
+    private void btnAutoSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoSelectActionPerformed
+        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny Wise\",\"image\":\"src\\main\\java\\Images\\PennyWise.jpg\",\"type\":\"White Magic\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael Myers\",\"image\":\"src\\main\\java\\Images\\MichaelMyers.jpg\",\"type\":\"Black Magic\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\main\\java\\Images\\Chayanne.jpg\",\"type\":\"Iron\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\main\\java\\Images\\Toledo.jpg\",\"type\":\"Acid\",\"weapons\":[\"Estar Ebrio\",\"El Puro\",\"El Chopo\",\"Rap\",\"Flow\"]}]";
+        this.client = new Client();
+        try {
+            client.startConnection("localhost", 8080);
+        } catch (Exception ex) {
+            System.out.println("ERROR CREATING CLIENT AUTOMATICALLY");
+            //Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            client.sendMessage(setCharacteristicsCommand);
+        } catch (Exception ex) {
+            System.out.println("ERROR SENDING CHARACTERISTICS TO SERVER AUTOMATICALLY");
+            //Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+    }//GEN-LAST:event_btnAutoSelectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,7 +406,7 @@ public class CreateClass extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CreateClass dialog = new CreateClass(new javax.swing.JDialog(), true);
+                CreateClass dialog = new CreateClass(new javax.swing.JDialog(), true, client);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -250,23 +420,22 @@ public class CreateClass extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JButton btnAutoSelect;
     private javax.swing.JButton btnContinue;
-    private javax.swing.JButton btnLeft;
-    private javax.swing.JButton btnRight;
     private javax.swing.JButton btnSelect;
+    private javax.swing.JButton btnSelectImg;
+    private javax.swing.JComboBox<String> cbElements;
     private javax.swing.JLabel ignore;
     private javax.swing.JLabel ignore1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblActImg;
-    private javax.swing.JLabel lblAttackedByText3;
     private javax.swing.JLabel lblChoosenClass;
-    private javax.swing.JLabel lblSelWarrior;
-    private javax.swing.JLabel lblSelWeapon1;
-    private javax.swing.JLabel lblSelWeapon2;
-    private javax.swing.JLabel lblSelWeapon3;
-    private javax.swing.JLabel lblSelWeapon4;
-    private javax.swing.JLabel lblSelWeapon5;
+    private javax.swing.JLabel lblSelWarrior1;
+    private javax.swing.JLabel lblSelWarrior2;
+    private javax.swing.JLabel lblSelWarrior3;
+    private javax.swing.JLabel lblSelWarrior4;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JTable tCharacteristics;
+    private javax.swing.JTextField tfActSelection;
     // End of variables declaration//GEN-END:variables
 }

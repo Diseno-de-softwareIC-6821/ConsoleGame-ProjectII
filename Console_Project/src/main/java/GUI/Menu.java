@@ -41,16 +41,7 @@ public class Menu extends javax.swing.JDialog {
         this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
         this.pintarImagen(this.lblTitle, "src\\main\\java\\Images\\MortalDSKombat.png");
         
-        musica();
-        
-        //        create a new client
-        Client client = new Client(this);
-        client.startConnection("localhost", 8080);
-        
-        String name = JOptionPane.showInputDialog("Type your user name please");
-        JOptionPane.showMessageDialog(null, "Welcome " + name);
-        
-        client.sendMessage(name);
+        musica();     
     }
 
     private void pintarImagen(JLabel lbl, String ruta){
