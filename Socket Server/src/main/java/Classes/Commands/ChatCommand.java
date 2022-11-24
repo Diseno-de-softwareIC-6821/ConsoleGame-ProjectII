@@ -11,7 +11,7 @@ public class ChatCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args) {
+    public int execute(String[] args, Player player) {
 
         // args[0 to length-1] = mensaje
         // args[length-1] = nombre del jugador que envio el mensaje

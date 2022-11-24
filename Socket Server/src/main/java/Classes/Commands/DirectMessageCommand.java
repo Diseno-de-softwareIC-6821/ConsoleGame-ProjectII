@@ -10,7 +10,7 @@ public class DirectMessageCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args) {
+    public int execute(String[] args, Player player) {
 
         //esteban hola esto es un test para esteban max"
         //args[0] = nombre del receptor;

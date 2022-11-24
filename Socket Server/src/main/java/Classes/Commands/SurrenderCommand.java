@@ -10,7 +10,7 @@ public class SurrenderCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args) {
+    public int execute(String[] args, Player player) {
         // args[length-1] = nombre del jugador que envio el mensaje
 
         try {

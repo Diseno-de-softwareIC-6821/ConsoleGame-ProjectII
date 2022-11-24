@@ -86,22 +86,22 @@ public class Player extends Thread implements iObserver {
                 String[] args = copyOfRange(inputLine, 1, inputLine.length);
 
                 if(this.name.equals("") && command.equals("setCharacteristics")){
-                    this.commands.get("setCharacteristics").execute(args);
+                    this.commands.get("setCharacteristics").execute(args, this);
                     continue;
                 }
-
+                // this.commands.execute(inputLine);
                 switch (command) {
                     case "attack" -> {
 
-                        this.commands.get("attack").execute(args);
+                        this.commands.get("attack").execute(args, this);
                         this.update("An attack has been made ");
                     }
                     case "chat" -> {
-                        this.commands.get("chat").execute(args);
+                        this.commands.get("chat").execute(args, this);
                         this.update("message sent");
                     }
                     case "dm" -> {
-                        this.commands.get("dm").execute(args);
+                        this.commands.get("dm").execute(args, this);
                         this.update("A dm message has been sent");
                     }
                     case "info" -> {
