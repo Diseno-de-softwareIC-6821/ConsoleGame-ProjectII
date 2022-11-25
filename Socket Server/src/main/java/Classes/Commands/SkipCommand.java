@@ -6,8 +6,8 @@ import Interfaces.iCommand;
 
 public class SkipCommand extends Command {
 
-    public SkipCommand(Player player) throws Exception {
-        super(player);
+    public SkipCommand() throws Exception {
+        super();
     }
 
     @Override

@@ -5,8 +5,8 @@ import Classes.ServerClasses.Player;
 
 public class TieCommand extends Command {
 
-    public TieCommand(Player player) throws Exception {
-        super(player);
+    public TieCommand() throws Exception {
+        super();
     }
 
     @Override

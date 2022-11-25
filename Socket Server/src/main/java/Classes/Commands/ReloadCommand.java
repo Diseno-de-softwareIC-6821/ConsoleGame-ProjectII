@@ -7,8 +7,8 @@ import Interfaces.iCommand;
 public class ReloadCommand extends Command {
 
 
-    public ReloadCommand(Player player) throws Exception {
-        super(player);
+    public ReloadCommand() throws Exception {
+        super();
     }
 
     @Override

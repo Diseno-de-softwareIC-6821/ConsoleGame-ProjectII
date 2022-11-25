@@ -5,8 +5,9 @@ import Classes.ServerClasses.Player;
 
 public class DirectMessageCommand extends Command {
 
-    public DirectMessageCommand(Player player) throws Exception {
-        super(player);
+
+    public DirectMessageCommand() throws Exception {
+        super();
     }
 
     @Override

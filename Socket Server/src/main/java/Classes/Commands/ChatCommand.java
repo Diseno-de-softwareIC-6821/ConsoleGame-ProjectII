@@ -6,8 +6,8 @@ import Interfaces.iCommand;
 
 public class ChatCommand extends Command {
 
-    public ChatCommand(Player player) throws Exception {
-        super(player);
+    public ChatCommand() throws Exception {
+        super();
     }
 
     @Override

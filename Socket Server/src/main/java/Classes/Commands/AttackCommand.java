@@ -7,8 +7,8 @@ import Classes.ServerClasses.Server;
 
 public class AttackCommand extends Command {
 
-    public AttackCommand(Player player) throws Exception {
-        super(player);
+    public AttackCommand() throws Exception {
+        super();
     }
 
     @Override

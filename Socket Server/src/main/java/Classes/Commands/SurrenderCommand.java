@@ -5,8 +5,8 @@ import Classes.ServerClasses.Player;
 
 public class SurrenderCommand extends Command {
 
-    public SurrenderCommand(Player player) throws Exception {
-        super(player);
+    public SurrenderCommand() throws Exception {
+        super();
     }
 
     @Override
