@@ -32,6 +32,9 @@ public class GameWeapon extends Item {
     public boolean isAvailable(){
         return this.available;
     }
+    public void setAvailable(boolean available){
+        this.available = available;
+    }
     public double getDamage(eType effect){
         return this.damageMap.get(effect);
     }

@@ -26,7 +26,7 @@ public class Main {
 
         while (true) {
 
-
+            System.out.println("Enter a number: ");
             String input = reader.readLine();
 
             switch (input) {
@@ -39,7 +39,6 @@ public class Main {
                 case "3" -> {
                     client.sendMessage("attack esteban Penny_Wise Knife");
 
-                    return;
                 }
                 default -> System.out.println("?");
             }
