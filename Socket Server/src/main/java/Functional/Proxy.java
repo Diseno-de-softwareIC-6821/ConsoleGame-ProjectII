@@ -16,19 +16,23 @@ public class Proxy implements iCommand {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
+    public String execute(String[] args, Player player) {
 
-        System.out.println("Command to execute: " + Arrays.toString(args));
+        for(String arg : args){
+            System.out.println(arg);
+        }
 
         String command = args[0];
-        Command command1 = CommandManger.getInstance().getCommand(command);
+        String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);
 
-        command1.execute(args, player);
+        Command executableCommand = CommandManger.getInstance().getCommand(command);
+
+        String action = executableCommand.execute(commandArgs, player);
         try {
-            Log.getInstance().print("Command executed: " + Arrays.toString(args));
+            Log.getInstance().print("Command executed: " + action);
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return "0";
     }
 }

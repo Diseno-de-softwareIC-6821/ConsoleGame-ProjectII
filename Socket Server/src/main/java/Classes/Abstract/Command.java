@@ -14,7 +14,7 @@ public abstract class Command implements iCommand {
     }
 
     @Override
-    public abstract int execute(String[] args, Player player);
+    public abstract String execute(String[] args, Player player);
 
 
 }

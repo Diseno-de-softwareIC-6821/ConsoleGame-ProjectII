@@ -23,7 +23,7 @@ public class SetPlayerCharacteristics extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
+    public String execute(String[] args, Player player) {
 
         //args[0] = nuevo nombre del jugador;
 
@@ -37,9 +37,9 @@ public class SetPlayerCharacteristics extends Command {
 
             } catch (Exception e) {
                 System.out.println("Name already exists; server error");
-                return 0;
+                return "0";
             }
-            return 0;
+            return "0";
         }
 
 
@@ -89,8 +89,8 @@ public class SetPlayerCharacteristics extends Command {
             player.update("1");
         } catch (Exception e) {
             System.out.println(e);
-            return 0;
+            return "0";
         }
-        return 1;
+        return "1";
     }
 }

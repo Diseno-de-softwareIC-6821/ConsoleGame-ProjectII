@@ -11,8 +11,8 @@ public class SkipCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
-        return -1;
+    public String execute(String[] args, Player player) {
+        return "-1";
     }
 
 }

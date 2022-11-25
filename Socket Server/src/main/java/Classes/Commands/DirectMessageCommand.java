@@ -11,7 +11,7 @@ public class DirectMessageCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
+    public String execute(String[] args, Player player) {
 
         //esteban hola esto es un test para esteban max"
         //args[0] = nombre del receptor;
@@ -19,6 +19,7 @@ public class DirectMessageCommand extends Command {
         //args[args.length-1] = nombre del jugador que envio el mensaje;
 
         StringBuilder message = new StringBuilder();
+        message.append(args[args.length-1]).append(" ");
 
         for (int i = 1; i < args.length-1; i++) {
             message.append(args[i]).append(" ");
@@ -28,9 +29,13 @@ public class DirectMessageCommand extends Command {
             server.notifyObserver(args[0], message.toString());
         } catch (Exception e) {
             System.out.println("Direct message server error");
-            return 0;
+            return "0";
         }
-        return 1;
+
+        //envia al receptor
+        //<comando ejecutado> <nombre del emisor> mensaje
+
+        return "dm " + message;
     }
 
 }

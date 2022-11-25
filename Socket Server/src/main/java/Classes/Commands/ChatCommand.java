@@ -11,7 +11,7 @@ public class ChatCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
+    public String execute(String[] args, Player player) {
 
         // args[0 to length-1] = mensaje
         // args[length-1] = nombre del jugador que envio el mensaje
@@ -28,10 +28,14 @@ public class ChatCommand extends Command {
 
         } catch (Exception e) {
             System.out.println("Chat server error");
-            return 0;
+            return "0";
         }
 
-        return 1;
+
+        //envia a todos
+        //<comando ejecutado> mensaje
+
+        return "chat " + message;
 
     }
 }

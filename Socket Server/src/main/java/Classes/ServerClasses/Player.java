@@ -112,8 +112,11 @@ public class Player extends Thread implements iObserver {
         this.characters.put(characterName, character);
     }
 
-    public GameCharacter getCharacter(String characterName) {
+    public GameCharacter getCharacterByName(String characterName) {
         return this.characters.get(characterName);
+    }
+    public HashMap<String, GameCharacter> getCharacters() {
+        return this.characters;
     }
 
     public Socket getSocket() {

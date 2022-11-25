@@ -15,7 +15,7 @@ public class Main {
 
         System.out.println("1. test");
         System.out.println("2. test2");
-        System.out.println("3. chat");
+        System.out.println("3. attack");
 
         String testString = "setCharacteristics daniel [{\"name\":\"Penny_Wise\",\"image\":\"src/main/java/Images/PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src/main/java/Images/MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src/main/java/Images/Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src/main/java/Images/Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
         String testString2 = "setCharacteristics esteban [{\"name\":\"Penny_Wise\",\"image\":\"src/main/java/Images/PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src/main/java/Images/MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src/main/java/Images/Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src/main/java/Images/Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
@@ -37,7 +37,7 @@ public class Main {
                     client.sendMessage(testString2);
                 }
                 case "3" -> {
-                    client.sendMessage("dm esteban hola bro");
+                    client.sendMessage("attack esteban Penny_Wise Knife");
 
                     return;
                 }
