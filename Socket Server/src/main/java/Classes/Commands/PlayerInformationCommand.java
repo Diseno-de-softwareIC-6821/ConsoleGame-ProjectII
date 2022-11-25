@@ -6,8 +6,8 @@ import Interfaces.iCommand;
 
 public class PlayerInformationCommand extends Command {
 
-    public PlayerInformationCommand(Player player) throws Exception {
-        super(player);
+    public PlayerInformationCommand() throws Exception {
+        super();
     }
 
     @Override

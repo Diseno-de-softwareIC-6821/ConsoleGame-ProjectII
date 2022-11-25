@@ -18,8 +18,8 @@ public class SetPlayerCharacteristics extends Command {
 
 
 
-    public SetPlayerCharacteristics(Player player) throws Exception {
-        super(player);
+    public SetPlayerCharacteristics() throws Exception {
+        super();
     }
 
     @Override

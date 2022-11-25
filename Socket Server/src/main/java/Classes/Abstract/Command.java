@@ -9,9 +9,8 @@ public abstract class Command implements iCommand {
     protected Server server;
     protected Player player;
 
-    public Command(Player player) throws Exception {
+    public Command() throws Exception {
         this.server = Server.getInstance();
-        this.player = player;
     }
 
     @Override

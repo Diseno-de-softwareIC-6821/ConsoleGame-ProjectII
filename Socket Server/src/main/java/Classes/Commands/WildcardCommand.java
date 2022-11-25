@@ -6,8 +6,8 @@ import Interfaces.iCommand;
 
 public class WildcardCommand extends Command {
 
-    public WildcardCommand(Player player) throws Exception {
-        super(player);
+    public WildcardCommand() throws Exception {
+        super();
     }
 
     @Override
