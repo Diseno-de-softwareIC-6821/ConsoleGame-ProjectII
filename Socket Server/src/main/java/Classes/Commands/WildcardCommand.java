@@ -11,7 +11,7 @@ public class WildcardCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
+    public String execute(String[] args, Player player) {
 
         //args[length-1] = nombre del jugador que envio el mensaje
 
@@ -21,11 +21,11 @@ public class WildcardCommand extends Command {
             } catch (Exception e) {
                 System.out.println("Wildcard server error");
             }
-            return 0;
+            return "0";
         }
         //else use the wildcard
 
-        return 1;
+        return "1";
     }
 
 }

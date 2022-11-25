@@ -11,7 +11,7 @@ public class PlayerInformationCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
+    public String execute(String[] args, Player player) {
         // args[0] = nombre del jugador buscado
         // args[length-1] = nombre del jugador que envio el mensaje
 
@@ -23,18 +23,18 @@ public class PlayerInformationCommand extends Command {
             } catch (Exception e) {
                 System.out.println("Player not found server error");
             }
-            return 0;
+            return "0";
         }
 
         try {
             server.notifyObserver(args[args.length-1], searchedPlayer.toString());
         } catch (Exception e) {
             System.out.println("Player information server error");
-            return 0;
+            return "0";
         }
 
 
-        return 1;
+        return "1";
     }
 
 }

@@ -23,7 +23,7 @@ public class SetPlayerCharacteristics extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
+    public String execute(String[] args, Player player) {
 
         //args[0] = nuevo nombre del jugador;
 
@@ -33,13 +33,12 @@ public class SetPlayerCharacteristics extends Command {
             try {
                 // le envia al cliente un 0 porque ya existe un jugador con ese nombre
                 // y cierra la conexion
-                player.update("0");
+                player.update("setCharacteristics 0");
 
             } catch (Exception e) {
                 System.out.println("Name already exists; server error");
-                return 0;
             }
-            return 0;
+            return "setCharacteristics " +args[0]+ " name already exists";
         }
 
 
@@ -49,10 +48,9 @@ public class SetPlayerCharacteristics extends Command {
             args[1] = args[1].replace("_", " ");
             JSONArray charactersJson = new JSONArray(args[1]);
 
-            System.out.println(charactersJson.get(0));
 
             for(int i = 0; i < charactersJson.length(); i++){
-                System.out.println(charactersJson.getJSONObject(i));
+
                 JSONObject character = charactersJson.getJSONObject(i);
 
                 GameCharacter.GameCharacterBuilder newCharacter = new GameCharacter.GameCharacterBuilder();
@@ -81,16 +79,14 @@ public class SetPlayerCharacteristics extends Command {
 
             }
 
-            System.out.println("test done");
-
 
             this.server.addObserver(args[0], player);
 
             player.update("1");
         } catch (Exception e) {
             System.out.println(e);
-            return 0;
+            return "setCharacteristics error";
         }
-        return 1;
+        return "1";
     }
 }

@@ -1,8 +1,13 @@
 package Classes.Commands;
 
 import Classes.Abstract.Command;
+import Classes.GameObjects.GameCharacter;
+import Classes.GameObjects.GameWeapon;
+import Classes.Item;
 import Classes.ServerClasses.Player;
-import Interfaces.iCommand;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReloadCommand extends Command {
 
@@ -12,8 +17,24 @@ public class ReloadCommand extends Command {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
-        return -1;
+    public String execute(String[] args, Player player) {
+
+        //args[length-1] = nombre del jugador que ejecuto el comando;
+
+        HashMap<String, GameCharacter> characters = player.getCharacters();
+
+        for(GameCharacter character : characters.values()){
+
+            ArrayList<Item> items = character.getItems();
+
+            for(Item item : items){
+
+                GameWeapon characterWeapon = (GameWeapon) item;
+                characterWeapon.setAvailable(true);
+
+            }
+        }
+        return "reload "+args[args.length-1];
     }
 
 }
