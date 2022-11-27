@@ -23,6 +23,15 @@ public class AttackCommand extends Command {
 
         //args[length-1] = nombre del jugador que ataca;
 
+        if(!server.getCurrentTurn().equals(args[args.length-1])){
+            try {
+                this.server.notifyObserver(args[args.length-1], "It's not your turn");
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return "attack " + args[args.length-1] + " not its turn";
+        }
+
         args[0] = args[0].replace("_", " ");
         args[1] = args[1].replace("_", " ");
         args[2] = args[2].replace("_", " ");
@@ -119,6 +128,7 @@ public class AttackCommand extends Command {
         String notification = "attack "+ args[args.length-1]+" "+damageLog;
 
         try{
+            this.server.nextTurn();
             System.out.println("Attack notification: " + notification);
             this.server.notifyObserver(args[0], notification);
         }
