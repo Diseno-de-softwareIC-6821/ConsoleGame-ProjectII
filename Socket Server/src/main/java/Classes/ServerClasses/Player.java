@@ -1,10 +1,7 @@
 package Classes.ServerClasses;
 
-import Classes.Character;
-import Classes.Commands.*;
 import Classes.GameObjects.GameCharacter;
 import Functional.Proxy;
-import Interfaces.iCommand;
 import Interfaces.iObserver;
 
 import java.io.BufferedReader;
@@ -12,9 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static java.util.Arrays.copyOfRange;
 
@@ -27,6 +22,7 @@ public class Player extends Thread implements iObserver {
     private BufferedReader in;
     private Proxy commandProxy;
     private HashMap<String, GameCharacter> characters;
+    private PlayerStatistics playerStats;
 
     private boolean wildCardIsReady;
 
@@ -38,7 +34,7 @@ public class Player extends Thread implements iObserver {
     // 3: esteban
 
 
-    public Player(Socket socket) throws Exception {
+    public Player(Socket socket, PlayerStatistics stats) throws Exception {
 
         this.clientSocket = socket;
         this.name = "";
@@ -46,6 +42,7 @@ public class Player extends Thread implements iObserver {
         this.wildCardIsReady = false;
         this.characters = new HashMap<>();
         this.commandProxy = new Proxy();
+        this.playerStats = stats;
 
     }
 
@@ -123,5 +120,8 @@ public class Player extends Thread implements iObserver {
         return this.clientSocket;
     }
 
+    public PlayerStatistics getPlayerStats() {
+        return this.playerStats;
+    }
 
 }

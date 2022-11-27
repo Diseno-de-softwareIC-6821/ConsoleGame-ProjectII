@@ -23,7 +23,8 @@ public class Server implements iObservable {
     public void start() throws Exception {
 
         while(true){
-            Player client = new Player(serverSocket.accept());
+            PlayerStatistics stats = new PlayerStatistics();
+            Player client = new Player(serverSocket.accept(), stats);
 
             client.start();
 

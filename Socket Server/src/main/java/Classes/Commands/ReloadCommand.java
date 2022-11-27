@@ -34,6 +34,16 @@ public class ReloadCommand extends Command {
 
             }
         }
+        String notification = "reload All weapons reloaded";
+
+        try{
+            server.notifyObserver(args[args.length-1], notification);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        //<comando> mensaje
+        // reload All weapons reloaded
         return "reload "+args[args.length-1];
     }
 
