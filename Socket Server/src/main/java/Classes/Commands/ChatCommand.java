@@ -28,7 +28,7 @@ public class ChatCommand extends Command {
 
         } catch (Exception e) {
             System.out.println("Chat server error");
-            return "chat couldn't be sent";
+            return args[args.length-1] + ": " + "chat couldn't be sent";
         }
 
 

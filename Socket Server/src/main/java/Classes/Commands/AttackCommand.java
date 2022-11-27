@@ -4,7 +4,6 @@ import Classes.Abstract.Command;
 import Classes.GameObjects.GameCharacter;
 import Classes.GameObjects.GameWeapon;
 import Classes.ServerClasses.Player;
-import Classes.ServerClasses.Server;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -40,14 +39,25 @@ public class AttackCommand extends Command {
             return "0";
         }
 
-        //Character validation
+        //Character validations
         if(player.getCharacterByName(args[1]) == null){
+            // character validation
             try {
                 server.notifyObserver(args[args.length-1], "You don't have a character named " + args[0]);
             } catch (Exception e) {
                 System.out.println("Attack server error");
             }
             return "attack " + args[1]+ " character doesn't exist for player " + args[args.length-1];
+        }
+        if(player.getCharacterByName(args[1]).getHealth() <= 0){
+            // health validation
+
+            try {
+                server.notifyObserver(args[args.length-1], "Character " + args[1] + " is dead");
+            } catch (Exception e) {
+                System.out.println("Attack server error");
+            }
+            return "attack " + args[1]+ " character is dead for player " + args[args.length-1];
         }
 
         //Weapon validations
@@ -70,9 +80,11 @@ public class AttackCommand extends Command {
         }
 
 
+        //Attack loop
         HashMap<String, GameCharacter> attackedCharacters = attackedPlayer.getCharacters();
 
         JSONObject damageLog = new JSONObject();
+        double totalDamage = 0;
 
         for(GameCharacter character : attackedCharacters.values()){
             double damage = usedWeapon.getDamage(character.getType());
@@ -80,11 +92,30 @@ public class AttackCommand extends Command {
             int characterHealth = character.getHealth();
             int damageDone = (int)(characterHealth * damage);
 
-            character.setHealth(characterHealth - damageDone);
+            if(characterHealth > 0){
+                character.setHealth(characterHealth - damageDone);
+                totalDamage += damageDone;
+            }
+
+            if (character.getHealth() <= 0) {
+                player.getPlayerStats().addKilledEnemy();
+            }
 
             damageLog.put(character.getName(), damageDone);
+
         }
         usedWeapon.setAvailable(false);
+
+
+
+        //Attack stats update
+        if (totalDamage >= 1) {
+            player.getPlayerStats().addSuccessfulAttack();
+        } else {
+            player.getPlayerStats().addFailedAttack();
+        }
+
+
         String notification = "attack "+ args[args.length-1]+" "+damageLog;
 
         try{

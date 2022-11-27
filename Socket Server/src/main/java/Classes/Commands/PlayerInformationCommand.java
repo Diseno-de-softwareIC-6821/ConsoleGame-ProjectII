@@ -23,18 +23,20 @@ public class PlayerInformationCommand extends Command {
             } catch (Exception e) {
                 System.out.println("Player not found server error");
             }
-            return "0";
+            return args[args.length-1]+": "+ "info player not found";
         }
 
         try {
-            server.notifyObserver(args[args.length-1], searchedPlayer.toString());
+            server.notifyObserver(args[args.length-1], searchedPlayer.getPlayerStats().getJsonStats());
         } catch (Exception e) {
             System.out.println("Player information server error");
-            return "0";
+            return "Player information couldn't be sent";
         }
 
 
-        return "1";
+        //<comando> <nombre del jugador buscado> <json de estadisticas>
+        // info max {"wins": 0, "losses": 0, ...} (revisar clase PlayerStatistics para ver el json)
+        return "info " + args[0] + " " + searchedPlayer.getPlayerStats().getJsonStats();
     }
 
 }
