@@ -83,11 +83,15 @@ public class SetPlayerCharacteristics extends Command {
 
             this.server.addObserver(args[0], player);
 
-            player.update("1");
+            player.update("setCharacteristics welcome");
         } catch (Exception e) {
             System.out.println(e);
             return "setCharacteristics error";
         }
-        return "1";
+
+
+        //<comando> mensaje de confirmacion
+        // setCharacteristics welcome
+        return "setCharacteristics " + args[0];
     }
 }
