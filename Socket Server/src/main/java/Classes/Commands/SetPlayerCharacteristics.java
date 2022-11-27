@@ -62,6 +62,7 @@ public class SetPlayerCharacteristics extends Command {
                 newCharacter.setName(characterName);
                 newCharacter.setType(characterType);
                 newCharacter.setCurrentTexture(image);
+                newCharacter.setHealth(250);
 
                 JSONArray weaponList = character.getJSONArray("weapons");
 
