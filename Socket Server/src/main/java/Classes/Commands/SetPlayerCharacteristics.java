@@ -1,18 +1,12 @@
 package Classes.Commands;
 
 import Classes.Abstract.Command;
-import Classes.Character;
 import Classes.GameObjects.GameCharacter;
 import Classes.GameObjects.GameWeapon;
 import Classes.ServerClasses.Player;
-import Classes.ServerClasses.Server;
 import Enumerators.eType;
-import Interfaces.iCommand;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.Arrays;
 
 public class SetPlayerCharacteristics extends Command {
 
@@ -82,6 +76,7 @@ public class SetPlayerCharacteristics extends Command {
 
 
             this.server.addObserver(args[0], player);
+            this.server.addPlayerToGameQueue(args[0]);
 
             player.update("setCharacteristics welcome");
         } catch (Exception e) {

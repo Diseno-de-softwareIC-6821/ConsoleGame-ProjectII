@@ -12,7 +12,25 @@ public class SkipCommand extends Command {
 
     @Override
     public String execute(String[] args, Player player) {
-        return "-1";
+
+        if(server.getCurrentTurn().equals(args[args.length-1])){
+            try {
+                server.nextTurn();
+                server.notifyObserver(args[args.length-1], "Turn skipped");
+            } catch (Exception e) {
+                System.out.println("Skip server error");
+            }
+            return "skip " + args[args.length-1] + " turn skipped";
+        }
+        else{
+            try {
+                server.notifyObserver(args[args.length-1], "It's not your turn");
+            } catch (Exception e) {
+                System.out.println("Skip server error");
+            }
+            return "skip " + args[args.length-1] + " not its turn";
+        }
+
     }
 
 }
