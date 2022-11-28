@@ -25,27 +25,26 @@ public class SetPlayerCharacteristics extends Command {
 
         if(this.server.getPlayerByName(args[0]) != null){
             try {
-                // le envia al cliente un 0 porque ya existe un jugador con ese nombre
-                // y cierra la conexion
                 player.update("setCharacteristics 0");
 
             } catch (Exception e) {
-                System.out.println("Name already exists; server error");
+                System.out.println("server error");
             }
             return "setCharacteristics " +args[0]+ " name already exists";
         }
-
 
         try {
 
             player.setPlayerName(args[0]);
             args[1] = args[1].replace("_", " ");
-            JSONArray charactersJson = new JSONArray(args[1]);
 
+            JSONArray charactersFromPlayer = new JSONArray(args[1]);
+            JSONArray characterListForPlayer = new JSONArray();
 
-            for(int i = 0; i < charactersJson.length(); i++){
+            for(int i = 0; i < charactersFromPlayer.length(); i++){
 
-                JSONObject character = charactersJson.getJSONObject(i);
+                JSONObject character = charactersFromPlayer.getJSONObject(i);
+                JSONObject characterForPlayer = new JSONObject();
 
                 GameCharacter.GameCharacterBuilder newCharacter = new GameCharacter.GameCharacterBuilder();
 
@@ -60,33 +59,43 @@ public class SetPlayerCharacteristics extends Command {
 
                 JSONArray weaponList = character.getJSONArray("weapons");
 
+                characterForPlayer.put("name", characterName);
                 for(int weaponIndex = 0; weaponIndex < weaponList.length(); weaponIndex++){
                     GameWeapon.GameWeaponBuilder newWeapon = new GameWeapon.GameWeaponBuilder();
 
-                    newWeapon.setName(weaponList.getString(weaponIndex));
+                    String weaponName = weaponList.getString(weaponIndex);
+
+                    newWeapon.setName(weaponName);
                     newWeapon.randomizeDamage();
                     newWeapon.setType(eType.NONE);
 
-                    newCharacter.addItem(newWeapon.build());
+                    GameWeapon builtWeapon = newWeapon.build();
+
+                    JSONObject weaponDamage = new JSONObject();
+                    weaponDamage.put("damage", builtWeapon.getDamageList());
+                    characterForPlayer.put(weaponName, weaponDamage);
+
+                    newCharacter.addItem(builtWeapon);
+
                 }
 
+                characterListForPlayer.put(characterForPlayer);
                 player.addCharacter(characterName, newCharacter.build());
 
             }
 
-
             this.server.addObserver(args[0], player);
             this.server.addPlayerToGameQueue(args[0]);
 
-            player.update("setCharacteristics welcome");
+            player.update("setCharacteristics " + characterListForPlayer);
         } catch (Exception e) {
             System.out.println(e);
             return "setCharacteristics error";
         }
 
 
-        //<comando> mensaje de confirmacion
-        // setCharacteristics welcome
+        //<comando> <json con el daño de las armas de cada personaje>
+        // setCharacteristics [{"name":"Toledo", "El Sarpe":[0.2,0.4,0.3,0.6]}, {"name":"Chayanne", "Torero":[0.2,0.4,0.3,0.6]}]
         return "setCharacteristics " + args[0];
     }
 }
