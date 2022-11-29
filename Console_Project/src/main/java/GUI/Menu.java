@@ -144,8 +144,10 @@ public class Menu extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-        GameScreen createGameScreen = new GameScreen(new javax.swing.JDialog(), true, this); 
-        createGameScreen.setVisible(true); 
+        /*GameScreen createGameScreen = new GameScreen(new javax.swing.JDialog(), true, this); 
+        createGameScreen.setVisible(true); */
+        CreateClass createClassScreen = new CreateClass(new javax.swing.JDialog(), true, null);
+        createClassScreen.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

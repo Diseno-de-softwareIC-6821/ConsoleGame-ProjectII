@@ -5,27 +5,25 @@ import Classes.ServerClasses.Player;
 
 public class SurrenderCommand extends Command {
 
-    public SurrenderCommand(Player player) throws Exception {
-        super(player);
+    public SurrenderCommand() throws Exception {
+        super();
     }
 
     @Override
-    public int execute(String[] args) {
+    public String execute(String[] args, Player player) {
         // args[length-1] = nombre del jugador que envio el mensaje
 
         try {
 
-            server.notifyObserver(args[args.length-1], "You surrendered");
-            server.removeObserver(args[args.length-1]);
-            player.getSocket().close();
+            this.server.notifyObserver(args[args.length-1], "You surrendered");
+            this.server.removePlayerFromGameQueue(args[args.length-1]);
 
             server.notifyAllObservers("Player " + args[args.length-1] + " surrendered");
         } catch (Exception e) {
             System.out.println("Surrender server error");
-            return 0;
         }
 
-        return -1;
+        return "surrender " + args[args.length-1] + " surrendered";
     }
 }
 

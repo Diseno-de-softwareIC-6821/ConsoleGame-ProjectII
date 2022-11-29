@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import Enums.eType;
 import SocketClient.Client;
 import java.awt.Image;
 import java.io.File;
@@ -35,7 +36,7 @@ public class CreateClass extends javax.swing.JDialog {
     private ArrayList<String> usedNames = new ArrayList<>();
     private ArrayList<String> usedWeapons = new ArrayList<>();
     private ArrayList<String> jsonKeys = new ArrayList<>();
-    private String actImg;
+    private String gameScreenConfig = "";
     
     /**
      * Creates new form CreateWarrior
@@ -99,12 +100,10 @@ public class CreateClass extends javax.swing.JDialog {
         lblActImg = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tCharacteristics = new javax.swing.JTable();
-        lblSelWarrior = new javax.swing.JLabel();
-        lblSelWeapon1 = new javax.swing.JLabel();
-        lblSelWeapon2 = new javax.swing.JLabel();
-        lblSelWeapon3 = new javax.swing.JLabel();
-        lblSelWeapon4 = new javax.swing.JLabel();
-        lblSelWeapon5 = new javax.swing.JLabel();
+        lblSelWarrior1 = new javax.swing.JLabel();
+        lblSelWarrior2 = new javax.swing.JLabel();
+        lblSelWarrior3 = new javax.swing.JLabel();
+        lblSelWarrior4 = new javax.swing.JLabel();
         cbElements = new javax.swing.JComboBox<>();
         tfActSelection = new javax.swing.JTextField();
         ignore = new javax.swing.JLabel();
@@ -150,14 +149,17 @@ public class CreateClass extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tCharacteristics);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 260, 130));
-        getContentPane().add(lblSelWarrior, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 80, 80));
-        getContentPane().add(lblSelWeapon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 80, 80));
-        getContentPane().add(lblSelWeapon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 80, 80));
-        getContentPane().add(lblSelWeapon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 80, 80));
-        getContentPane().add(lblSelWeapon4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 350, 80, 80));
-        getContentPane().add(lblSelWeapon5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 350, 80, 80));
+        getContentPane().add(lblSelWarrior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 90, 90));
+        getContentPane().add(lblSelWarrior2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 90, 90));
+        getContentPane().add(lblSelWarrior3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 90, 90));
+        getContentPane().add(lblSelWarrior4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 90, 90));
 
         cbElements.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fire", "Wind", "Water", "White Magic", "Black Magic", "Electricity", "Ice", "Acid", "Spirituality", "Iron" }));
+        cbElements.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbElementsActionPerformed(evt);
+            }
+        });
         getContentPane().add(cbElements, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 160, -1));
         getContentPane().add(tfActSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 160, -1));
 
@@ -178,7 +180,7 @@ public class CreateClass extends javax.swing.JDialog {
                 btnContinueActionPerformed(evt);
             }
         });
-        getContentPane().add(btnContinue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 480, 80, 40));
+        getContentPane().add(btnContinue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 80, 40));
 
         btnSelectImg.setText("Select Image");
         btnSelectImg.setEnabled(false);
@@ -210,7 +212,7 @@ public class CreateClass extends javax.swing.JDialog {
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         //CODE TO ADD WARRIOR AND WEAPONS
-        DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+        //DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
         String actSel = tfActSelection.getText();
         System.out.println(counterChars);
         if (!actSel.equals("") || counterChars == 1){
@@ -228,6 +230,7 @@ public class CreateClass extends javax.swing.JDialog {
                         btnSelectImg.setEnabled(true);
                         tfActSelection.setEnabled(false);
                         btnSelect.setEnabled(false);
+                        gameScreenConfig+= actSel + "-";
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "The warrior name " + actSel + " has been already used.\nSelect another name.");
@@ -235,8 +238,43 @@ public class CreateClass extends javax.swing.JDialog {
                 }
                 case 1 ->{
                     actSel = (String) cbElements.getSelectedItem();
-                    this.setCharacteristicsCommand += jsonKeys.get(counterChars + 1) + actSel + "\",";
                     tCharacteristics.setValueAt(actSel, counterChars, 1);
+                    switch(actSel){
+                        case "Fire" ->{
+                            actSel = eType.FUEGO.toString();
+                        }
+                        case "Wind" ->{
+                            actSel = eType.AIRE.toString();
+                        }
+                        case "Water" ->{
+                            actSel = eType.AGUA.toString();
+                        }
+                        case "White Magic" ->{
+                            actSel = eType.MAGIABLANCA.toString();
+                        }
+                        case "Black Magic" ->{
+                            actSel = eType.MAGIANEGRA.toString();
+                        }
+                        case "Electricity" ->{
+                            actSel = eType.ELECTRICIDAD.toString();
+                        }
+                        case "Ice" ->{
+                            actSel = eType.HIELO.toString();
+                        }
+                        case "Acid" ->{
+                            actSel = eType.ACIDO.toString();
+                        }
+                        case "Spirituality" ->{
+                            actSel = eType.ESPIRITUALIDAD.toString();
+                        }
+                        case "Iron" ->{
+                            actSel = eType.HIERRO.toString();
+                        }
+                        default -> {
+                            actSel = eType.NONE.toString();
+                        }
+                    }
+                    this.setCharacteristicsCommand += jsonKeys.get(counterChars + 1) + actSel + "\",";
                     cbElements.setVisible(false);
                     tfActSelection.setVisible(true);
                     //tfActSelection.setEnabled(true);
@@ -297,6 +335,9 @@ public class CreateClass extends javax.swing.JDialog {
                     //client.sendMessage(name);
                     //}
                     JOptionPane.showMessageDialog(null, "Welcome " + name);
+                    //CHANGES ALL " " FOR "_" SERVER NEEDS IT
+                    setCharacteristicsCommand = setCharacteristicsCommand.replace(' ', '_');
+                    name = name.replace(' ','_');
                     setCharacteristicsCommand = "setCharacteristics " + name + " " + setCharacteristicsCommand + "]";
                     //        create a new client
                     System.out.println(setCharacteristicsCommand);
@@ -311,7 +352,7 @@ public class CreateClass extends javax.swing.JDialog {
             }            
             default -> { 
                 JOptionPane.showMessageDialog(null, "Class #" + warriorCount + " created succesfully");
-                DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
+                //DefaultTableModel model = (DefaultTableModel)tCharacteristics.getModel();
                 for (int i = 0; i < 7; i++){
                     tCharacteristics.setValueAt("", i, 1);
                 }
@@ -323,12 +364,6 @@ public class CreateClass extends javax.swing.JDialog {
                 btnContinue.setEnabled(false);   
                 usedWeapons.removeAll(usedWeapons);
                 this.pintarImagen(this.lblActImg, "");
-                this.pintarImagen(this.lblSelWarrior, "");
-                this.pintarImagen(this.lblSelWeapon1, "");
-                this.pintarImagen(this.lblSelWeapon2, "");
-                this.pintarImagen(this.lblSelWeapon3, "");
-                this.pintarImagen(this.lblSelWeapon4, "");
-                this.pintarImagen(this.lblSelWeapon5, "");
                 this.setCharacteristicsCommand += ",";
                 System.out.println(setCharacteristicsCommand);
             }
@@ -343,52 +378,62 @@ public class CreateClass extends javax.swing.JDialog {
             File fichero = fc.getSelectedFile(); 
             String rute = fichero.getAbsolutePath();
             this.pintarImagen(this.lblActImg, rute);
-            switch(counterChars){
+            switch(warriorCount){
                 case 1 ->{
-                    this.pintarImagen(this.lblSelWarrior, rute);
-                    btnSelect.setEnabled(true);
-                    cbElements.setEnabled(true);
+                    this.pintarImagen(this.lblSelWarrior1, rute);
+                }
+                case 2 ->{
+                    this.pintarImagen(this.lblSelWarrior2, rute);
                 }
                 case 3 ->{
-                    this.pintarImagen(this.lblSelWeapon1, rute);
+                    this.pintarImagen(this.lblSelWarrior3, rute);
                 }
                 case 4 ->{
-                    this.pintarImagen(this.lblSelWeapon2, rute);
-                }
-                case 5 ->{
-                    this.pintarImagen(this.lblSelWeapon3, rute);
-                }
-                case 6 ->{
-                    this.pintarImagen(this.lblSelWeapon4, rute);
-                }
-                case 7 ->{
-                    this.pintarImagen(this.lblSelWeapon5, rute);
+                    this.pintarImagen(this.lblSelWarrior4, rute);
                 }
             }
-            this.setCharacteristicsCommand += jsonKeys.get(counterChars) + rute + "\",";
+            btnSelect.setEnabled(true);
+            cbElements.setEnabled(true);
             btnSelectImg.setEnabled(false);
             tfActSelection.setEnabled(true);
+            System.out.println(rute);
+            this.setCharacteristicsCommand += jsonKeys.get(counterChars) + rute.replace("\\", "\\\\") + "\",";
+            gameScreenConfig+= rute + "-";
+            
         }
         
     }//GEN-LAST:event_btnSelectImgActionPerformed
 
     private void btnAutoSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoSelectActionPerformed
-        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny Wise\",\"image\":\"src\\main\\java\\Images\\PennyWise.jpg\",\"type\":\"White Magic\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael Myers\",\"image\":\"src\\main\\java\\Images\\MichaelMyers.jpg\",\"type\":\"Black Magic\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\main\\java\\Images\\Chayanne.jpg\",\"type\":\"Iron\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\main\\java\\Images\\Toledo.jpg\",\"type\":\"Acid\",\"weapons\":[\"Estar Ebrio\",\"El Puro\",\"El Chopo\",\"Rap\",\"Flow\"]}]";
-        this.client = new Client();
+        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny_Wise\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
+        //this.client = new Client();
         try {
-            client.startConnection("localhost", 8080);
+            //client.startConnection("localhost", 8080);
         } catch (Exception ex) {
             System.out.println("ERROR CREATING CLIENT AUTOMATICALLY");
             //Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            client.sendMessage(setCharacteristicsCommand);
+            //client.sendMessage(setCharacteristicsCommand);
         } catch (Exception ex) {
             System.out.println("ERROR SENDING CHARACTERISTICS TO SERVER AUTOMATICALLY");
             //Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
+        GameScreen createGameScreen; 
+        try {
+            gameScreenConfig = "Penny Wise-src\\main\\java\\Images\\PennyWise.jpg-Michael Myers-src\\main\\java\\Images\\MichaelMyers.jpg-Chayanne-src\\main\\java\\Images\\Chayanne.jpg-Toledo-src\\main\\java\\Images\\Toledo.jpg-";
+            createGameScreen = new GameScreen(new javax.swing.JDialog(), true, setCharacteristicsCommand, gameScreenConfig);
+            createGameScreen.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnAutoSelectActionPerformed
+
+    private void cbElementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbElementsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbElementsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -445,12 +490,10 @@ public class CreateClass extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblActImg;
     private javax.swing.JLabel lblChoosenClass;
-    private javax.swing.JLabel lblSelWarrior;
-    private javax.swing.JLabel lblSelWeapon1;
-    private javax.swing.JLabel lblSelWeapon2;
-    private javax.swing.JLabel lblSelWeapon3;
-    private javax.swing.JLabel lblSelWeapon4;
-    private javax.swing.JLabel lblSelWeapon5;
+    private javax.swing.JLabel lblSelWarrior1;
+    private javax.swing.JLabel lblSelWarrior2;
+    private javax.swing.JLabel lblSelWarrior3;
+    private javax.swing.JLabel lblSelWarrior4;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tCharacteristics;
     private javax.swing.JTextField tfActSelection;

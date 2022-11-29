@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import JSONParser.JSONParser;
+import static JSONParser.Tests.json;
 import SocketClient.Client;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -27,34 +29,49 @@ public class GameScreen extends javax.swing.JDialog {
     private Timer temporizador;
     private static Menu menuScreen;
     private static Client client;
+    private static String warClass;
+    private static String teamConfig;
     
     /**
      * Creates new form GameScreen
      */
-    public GameScreen(javax.swing.JDialog parent, boolean modal, Menu menuScreen) {
+    public GameScreen(javax.swing.JDialog parent, boolean modal, String warClass, String teamConfig) throws Exception {
         super(parent, modal);
         initComponents();
         
-        this.client = client;
+        this.warClass = warClass;
+        this.client = new Client(this);
+        client.startConnection("localhost", 8080);
+        //System.out.println(warClass);
+        client.sendMessage(warClass);
+        String[] screenConfig = teamConfig.split("-");
+        
         
         //WINDOW IN MIDDLE OF THE SCREEN
         this.setLocationRelativeTo(this);
-        
+        /*
         //EXECUTE CREATE CLASS SCREEN
         CreateClass createClassScreen = new CreateClass(new javax.swing.JDialog(), true, client);
         createClassScreen.setVisible(true);
+        */
+        
         
         this.menuScreen = menuScreen;
         //change background color
         this.pintarImagen(this.background, "src\\main\\java\\Images\\fondoEstrellado.jpg");
         //taConsole.setBackground(Color.BLACK);
-        this.pintarImagen(this.lblTeam1, "src\\main\\java\\Images\\MichaelMyers.jpg");
-        this.pintarImagen(this.lblTeam2, "src\\main\\java\\Images\\PennyWise.jpg");
-        this.pintarImagen(this.lblTeam3, "src\\main\\java\\Images\\Chayanne.jpg");
-        this.pintarImagen(this.lblTeam4, "src\\main\\java\\Images\\Tracer.jpg");
-        this.pintarImagen(this.lblAttackingImg, "src\\main\\java\\Images\\PennyWiseAttack.jpg");
-        this.pintarImagen(this.lblAttackedByImg, "src\\main\\java\\Images\\Lucy.jpg");
+        this.pintarImagen(this.lblTeam1, screenConfig[1]);
+        this.pintarImagen(this.lblTeam2, screenConfig[3]);
+        this.pintarImagen(this.lblTeam3, screenConfig[5]);
+        this.pintarImagen(this.lblTeam4, screenConfig[7]);
+        //this.pintarImagen(this.lblAttackingImg, "src\\main\\java\\Images\\PennyWiseAttack.jpg");
+        //this.pintarImagen(this.lblAttackedByImg, "src\\main\\java\\Images\\Lucy.jpg");
         this.pintarImagen(this.lblAttackingDamageCircle, "src\\main\\java\\Images\\RedCircle.png");
+        
+        lblNameChar1.setText(screenConfig[0]);
+        lblNameChar2.setText(screenConfig[2]);
+        lblNameChar3.setText(screenConfig[4]);
+        lblNameChar4.setText(screenConfig[6]);
     }
 
     //METHODS DEFINED TO USE IN THE GUI
@@ -84,7 +101,9 @@ public class GameScreen extends javax.swing.JDialog {
         this.repaint();
     }
     
-    
+    public void actualizarTablaArmas(String JSON, String warriorName){
+         JSONParser.parseWeapons(tUserStats1, JSON, warriorName);
+    }
     
     
     /**
@@ -288,19 +307,19 @@ public class GameScreen extends javax.swing.JDialog {
 
         lblLifeChar1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         lblLifeChar1.setForeground(new java.awt.Color(255, 255, 255));
-        lblLifeChar1.setText("100%");
+        lblLifeChar1.setText("250");
 
         lblLifeChar2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         lblLifeChar2.setForeground(new java.awt.Color(255, 255, 255));
-        lblLifeChar2.setText("100%");
+        lblLifeChar2.setText("250");
 
         lblLifeChar3.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         lblLifeChar3.setForeground(new java.awt.Color(255, 255, 255));
-        lblLifeChar3.setText("100%");
+        lblLifeChar3.setText("250");
 
         lblLifeChar4.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         lblLifeChar4.setForeground(new java.awt.Color(255, 255, 255));
-        lblLifeChar4.setText("100%");
+        lblLifeChar4.setText("250");
 
         lblYourTeam.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         lblYourTeam.setForeground(new java.awt.Color(255, 255, 255));
@@ -328,7 +347,7 @@ public class GameScreen extends javax.swing.JDialog {
 
         lblLifeActChar.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         lblLifeActChar.setForeground(new java.awt.Color(255, 255, 255));
-        lblLifeActChar.setText("100%");
+        lblLifeActChar.setText("250");
 
         tUserStats1.setBackground(new java.awt.Color(0, 0, 0));
         tUserStats1.setForeground(new java.awt.Color(51, 255, 0));
@@ -343,15 +362,7 @@ public class GameScreen extends javax.swing.JDialog {
             new String [] {
                 "Weapons", "", "", "", "", "", "", "", "", "", ""
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane5.setViewportView(tUserStats1);
 
         javax.swing.GroupLayout pTeamLayout = new javax.swing.GroupLayout(pTeam);
@@ -359,15 +370,15 @@ public class GameScreen extends javax.swing.JDialog {
         pTeamLayout.setHorizontalGroup(
             pTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pTeamLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(51, 51, 51)
                 .addComponent(lblLifeChar1)
-                .addGap(86, 86, 86)
+                .addGap(92, 92, 92)
                 .addComponent(lblLifeChar2)
-                .addGap(78, 78, 78)
+                .addGap(94, 94, 94)
                 .addComponent(lblLifeChar3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblLifeChar4)
-                .addGap(44, 44, 44))
+                .addGap(55, 55, 55))
             .addGroup(pTeamLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,14 +559,18 @@ public class GameScreen extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GameScreen dialog = new GameScreen(new javax.swing.JDialog(), true, menuScreen);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                try {
+                    GameScreen dialog = new GameScreen(new javax.swing.JDialog(), true, warClass, teamConfig);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

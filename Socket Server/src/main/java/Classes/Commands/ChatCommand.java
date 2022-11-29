@@ -6,12 +6,12 @@ import Interfaces.iCommand;
 
 public class ChatCommand extends Command {
 
-    public ChatCommand(Player player) throws Exception {
-        super(player);
+    public ChatCommand() throws Exception {
+        super();
     }
 
     @Override
-    public int execute(String[] args) {
+    public String execute(String[] args, Player player) {
 
         // args[0 to length-1] = mensaje
         // args[length-1] = nombre del jugador que envio el mensaje
@@ -28,10 +28,14 @@ public class ChatCommand extends Command {
 
         } catch (Exception e) {
             System.out.println("Chat server error");
-            return 0;
+            return args[args.length-1] + ": " + "chat couldn't be sent";
         }
 
-        return 1;
+
+        //envia a todos
+        //<comando ejecutado> mensaje
+
+        return "chat " + message;
 
     }
 }
