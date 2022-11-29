@@ -5,10 +5,7 @@
 package GUI;
 
 import JSONParser.JSONParser;
-import static JSONParser.Tests.json;
 import SocketClient.Client;
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
@@ -16,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -31,6 +29,8 @@ public class GameScreen extends javax.swing.JDialog {
     private static Client client;
     private static String warClass;
     private static String teamConfig;
+    public boolean flag;
+    public int actCharacter = 1;
     
     /**
      * Creates new form GameScreen
@@ -42,8 +42,21 @@ public class GameScreen extends javax.swing.JDialog {
         this.warClass = warClass;
         this.client = new Client(this);
         client.startConnection("localhost", 8080);
+        String name = "";
+        
+        while(!flag){
+            name = JOptionPane.showInputDialog("Type your user name please");
+            client.sendMessage("setCharacteristics " + name + " " + warClass);
+            Thread.sleep(2000);
+            if (!flag){
+                JOptionPane.showMessageDialog(null, "Name has been already used. Please select another one");
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Welcome " + name);
+        
+        
         //System.out.println(warClass);
-        client.sendMessage(warClass);
+        
         String[] screenConfig = teamConfig.split("-");
         
         
@@ -104,8 +117,16 @@ public class GameScreen extends javax.swing.JDialog {
     public void actualizarTablaArmas(String JSON, String warriorName){
          JSONParser.parseWeapons(tUserStats1, JSON, warriorName);
     }
-    
-    
+    public void actualizarAttackedBy(String JSON){
+         this.pintarImagen(this.lblAttackedByImg, JSONParser.parseAttackedBy(lblAttackedByText, lblAttackedByText1, 
+                lblAttackedByStats1, lblAttackedByStats2, lblAttackedByStats3, lblAttackedByStats4, lblLifeChar1,
+                lblLifeChar2, lblLifeChar3, lblLifeChar4, lblAttackedByImg, JSON));
+    }
+    public void actualizarAttacking(String JSON){
+         this.pintarImagen(this.lblAttackingImg, JSONParser.parseAttacking(lblAttackingText1, lblAttackingText2, 
+                lblAttackingDamage, lblAttackingImg, JSON));
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -451,48 +472,39 @@ public class GameScreen extends javax.swing.JDialog {
 
         lblAttackedByText.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackedByText.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByText.setText("Attacked by Player 1 with SUB-ZERO [ICE]");
         getContentPane().add(lblAttackedByText, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, -1, -1));
 
         lblAttackedByText1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackedByText1.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByText1.setText("Weapon: Ice Shoot");
         getContentPane().add(lblAttackedByText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, -1, -1));
 
         lblAttackedByStats1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackedByStats1.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByStats1.setText("WW: 0%");
         getContentPane().add(lblAttackedByStats1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, -1, -1));
 
         lblAttackedByStats2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackedByStats2.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByStats2.setText("PW: -71%");
         getContentPane().add(lblAttackedByStats2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, -1, -1));
 
         lblAttackedByStats3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackedByStats3.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByStats3.setText("SP: 0%");
         getContentPane().add(lblAttackedByStats3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, -1));
 
         lblAttackedByStats4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackedByStats4.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackedByStats4.setText("AW: -22%");
         getContentPane().add(lblAttackedByStats4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, -1));
         getContentPane().add(lblAttackedByImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 460, 240));
 
         lblAttackingText1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackingText1.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackingText1.setText("You attacked Player 2 with PENNYWISE [ESPIRITUAL]");
         getContentPane().add(lblAttackingText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, -1, -1));
 
         lblAttackingText2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblAttackingText2.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackingText2.setText("Weapon: Glove");
         getContentPane().add(lblAttackingText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, -1, -1));
 
         lblAttackingDamage.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         lblAttackingDamage.setForeground(new java.awt.Color(255, 255, 255));
-        lblAttackingDamage.setText("-127%");
         getContentPane().add(lblAttackingDamage, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, -1, -1));
 
         lblAttackingDamageCircle.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
@@ -509,15 +521,23 @@ public class GameScreen extends javax.swing.JDialog {
         
         String consoleInp = tfEnterCommand.getText();
         switch(consoleInp){
-            case("MORITE"):{
+            case("MORITE")->{
                 dispose();
                 menuScreen.setVisible(true);
-                break;
             }
-            case(""):{
-                break;
+            case("")->{
+                
             }
-            default:{
+            case("testAttackedBy")->{
+                String JSON = "{\"attacked\":\"Player 1\", \"warrior\":\"SUB ZERO\",\"element\":\"ICE\",\"weapon\":\"Ice Shoot\",\"damageDone\":{\"W1\":[\"name1 hola\",\"30\"],\"W2\":[\"name2\",\"32\"],\"W3\":[\"name3\",\"33\"],\"W4\":[\"name4\",\"35\"]},\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\"}";
+                this.actualizarAttackedBy(JSON);
+            }
+            case("testAttacking")->{
+                String JSON = "{\"attacked\":\"Player 2\", \"warrior\":\"PENNYWISE\",\"element\":\"ESPIRITUAL\",\"weapon\":\"Globe\",\"damageDone\":\"127\",\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\"}";
+                this.actualizarAttacking(JSON);
+            }
+            
+            default->{
                 tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
                 tfEnterCommand.setText("");
                 try {
