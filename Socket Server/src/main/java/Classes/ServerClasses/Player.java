@@ -1,9 +1,7 @@
 package Classes.ServerClasses;
 
-import Classes.Character;
-import Classes.Commands.*;
 import Classes.GameObjects.GameCharacter;
-import Interfaces.iCommand;
+import Functional.Proxy;
 import Interfaces.iObserver;
 
 import java.io.BufferedReader;
@@ -11,9 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static java.util.Arrays.copyOfRange;
 
@@ -24,8 +20,9 @@ public class Player extends Thread implements iObserver {
     private final Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
-    private HashMap<String, iCommand> commands;
+    private Proxy commandProxy;
     private HashMap<String, GameCharacter> characters;
+    private PlayerStatistics playerStats;
 
     private boolean wildCardIsReady;
 
@@ -37,27 +34,16 @@ public class Player extends Thread implements iObserver {
     // 3: esteban
 
 
-    public Player(Socket socket) throws Exception {
+    public Player(Socket socket, PlayerStatistics stats) throws Exception {
 
         this.clientSocket = socket;
         this.name = "";
         this.server = Server.getInstance();
         this.wildCardIsReady = false;
         this.characters = new HashMap<>();
-        commands = new HashMap<>(
-                Map.of(
-                        "attack", new AttackCommand(this),
-                        "chat", new ChatCommand(this),
-                        "dm", new DirectMessageCommand(this),
-                        "info", new PlayerInformationCommand(this),
-                        "reload", new ReloadCommand(this),
-                        "skip", new SkipCommand(this),
-                        "surrender", new SurrenderCommand(this),
-                        "tie", new TieCommand(this),
-                        "wildcard", new WildcardCommand(this),
-                        "setCharacteristics", new SetPlayerCharacteristics(this)
-                )
-        );
+        this.commandProxy = new Proxy();
+        this.playerStats = stats;
+
     }
 
     @Override
@@ -88,53 +74,10 @@ public class Player extends Thread implements iObserver {
                 String[] args = copyOfRange(inputLine, 1, inputLine.length);
 
                 if(this.name.equals("") && command.equals("setCharacteristics")){
-                    this.commands.get("setCharacteristics").execute(args, this);
+                    this.commandProxy.execute(inputLine, this);
                     continue;
                 }
-                // this.commands.execute(inputLine);
-                switch (command) {
-                    case "attack" -> {
-
-                        this.commands.get("attack").execute(args, this);
-                        this.update("An attack has been made ");
-                    }
-                    case "chat" -> {
-                        this.commands.get("chat").execute(args, this);
-                        this.update("message sent");
-                    }
-                    case "dm" -> {
-                        this.commands.get("dm").execute(args, this);
-                        this.update("A dm message has been sent");
-                    }
-                    case "info" -> {
-
-                        this.update("Player info has been requested");
-                    }
-                    case "reload" -> {
-
-                        this.update("Weapons have been reloaded");
-                    }
-                    case "skip" -> {
-
-                        this.update("Turn has been skipped");
-                    }
-                    case "surrender" -> {
-
-                        this.server.notifyAllObservers(this.name + " has surrendered");
-                    }
-                    case "tie" -> {
-
-                        this.server.notifyAllObservers("A tie has been requested");
-                    }
-                    case "wildcard" -> {
-
-                        this.server.notifyAllObservers(this.name + "has used a wildcard");
-                    }
-                    default -> {
-                        Server.getInstance().notifyAllObservers("User " + inputLine[0] + " connected");
-                        System.out.println("User " + inputLine[0] + " connected");
-                    }
-                }
+                this.commandProxy.execute(inputLine, this);
             }
 
 
@@ -166,13 +109,19 @@ public class Player extends Thread implements iObserver {
         this.characters.put(characterName, character);
     }
 
-    public GameCharacter getCharacter(String characterName) {
+    public GameCharacter getCharacterByName(String characterName) {
         return this.characters.get(characterName);
+    }
+    public HashMap<String, GameCharacter> getCharacters() {
+        return this.characters;
     }
 
     public Socket getSocket() {
         return this.clientSocket;
     }
 
+    public PlayerStatistics getPlayerStats() {
+        return this.playerStats;
+    }
 
 }

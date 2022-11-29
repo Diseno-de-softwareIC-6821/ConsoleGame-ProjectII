@@ -1,19 +1,55 @@
 package Classes.Commands;
 
 import Classes.Abstract.Command;
+import Classes.GameObjects.GameCharacter;
+import Classes.GameObjects.GameWeapon;
+import Classes.Item;
 import Classes.ServerClasses.Player;
-import Interfaces.iCommand;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReloadCommand extends Command {
 
 
-    public ReloadCommand(Player player) throws Exception {
-        super(player);
+    public ReloadCommand() throws Exception {
+        super();
     }
 
     @Override
-    public int execute(String[] args, Player player) {
-        return -1;
+    public String execute(String[] args, Player player) {
+
+        //args[length-1] = nombre del jugador que ejecuto el comando;
+
+        if(!server.getCurrentTurn().equals(args[args.length-1])){
+            return "reload " + args[args.length-1] + " not its turn";
+        }
+
+        HashMap<String, GameCharacter> characters = player.getCharacters();
+
+        for(GameCharacter character : characters.values()){
+
+            ArrayList<Item> items = character.getItems();
+
+            for(Item item : items){
+
+                GameWeapon characterWeapon = (GameWeapon) item;
+                characterWeapon.setAvailable(true);
+
+            }
+        }
+        String notification = "reload All weapons reloaded";
+
+        try{
+            server.nextTurn();
+            server.notifyObserver(args[args.length-1], notification);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        //<comando> mensaje
+        // reload All weapons reloaded
+        return "reload "+args[args.length-1];
     }
 
 }

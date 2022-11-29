@@ -6,8 +6,9 @@ import Classes.ServerClasses.Player;
 import Data.Log;
 import Interfaces.iCommand;
 
-public class Proxy implements iCommand {
+import java.util.Arrays;
 
+public class Proxy implements iCommand {
 
     public Proxy() throws Exception {
         CommandManger.getInstance().setBasicsCommands();
@@ -15,16 +16,23 @@ public class Proxy implements iCommand {
     }
 
     @Override
-    public int execute(String[] args, Player player) {
-        System.out.println("Command to execute: " + args.toString());
+    public String execute(String[] args, Player player) {
+
+        for(String arg : args){
+            System.out.println(arg);
+        }
+
         String command = args[0];
-        Command command1 = CommandManger.getInstance().getCommand(command);
-        command1.execute(args, player);
+        String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);
+
+        Command executableCommand = CommandManger.getInstance().getCommand(command);
+
+        String action = executableCommand.execute(commandArgs, player);
         try {
-            Log.getInstance().print("Command executed: " + args.toString());
+            Log.getInstance().print("Command executed: " + action);
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return "0";
     }
 }

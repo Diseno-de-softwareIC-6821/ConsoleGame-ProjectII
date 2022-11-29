@@ -22,8 +22,9 @@ public class GameCharacter extends Character {
         return type;
     }
 
-    public void receiveDamage(int damage){
+    public int receiveDamage(int damage){
         this.setHealth(this.getHealth() - damage);
+        return this.getHealth();
     }
 
     public Item getItemByName(String name){

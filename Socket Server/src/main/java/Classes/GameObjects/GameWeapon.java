@@ -5,6 +5,7 @@ import Enumerators.eType;
 import Enums.eItemClass;
 import Enums.eItemEffect;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameWeapon extends Item {
@@ -32,8 +33,19 @@ public class GameWeapon extends Item {
     public boolean isAvailable(){
         return this.available;
     }
+    public void setAvailable(boolean available){
+        this.available = available;
+    }
     public double getDamage(eType effect){
         return this.damageMap.get(effect);
+    }
+
+    public ArrayList<Double> getDamageList(){
+        ArrayList<Double> damageList = new ArrayList<>();
+        for(int i = 0; i < damageMap.size(); i++){
+            damageList.add(damageMap.get(eType.values()[i]));
+        }
+        return damageList;
     }
 
     public static class GameWeaponBuilder {
