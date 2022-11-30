@@ -36,7 +36,7 @@ public class CreateClass extends javax.swing.JDialog {
     private ArrayList<String> usedNames = new ArrayList<>();
     private ArrayList<String> usedWeapons = new ArrayList<>();
     private ArrayList<String> jsonKeys = new ArrayList<>();
-    private String actImg;
+    private String gameScreenConfig = "";
     
     /**
      * Creates new form CreateWarrior
@@ -230,6 +230,7 @@ public class CreateClass extends javax.swing.JDialog {
                         btnSelectImg.setEnabled(true);
                         tfActSelection.setEnabled(false);
                         btnSelect.setEnabled(false);
+                        gameScreenConfig+= actSel + "-";
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "The warrior name " + actSel + " has been already used.\nSelect another name.");
@@ -395,28 +396,39 @@ public class CreateClass extends javax.swing.JDialog {
             cbElements.setEnabled(true);
             btnSelectImg.setEnabled(false);
             tfActSelection.setEnabled(true);
-            this.setCharacteristicsCommand += jsonKeys.get(counterChars) + rute + "\",";
+            System.out.println(rute);
+            this.setCharacteristicsCommand += jsonKeys.get(counterChars) + rute.replace("\\", "\\\\") + "\",";
+            gameScreenConfig+= rute + "-";
             
         }
         
     }//GEN-LAST:event_btnSelectImgActionPerformed
 
     private void btnAutoSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoSelectActionPerformed
-        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny_Wise\",\"image\":\"src\\main\\java\\Images\\PennyWise.jpg\",\"type\":\"White_Magic\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src\\main\\java\\Images\\MichaelMyers.jpg\",\"type\":\"Black_Magic\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\main\\java\\Images\\Chayanne.jpg\",\"type\":\"Iron\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\main\\java\\Images\\Toledo.jpg\",\"type\":\"Acid\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
-        this.client = new Client();
+        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny_Wise\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
+        //this.client = new Client();
         try {
-            client.startConnection("localhost", 8080);
+            //client.startConnection("localhost", 8080);
         } catch (Exception ex) {
             System.out.println("ERROR CREATING CLIENT AUTOMATICALLY");
             //Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            client.sendMessage(setCharacteristicsCommand);
+            //client.sendMessage(setCharacteristicsCommand);
         } catch (Exception ex) {
             System.out.println("ERROR SENDING CHARACTERISTICS TO SERVER AUTOMATICALLY");
             //Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
+        GameScreen createGameScreen; 
+        try {
+            gameScreenConfig = "Penny Wise-src\\main\\java\\Images\\PennyWise.jpg-Michael Myers-src\\main\\java\\Images\\MichaelMyers.jpg-Chayanne-src\\main\\java\\Images\\Chayanne.jpg-Toledo-src\\main\\java\\Images\\Toledo.jpg-";
+            createGameScreen = new GameScreen(new javax.swing.JDialog(), true, setCharacteristicsCommand, gameScreenConfig);
+            createGameScreen.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnAutoSelectActionPerformed
 
     private void cbElementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbElementsActionPerformed

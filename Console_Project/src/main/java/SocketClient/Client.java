@@ -1,5 +1,6 @@
 package SocketClient;
 
+import GUI.GameScreen;
 import GUI.Menu;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,11 +13,13 @@ public class Client  {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+    private GameScreen gameScreen;
 
     public Client() {
     }
 
-    public Client(Menu menuScreen) {
+    public Client(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
     }
     
     public void startConnection(String ip, int port) throws Exception {
@@ -49,10 +52,13 @@ public class Client  {
             String inputLine;
             try {
                 while ((inputLine = in.readLine()) != null) {
-
+                    String[] newLine = inputLine.split(" ");
+                    String command = newLine[0];
                     //meter funciones para que haga cosas
-                    switch(inputLine){
-                        
+                    switch(command){
+                        case "setCharacteristics" ->{
+                            this.gameScreen.actualizarTablaArmas(inputLine, "");
+                        }
                         
                         default ->{
                             if (inputLine.equals("0")){
@@ -74,5 +80,11 @@ public class Client  {
             }
         }).start();
     }
+
+    public void setGameScreen(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
+    }
+    
+    
 
 }
