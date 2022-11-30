@@ -33,6 +33,7 @@ public class CommandManger {
        addCommand("tie", new TieCommand());
        addCommand("wildcard", new WildcardCommand());
        addCommand( "setCharacteristics", new SetPlayerCharacteristics());
+       addCommand("stats", new StatisticsCommand());
    }
 
 }

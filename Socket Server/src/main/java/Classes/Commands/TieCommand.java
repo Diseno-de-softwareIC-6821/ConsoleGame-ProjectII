@@ -20,8 +20,9 @@ public class TieCommand extends Command {
                 server.addPlayerToTieQueue(args[args.length-1]);
             }
             catch (Exception e) {
-                System.out.println("Tie server error");
+                System.out.println("couldn't send notification");
             }
+            System.out.println("Tie created");
             return "tie " + args[args.length-1] + " asked for a tie";
 
         }
@@ -33,7 +34,7 @@ public class TieCommand extends Command {
                     server.notifyObserver(args[args.length-1], "tie No_one_asked_for_a_tie");
                 }
                 catch (Exception e) {
-                    System.out.println("Tie server error");
+                    System.out.println("couldn't send notification to" + args[args.length-1]);
                 }
                 return "tie " + args[args.length-1] + " no tie proposal";
             }
@@ -44,7 +45,7 @@ public class TieCommand extends Command {
                     server.addPlayerToTieQueue(args[args.length-1]);
                 }
                 catch (Exception e) {
-                    System.out.println("Tie server error");
+                    System.out.println("couldn't send notification");
                 }
                 return "tie " + args[args.length-1] + " accepted the tie";
 
@@ -55,7 +56,7 @@ public class TieCommand extends Command {
                     server.cancelTie();
                 }
                 catch (Exception e) {
-                    System.out.println("Tie server error");
+                    System.out.println("couldn't send notification");
                 }
                 return "tie " + args[args.length-1] + " cancelled the tie";
             }
