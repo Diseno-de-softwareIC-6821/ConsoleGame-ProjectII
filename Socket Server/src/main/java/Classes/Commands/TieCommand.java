@@ -20,7 +20,7 @@ public class TieCommand extends Command {
                 server.addPlayerToTieQueue(args[args.length-1]);
             }
             catch (Exception e) {
-                System.out.println("couldn't send notification");
+                System.out.println("couldn't send notification to all");
             }
             System.out.println("Tie created");
             return "tie " + args[args.length-1] + " asked for a tie";
