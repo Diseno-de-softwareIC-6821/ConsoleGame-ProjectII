@@ -22,6 +22,7 @@ public class Server implements iObservable {
         this.players  = new HashMap<>();
         this.playerQueue = new ArrayDeque<>();
         this.serverSocket = new ServerSocket(port);
+        this.tieQueue = new ArrayList<>();
 
     }
 
@@ -76,6 +77,7 @@ public class Server implements iObservable {
     }
 
     public void nextTurn() throws Exception {
+
         String temp = playerQueue.poll();
         playerQueue.add(temp);
         this.notifyAllObservers("It's " + playerQueue.peek() + "'s turn");
@@ -89,13 +91,27 @@ public class Server implements iObservable {
         this.playerQueue.remove(name);
     }
 
+    public void checkWin() throws Exception {
+        if(this.playerQueue.size() == 1){
+            this.notifyAllObservers("game Over " + this.playerQueue.peek() + " wins");
+            //ads win to player
+            this.getPlayerByName(this.playerQueue.peek()).getPlayerStats().addWin();
+            this.playerQueue.clear();
+        }
+    }
+
+    public Boolean isTieQueueEmpty(){
+        return this.tieQueue.isEmpty();
+    }
+
     public void addPlayerToTieQueue(String name) throws Exception {
+        this.tieQueue.add(name);
+
         if(this.checkSurrender()){
             this.notifyAllObservers("Game over");
             this.playerQueue.clear();
         }
 
-        this.tieQueue.add(name);
     }
 
     public void cancelTie() throws Exception {
@@ -105,7 +121,7 @@ public class Server implements iObservable {
 
         ArrayList<String> playerQueueList = new ArrayList<>(this.playerQueue);
 
-        return playerQueueList.equals(this.tieQueue);
+        return (playerQueueList.containsAll(this.tieQueue) && this.tieQueue.containsAll(playerQueueList));
     }
 
     public void stop() throws Exception {

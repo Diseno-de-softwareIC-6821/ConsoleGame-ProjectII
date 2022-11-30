@@ -84,6 +84,7 @@ public class Player extends Thread implements iObserver {
         } catch (Exception e) {
             try {
                 this.server.removeObserver(this.name);
+                this.server.removePlayerFromGameQueue(this.name);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

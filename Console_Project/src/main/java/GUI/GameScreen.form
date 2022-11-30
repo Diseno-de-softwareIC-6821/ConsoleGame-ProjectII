@@ -35,7 +35,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="380" width="208" height="125"/>
+          <AbsoluteConstraints x="10" y="380" width="208" height="140"/>
         </Constraint>
       </Constraints>
 
@@ -50,18 +50,20 @@
               <Color blue="0" green="ff" red="33" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="6">
+              <Table columnCount="2" rowCount="7">
                 <Column editable="false" title="MY STATUS:" type="java.lang.Object">
                   <Data value="Wins:"/>
                   <Data value="Losses:"/>
                   <Data value="Attacks:"/>
                   <Data value="Success:"/>
                   <Data value="Failed:"/>
+                  <Data value="Total Kills:"/>
                   <Data value="Giveup:"/>
                 </Column>
                 <Column editable="false" title="#XX" type="java.lang.Object">
                   <Data value="null"/>
                   <Data value=""/>
+                  <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
@@ -96,7 +98,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="250" width="208" height="125"/>
+          <AbsoluteConstraints x="10" y="240" width="208" height="140"/>
         </Constraint>
       </Constraints>
 
@@ -111,18 +113,20 @@
               <Color blue="0" green="ff" red="33" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="6">
+              <Table columnCount="2" rowCount="7">
                 <Column editable="false" title="AGAINST:" type="java.lang.Object">
                   <Data value="Wins:"/>
                   <Data value="Losses:"/>
                   <Data value="Attacks:"/>
                   <Data value="Success:"/>
                   <Data value="Failed:"/>
+                  <Data value="Total Kills:"/>
                   <Data value="Giveup:"/>
                 </Column>
                 <Column editable="false" title="#XX" type="java.lang.Object">
                   <Data value="null"/>
                   <Data value=""/>
+                  <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
                   <Data value="null"/>
@@ -213,7 +217,6 @@
                 </Property>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="Console log...&#xa;"/>
                 <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="99" red="ff" type="rgb"/>
                 </Property>
@@ -230,6 +233,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="tpConsole">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -261,7 +265,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="6" y="6" width="208" height="240"/>
+          <AbsoluteConstraints x="10" y="10" width="208" height="230"/>
         </Constraint>
       </Constraints>
 

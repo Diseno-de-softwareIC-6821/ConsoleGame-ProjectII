@@ -54,7 +54,7 @@ public class Client  {
                 while ((inputLine = in.readLine()) != null) {
                     String[] newLine = inputLine.split(" ");
                     String command = newLine[0];
-                    System.out.println("COMMAND SENDED");
+                    System.out.println("COMMAND SENDED: " + inputLine);
                     //meter funciones para que haga cosas
                     switch(command){
                         case "setCharacteristics" ->{
@@ -72,22 +72,52 @@ public class Client  {
                         
                         case "attacking" ->{
                             System.out.println("ENTERED ATTACKING");
-                            gameScreen.actualizarAttacking(inputLine);
+                            gameScreen.actualizarAttacking(newLine[1]);
                         }
                         
                         case "attackedBy" ->{
                             System.out.println("ENTERED ATTACKING");
-                            gameScreen.actualizarAttackedBy(inputLine);
+                            gameScreen.actualizarAttackedBy(newLine[1]);
                         }
                         
+                        case "chat" ->{
+                            System.out.println("ENTERED CHAT");
+                            gameScreen.sendMessageChat(newLine[1].replace("_", " "));
+                        }
+                        case "dm" ->{
+                            System.out.println("ENTERED DM CHAT");
+                            gameScreen.sendMessageChat(newLine[1].replace("_", " "));
+                        }
+                        case "reload" ->{
+                            System.out.println("ENTERED RELOAD");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
+                        case "info" ->{
+                            System.out.println("ENTERED INFO");
+                            gameScreen.selectedInfoUpdate(inputLine);
+                        }
+                        case "skip" ->{
+                            System.out.println("ENTERED SKIP");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
+                        case "surrender" ->{
+                            System.out.println("ENTERED SURRENDER");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
+                        case "tie" ->{
+                            System.out.println("ENTERED TIE");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
+                        case "stats" ->{
+                            System.out.println("ENTERED STATS");
+                            gameScreen.updateMyStats(inputLine);
+                        }
+                        case "logs" ->{
+                            System.out.println("ENTERED LOGS");
+                            gameScreen.showLogsFile(inputLine);
+                        }
                         default ->{
-                            if (inputLine.equals("0")){
-                                
-                            }
-                            else{
-                                
-                                //this.menuScreen.addPlayerConnected(inputLine);
-                            }
+                            gameScreen.sendMessageConsole(inputLine);
                            
                         }
                     }

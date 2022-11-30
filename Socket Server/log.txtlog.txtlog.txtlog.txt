@@ -1,1 +1,0 @@
-Command executed: setCharacteristics Daniel name already exists

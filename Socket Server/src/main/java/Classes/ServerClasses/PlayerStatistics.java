@@ -49,13 +49,13 @@ public class PlayerStatistics {
 
     public String getJsonStats(){
         JSONObject jsonStats = new JSONObject();
-        jsonStats.put("wins", this.wins);
-        jsonStats.put("losses", this.losses);
-        jsonStats.put("totalAttacks", this.totalAttacks);
-        jsonStats.put("successfulAttacks", this.successfulAttacks);
-        jsonStats.put("failedAttacks", this.failedAttacks);
-        jsonStats.put("totalKilledEnemies", this.totalKilledEnemies);
-        jsonStats.put("surrenderedGames", this.surrenderedGames);
+        jsonStats.put("wins", Integer.toString(this.wins));
+        jsonStats.put("losses", Integer.toString(this.losses));
+        jsonStats.put("totalAttacks", Integer.toString(this.totalAttacks));
+        jsonStats.put("successfulAttacks", Integer.toString(this.successfulAttacks));
+        jsonStats.put("failedAttacks", Integer.toString(this.failedAttacks));
+        jsonStats.put("totalKilledEnemies", Integer.toString(this.totalKilledEnemies));
+        jsonStats.put("surrenderedGames", Integer.toString(this.surrenderedGames));
 
         return jsonStats.toString();
     }

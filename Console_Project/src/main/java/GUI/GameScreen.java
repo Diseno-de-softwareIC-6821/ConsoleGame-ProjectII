@@ -6,8 +6,10 @@ package GUI;
 
 import JSONParser.JSONParser;
 import SocketClient.Client;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -15,6 +17,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -30,7 +35,8 @@ public class GameScreen extends javax.swing.JDialog {
     private static String warClass;
     private static String teamConfig;
     public boolean flag;
-    public int actCharacter = 1;
+    public HashMap<String, JLabel > teamName = new HashMap<>();
+    public HashMap<String, JLabel > teamLife = new HashMap<>();
     
     /**
      * Creates new form GameScreen
@@ -53,7 +59,7 @@ public class GameScreen extends javax.swing.JDialog {
             }
         }
         JOptionPane.showMessageDialog(null, "Welcome " + name);
-        
+        this.setTitle("Game Screen: " + name);
         
         //System.out.println(warClass);
         
@@ -77,6 +83,7 @@ public class GameScreen extends javax.swing.JDialog {
         this.pintarImagen(this.lblTeam2, screenConfig[3]);
         this.pintarImagen(this.lblTeam3, screenConfig[5]);
         this.pintarImagen(this.lblTeam4, screenConfig[7]);
+
         //this.pintarImagen(this.lblAttackingImg, "src\\main\\java\\Images\\PennyWiseAttack.jpg");
         //this.pintarImagen(this.lblAttackedByImg, "src\\main\\java\\Images\\Lucy.jpg");
         this.pintarImagen(this.lblAttackingDamageCircle, "src\\main\\java\\Images\\RedCircle.png");
@@ -85,6 +92,18 @@ public class GameScreen extends javax.swing.JDialog {
         lblNameChar2.setText(screenConfig[2]);
         lblNameChar3.setText(screenConfig[4]);
         lblNameChar4.setText(screenConfig[6]);
+        
+        //HELPS TO UPDATE ACT CHAR ON GUI
+        teamName.put(screenConfig[0], this.lblNameChar1);
+        teamName.put(screenConfig[2], this.lblNameChar2);
+        teamName.put(screenConfig[4], this.lblNameChar3);
+        teamName.put(screenConfig[6], this.lblNameChar4);
+        
+        teamLife.put(screenConfig[0], this.lblLifeChar1);
+        teamLife.put(screenConfig[2], this.lblLifeChar2);
+        teamLife.put(screenConfig[4], this.lblLifeChar3);
+        teamLife.put(screenConfig[6], this.lblLifeChar4);
+
     }
 
     //METHODS DEFINED TO USE IN THE GUI
@@ -115,18 +134,50 @@ public class GameScreen extends javax.swing.JDialog {
     }
     
     public void actualizarTablaArmas(String JSON, String warriorName){
-         JSONParser.parseWeapons(tUserStats1, JSON, warriorName);
+         JSONParser.parseWeapons(tUserStats1, JSON, warriorName, lblActChar);
     }
     public void actualizarAttackedBy(String JSON){
          this.pintarImagen(this.lblAttackedByImg, JSONParser.parseAttackedBy(lblAttackedByText, lblAttackedByText1, 
                 lblAttackedByStats1, lblAttackedByStats2, lblAttackedByStats3, lblAttackedByStats4, lblLifeChar1,
-                lblLifeChar2, lblLifeChar3, lblLifeChar4, lblAttackedByImg, JSON));
+                lblLifeChar2, lblLifeChar3, lblLifeChar4, lblAttackedByImg, teamName, teamLife, lblActChar, lblLifeActChar, JSON));
     }
     public void actualizarAttacking(String JSON){
          this.pintarImagen(this.lblAttackingImg, JSONParser.parseAttacking(lblAttackingText1, lblAttackingText2, 
                 lblAttackingDamage, lblAttackingImg, JSON));
     }
-   
+    
+    public void sendMessageConsole(String message){
+        //tpConsole.setText(tpConsole.getText() + "\n" + message);
+        StyledDocument doc = tpConsole.getStyledDocument();
+
+        SimpleAttributeSet keyWord = new SimpleAttributeSet();
+        StyleConstants.setForeground(keyWord, Color.RED);
+        
+
+        //  Add some text
+
+        try
+        {
+            doc.insertString(doc.getLength(), "\n" + message, keyWord );
+        }
+        catch(Exception e) { System.out.println(e); }
+    }
+    public void sendMessageChat(String message){
+        taLog.setText(taLog.getText() + message + "\n");
+        
+    }
+    public void selectedInfoUpdate(String JSON){
+        System.out.println("INFO TO PARSE: " + JSON);
+        JSONParser.parseInfo(lblActChar, lblLifeActChar, tUserStats1, JSON);
+    }
+    
+    public void updateMyStats(String JSON){
+        JSONParser.parseStats(tUserStats, JSON);
+    }
+    
+    public void showLogsFile(String JSON){
+        JSONParser.parseLog(taLog, JSON);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -194,6 +245,7 @@ public class GameScreen extends javax.swing.JDialog {
                 {"Attacks:", null},
                 {"Success:", null},
                 {"Failed:", null},
+                {"Total Kills:", null},
                 {"Giveup:", null}
             },
             new String [] {
@@ -210,7 +262,7 @@ public class GameScreen extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tUserStats);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 208, 125));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 208, 140));
 
         tAgainstStats.setBackground(new java.awt.Color(0, 0, 0));
         tAgainstStats.setForeground(new java.awt.Color(51, 255, 0));
@@ -221,6 +273,7 @@ public class GameScreen extends javax.swing.JDialog {
                 {"Attacks:", null},
                 {"Success:", null},
                 {"Failed:", null},
+                {"Total Kills:", null},
                 {"Giveup:", null}
             },
             new String [] {
@@ -237,7 +290,7 @@ public class GameScreen extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tAgainstStats);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 208, 125));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 208, 140));
 
         taLog.setEditable(false);
         taLog.setBackground(new java.awt.Color(0, 0, 0));
@@ -245,10 +298,10 @@ public class GameScreen extends javax.swing.JDialog {
         taLog.setForeground(new java.awt.Color(51, 255, 0));
         taLog.setLineWrap(true);
         taLog.setRows(5);
-        taLog.setText("Console log...\n");
         taLog.setSelectionColor(new java.awt.Color(255, 153, 0));
         jScrollPane6.setViewportView(taLog);
 
+        tpConsole.setEditable(false);
         tpConsole.setBackground(new java.awt.Color(0, 0, 0));
         tpConsole.setForeground(new java.awt.Color(51, 255, 0));
         jScrollPane7.setViewportView(tpConsole);
@@ -322,7 +375,7 @@ public class GameScreen extends javax.swing.JDialog {
         });
         jScrollPane3.setViewportView(tRanking);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 208, 240));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 208, 230));
 
         pTeam.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -536,25 +589,75 @@ public class GameScreen extends javax.swing.JDialog {
                     Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            case("testAttackedBy")->{
-                String JSON = "{\"attacked\":\"Player 1\", \"warrior\":\"SUB ZERO\",\"element\":\"ICE\",\"weapon\":\"Ice Shoot\",\"damageDone\":{\"W1\":[\"name1 hola\",\"30\"],\"W2\":[\"name2\",\"32\"],\"W3\":[\"name3\",\"33\"],\"W4\":[\"name4\",\"35\"]},\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\"}";
-                this.actualizarAttackedBy(JSON);
-            }
-            case("testAttacking")->{
-                String JSON = "{\"attacked\":\"Player 2\", \"warrior\":\"PENNYWISE\",\"element\":\"ESPIRITUAL\",\"weapon\":\"Globe\",\"damageDone\":\"127\",\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\"}";
-                this.actualizarAttacking(JSON);
-            }
-            
-            default->{
-                /*tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
-                tfEnterCommand.setText("");
+            case("chat")->{
                 try {
                     client.sendMessage(consoleInp);
                 } catch (Exception ex) {
-                    System.out.println("ERROR SENDING CONSOLE INPUT TO SERVER");
-                }*/
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("dm")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("reload")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("info")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("skip")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("surrender")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("tie")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("stats")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("logs")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            default->{
+                sendMessageConsole("INVALID COMMAND");
             }     
-        }        
+        }
+        tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
+        tfEnterCommand.setText("");        
     }//GEN-LAST:event_EnterCommand
 
     /**

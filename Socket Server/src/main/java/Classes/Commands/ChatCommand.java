@@ -23,8 +23,10 @@ public class ChatCommand extends Command {
             message.append(args[i]).append(" ");
         }
 
+        String notification = "chat "+args[args.length-1]+":_"+message.toString().replace(" ", "_");
+
         try {
-            server.notifyAllObservers(message.toString());
+            server.notifyAllObservers(notification);
 
         } catch (Exception e) {
             System.out.println("Chat server error");
@@ -34,6 +36,7 @@ public class ChatCommand extends Command {
 
         //envia a todos
         //<comando ejecutado> mensaje
+        // chat max:_hola_como_estan
 
         return "chat " + message;
 

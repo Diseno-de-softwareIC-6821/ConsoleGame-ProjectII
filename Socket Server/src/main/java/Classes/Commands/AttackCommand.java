@@ -62,6 +62,11 @@ public class AttackCommand extends Command {
 
         //Character validations
         GameCharacter attackingCharacter = player.getCharacterByName(args[1]);
+
+        for(GameCharacter character: player.getCharacters().values()){
+            System.out.println(character.getName());
+        }
+
         if(attackingCharacter == null){
             // character validation
             try {
@@ -108,7 +113,8 @@ public class AttackCommand extends Command {
 
         //Attack loop
 
-        JSONObject attackSummary = new JSONObject();
+        JSONObject attackingSummary = new JSONObject();
+        JSONObject attackedBySummary = new JSONObject();
         JSONArray damageLog = new JSONArray();
 
         HashMap<String, GameCharacter> attackedCharacters = attackedPlayer.getCharacters();
@@ -118,7 +124,7 @@ public class AttackCommand extends Command {
         for(GameCharacter character : attackedCharacters.values()){
             JSONObject characterDamageDone = new JSONObject();
 
-            
+
 
             double damage = attackingWeapon.getDamage(character.getType());
 
@@ -134,19 +140,27 @@ public class AttackCommand extends Command {
                 player.getPlayerStats().addKilledEnemy();
             }
             characterDamageDone.put("name", character.getName());
-            characterDamageDone.put("damage", damageDone);
-            
+            characterDamageDone.put("damage", Integer.toString(damageDone));
+
             damageLog.put(characterDamageDone);
 
         }
 
-        attackSummary.put("attacked", args[0]);
-        attackSummary.put("warrior", args[1]);
-        attackSummary.put("element", attackingCharacter.getType());
-        attackSummary.put("weapon", args[2]);
-        attackSummary.put("damageDone", totalDamage);
-        attackSummary.put("warriorImg", attackingCharacter.getCurrentTexture());
-        attackSummary.put("damageDone", damageLog);
+        attackingSummary.put("attacked", args[0]);
+        attackingSummary.put("warrior", args[1]);
+        attackingSummary.put("element", attackingCharacter.getType());
+        attackingSummary.put("weapon", args[2]);
+        attackingSummary.put("damageTotal", Double.toString(totalDamage));
+        attackingSummary.put("warriorImg", attackingCharacter.getCurrentTexture());
+        attackingSummary.put("damageDone", damageLog);
+
+        attackedBySummary.put("attacked", args[args.length-1]);
+        attackedBySummary.put("warrior", args[1]);
+        attackedBySummary.put("element", attackingCharacter.getType());
+        attackedBySummary.put("weapon", args[2]);
+        attackedBySummary.put("damageTotal", Double.toString(totalDamage));
+        attackedBySummary.put("warriorImg", attackingCharacter.getCurrentTexture());
+        attackedBySummary.put("damageDone", damageLog);
 
         attackingWeapon.setAvailable(false);
 
@@ -158,18 +172,19 @@ public class AttackCommand extends Command {
             player.getPlayerStats().addFailedAttack();
         }
 
-        String notification = "attack "+ attackSummary;
+        String notification1 = "attack "+ attackingSummary;
+        String notification2 = "attack "+ attackedBySummary;
 
         try{
             this.server.nextTurn();
 
             //notify attacking player
-            String attackingPlayerNotification = "attacking " + attackSummary;
-            this.server.notifyObserver(args[0], attackingPlayerNotification);
+            String attackingPlayerNotification = "attacking " + attackingSummary.toString().replace(' ', '_');;
+            this.server.notifyObserver(args[args.length-1], attackingPlayerNotification);
 
             //notify attacking player
-            String attackedPlayerNotification = "attackedBy " + attackSummary;
-            this.server.notifyObserver(args[args.length-1], attackedPlayerNotification);
+            String attackedPlayerNotification = "attackedBy " + attackedBySummary.toString().replace(' ', '_');;;
+            this.server.notifyObserver(args[0], attackedPlayerNotification);
 
 
         }
@@ -181,8 +196,10 @@ public class AttackCommand extends Command {
         // envia al atacado
         // <commando ejecutado> <jugador que ataco> {"personaje": "daño recibido"}
         // attack daniel {"Michael Myers":79,"Chayanne":57,"Penny Wise":68,"Toledo":23}
-        System.out.println(notification);
-        return notification;
+        System.out.println(notification1);
+        System.out.println(notification2);
+        //JUST RETURNING THIS
+        return notification1;
     }
 }
 

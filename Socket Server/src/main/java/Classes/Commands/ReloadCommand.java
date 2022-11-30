@@ -38,7 +38,7 @@ public class ReloadCommand extends Command {
 
             }
         }
-        String notification = "reload All weapons reloaded";
+        String notification = "reload All_weapons_reloaded";
 
         try{
             server.nextTurn();
