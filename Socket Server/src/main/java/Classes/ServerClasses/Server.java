@@ -76,6 +76,12 @@ public class Server implements iObservable {
     }
 
     public void nextTurn() throws Exception {
+
+        if(this.playerQueue.size() == 1){
+            this.notifyAllObservers("game Over" + this.playerQueue.peek() + " wins");
+            this.playerQueue.clear();
+        }
+
         String temp = playerQueue.poll();
         playerQueue.add(temp);
         this.notifyAllObservers("It's " + playerQueue.peek() + "'s turn");
