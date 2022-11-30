@@ -593,6 +593,13 @@ public class GameScreen extends javax.swing.JDialog {
                     Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            case("skip")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             default->{
                 sendMessageConsole("INVALID COMMAND");
             }     

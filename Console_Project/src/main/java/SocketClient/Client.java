@@ -96,7 +96,10 @@ public class Client  {
                             System.out.println("ENTERED INFO");
                             gameScreen.selectedInfoUpdate(inputLine);
                         }
-                        
+                        case "skip" ->{
+                            System.out.println("ENTERED SKIP");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
                         default ->{
                             gameScreen.sendMessageConsole(inputLine);
                            
