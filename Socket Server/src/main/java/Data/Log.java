@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Log {
-    private String SAVE_PATH = "log.txt";
+    private String SAVE_PATH = "log/";
     private String name = "";
     private File file;
     private PrintWriter pw;
