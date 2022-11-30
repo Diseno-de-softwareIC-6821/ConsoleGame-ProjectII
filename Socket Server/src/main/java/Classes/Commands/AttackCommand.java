@@ -139,7 +139,7 @@ public class AttackCommand extends Command {
                 player.getPlayerStats().addKilledEnemy();
             }
             characterDamageDone.put("name", character.getName());
-            characterDamageDone.put("damage", damageDone);
+            characterDamageDone.put("damage", Integer.toString(damageDone));
             
             damageLog.put(characterDamageDone);
 
@@ -149,7 +149,7 @@ public class AttackCommand extends Command {
         attackSummary.put("warrior", args[1]);
         attackSummary.put("element", attackingCharacter.getType());
         attackSummary.put("weapon", args[2]);
-        attackSummary.put("damageDone", totalDamage);
+        attackSummary.put("damageTotal", Double.toString(totalDamage));
         attackSummary.put("warriorImg", attackingCharacter.getCurrentTexture());
         attackSummary.put("damageDone", damageLog);
 
@@ -169,12 +169,12 @@ public class AttackCommand extends Command {
             this.server.nextTurn();
 
             //notify attacking player
-            String attackingPlayerNotification = "attacking " + attackSummary;
-            this.server.notifyObserver(args[0], attackingPlayerNotification);
+            String attackingPlayerNotification = "attacking " + attackSummary.toString().replace(' ', '_');;
+            this.server.notifyObserver(args[args.length-1], attackingPlayerNotification);
 
             //notify attacking player
-            String attackedPlayerNotification = "attackedBy " + attackSummary;
-            this.server.notifyObserver(args[args.length-1], attackedPlayerNotification);
+            String attackedPlayerNotification = "attackedBy " + attackSummary.toString().replace(' ', '_');;;
+            this.server.notifyObserver(args[0], attackedPlayerNotification);
 
 
         }

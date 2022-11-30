@@ -48,7 +48,7 @@ public class SetPlayerCharacteristics extends Command {
 
                 GameCharacter.GameCharacterBuilder newCharacter = new GameCharacter.GameCharacterBuilder();
 
-                String characterName = character.getString("name").replace(' ', '_');;
+                String characterName = character.getString("name");
                 eType characterType = eType.valueOf(character.getString("type").toUpperCase());
                 String image = character.getString("image");
 
@@ -63,7 +63,7 @@ public class SetPlayerCharacteristics extends Command {
                 for(int weaponIndex = 0; weaponIndex < weaponList.length(); weaponIndex++){
                     GameWeapon.GameWeaponBuilder newWeapon = new GameWeapon.GameWeaponBuilder();
 
-                    String weaponName = weaponList.getString(weaponIndex).replace(' ', '_');;
+                    String weaponName = weaponList.getString(weaponIndex);
 
                     newWeapon.setName(weaponName);
                     newWeapon.randomizeDamage();
@@ -86,7 +86,7 @@ public class SetPlayerCharacteristics extends Command {
 
             this.server.addObserver(args[0], player);
             this.server.addPlayerToGameQueue(args[0]);
-            player.update("setCharacteristics " + characterListForPlayer);
+            player.update("setCharacteristics " + characterListForPlayer.toString().replace(' ', '_'));
         } catch (Exception e) {
             System.out.println(e);
             return "setCharacteristics error";

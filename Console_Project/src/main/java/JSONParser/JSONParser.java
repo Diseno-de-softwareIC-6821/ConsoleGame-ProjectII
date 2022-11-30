@@ -93,14 +93,16 @@ public class JSONParser {
     public static String parseAttacking(JLabel lblAttackingText1, JLabel lblAttackingText2,
                 JLabel lblAttackingDamage, JLabel lblAttackingImg, String JSON){
         JSONObject objectJSON = new JSONObject(JSON);
-        lblAttackingText1.setText("Attacked by " + objectJSON.getString("attacked") + " with " + objectJSON.getString("warrior") + " [" + objectJSON.getString("element") + "]");
+        lblAttackingText1.setText("You attacked " + objectJSON.getString("attacked") + " with " + objectJSON.getString("warrior") + " [" + objectJSON.getString("element") + "]");
         lblAttackingText2.setText("Weapon: " + objectJSON.getString("weapon"));
-        lblAttackingDamage.setText("- " + objectJSON.getString("damageDone"));
+        lblAttackingDamage.setText("- " + objectJSON.getString("damageTotal"));
         return objectJSON.getString("warriorImg");
     }
     
      public static void main(String[] args) {
-        String JSON = "{\"attacked\":\"Player 1\", \"warrior\":\"SUB ZERO\",\"element\":\"ICE\",\"weapon\":\"Ice Shoot\",\"damageDone\":[{\"name\":\"name1\",\"damage\":\"VALUE1\"},{\"name\":\"name2\",\"damage\":\"VALUE2\"},{\"name\":\"name3\",\"damage\":\"VALUE3\"},{\"name\":\"name4\",\"damage\":\"VALUE4\"}],\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\"}";
-         System.out.println(parseAttackedBy(null, null, null, null, null, null, null, null, null, null, null, JSON));
+        String JSON = "{\"attacked\":\"Player 1\", \"warrior\":\"SUB ZERO\",\"element\":\"ICE\",\"weapon\":\"Ice Shoot\",\"damageTotal\":[{\"name\":\"name1\",\"damage\":\"VALUE1\"},{\"name\":\"name2\",\"damage\":\"VALUE2\"},{\"name\":\"name3\",\"damage\":\"VALUE3\"},{\"name\":\"name4\",\"damage\":\"VALUE4\"}],\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\"}";
+        //String JSON = "{\"weapon\":\"Knife\",\"warrior\":\"Penny Wise\",\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\",\"attacked\":\"Daniel\",\"damageDone\":[{\"damage\":173,\"name\":\"Michael Myers\"},{\"damage\":91,\"name\":\"Chayanne\"},{\"damage\":121,\"name\":\"Penny Wise\"},{\"damage\":87,\"name\":\"Toledo\"}],\"element\":\"MAGIABLANCA\"}";
+         
+        System.out.println(parseAttackedBy(null, null, null, null, null, null, null, null, null, null, null, JSON));
     }
 }

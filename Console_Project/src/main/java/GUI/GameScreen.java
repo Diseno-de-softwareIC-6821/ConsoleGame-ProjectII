@@ -6,6 +6,7 @@ package GUI;
 
 import JSONParser.JSONParser;
 import SocketClient.Client;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
@@ -15,6 +16,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -53,7 +57,7 @@ public class GameScreen extends javax.swing.JDialog {
             }
         }
         JOptionPane.showMessageDialog(null, "Welcome " + name);
-        
+        this.setTitle("Game Screen: " + name);
         
         //System.out.println(warClass);
         
@@ -125,6 +129,27 @@ public class GameScreen extends javax.swing.JDialog {
     public void actualizarAttacking(String JSON){
          this.pintarImagen(this.lblAttackingImg, JSONParser.parseAttacking(lblAttackingText1, lblAttackingText2, 
                 lblAttackingDamage, lblAttackingImg, JSON));
+    }
+    
+    public void sendMessageConsole(String message){
+        //tpConsole.setText(tpConsole.getText() + "\n" + message);
+        StyledDocument doc = tpConsole.getStyledDocument();
+
+        SimpleAttributeSet keyWord = new SimpleAttributeSet();
+        StyleConstants.setForeground(keyWord, Color.RED);
+        
+
+        //  Add some text
+
+        try
+        {
+            doc.insertString(doc.getLength(), "\n" + message, keyWord );
+        }
+        catch(Exception e) { System.out.println(e); }
+    }
+    public void sendMessageChat(String message){
+        taLog.setText(taLog.getText() + message + "\n");
+        
     }
    
     /**
@@ -245,10 +270,10 @@ public class GameScreen extends javax.swing.JDialog {
         taLog.setForeground(new java.awt.Color(51, 255, 0));
         taLog.setLineWrap(true);
         taLog.setRows(5);
-        taLog.setText("Console log...\n");
         taLog.setSelectionColor(new java.awt.Color(255, 153, 0));
         jScrollPane6.setViewportView(taLog);
 
+        tpConsole.setEditable(false);
         tpConsole.setBackground(new java.awt.Color(0, 0, 0));
         tpConsole.setForeground(new java.awt.Color(51, 255, 0));
         jScrollPane7.setViewportView(tpConsole);
@@ -536,25 +561,19 @@ public class GameScreen extends javax.swing.JDialog {
                     Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            case("testAttackedBy")->{
-                String JSON = "{\"attacked\":\"Player 1\", \"warrior\":\"SUB ZERO\",\"element\":\"ICE\",\"weapon\":\"Ice Shoot\",\"damageDone\":{\"W1\":[\"name1 hola\",\"30\"],\"W2\":[\"name2\",\"32\"],\"W3\":[\"name3\",\"33\"],\"W4\":[\"name4\",\"35\"]},\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\"}";
-                this.actualizarAttackedBy(JSON);
-            }
-            case("testAttacking")->{
-                String JSON = "{\"attacked\":\"Player 2\", \"warrior\":\"PENNYWISE\",\"element\":\"ESPIRITUAL\",\"weapon\":\"Globe\",\"damageDone\":\"127\",\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\"}";
-                this.actualizarAttacking(JSON);
-            }
-            
-            default->{
-                /*tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
-                tfEnterCommand.setText("");
+            case("chat")->{
                 try {
                     client.sendMessage(consoleInp);
                 } catch (Exception ex) {
-                    System.out.println("ERROR SENDING CONSOLE INPUT TO SERVER");
-                }*/
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            default->{
+                
             }     
-        }        
+        }
+        tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
+        tfEnterCommand.setText("");        
     }//GEN-LAST:event_EnterCommand
 
     /**

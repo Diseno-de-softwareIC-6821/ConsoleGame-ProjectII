@@ -72,22 +72,21 @@ public class Client  {
                         
                         case "attacking" ->{
                             System.out.println("ENTERED ATTACKING");
-                            gameScreen.actualizarAttacking(inputLine);
+                            gameScreen.actualizarAttacking(newLine[1]);
                         }
                         
                         case "attackedBy" ->{
                             System.out.println("ENTERED ATTACKING");
-                            gameScreen.actualizarAttackedBy(inputLine);
+                            gameScreen.actualizarAttackedBy(newLine[1]);
+                        }
+                        
+                        case "chat" ->{
+                            System.out.println("ENTERED CHAT");
+                            gameScreen.sendMessageChat(newLine[1].replace("_", " "));
                         }
                         
                         default ->{
-                            if (inputLine.equals("0")){
-                                
-                            }
-                            else{
-                                
-                                //this.menuScreen.addPlayerConnected(inputLine);
-                            }
+                            gameScreen.sendMessageConsole(inputLine);
                            
                         }
                     }
