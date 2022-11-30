@@ -62,6 +62,11 @@ public class AttackCommand extends Command {
 
         //Character validations
         GameCharacter attackingCharacter = player.getCharacterByName(args[1]);
+
+        for(GameCharacter character: player.getCharacters().values()){
+            System.out.println(character.getName());
+        }
+
         if(attackingCharacter == null){
             // character validation
             try {
