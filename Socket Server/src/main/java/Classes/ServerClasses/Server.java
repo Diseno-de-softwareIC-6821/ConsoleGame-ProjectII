@@ -77,11 +77,6 @@ public class Server implements iObservable {
 
     public void nextTurn() throws Exception {
 
-        if(this.playerQueue.size() == 1){
-            this.notifyAllObservers("game Over" + this.playerQueue.peek() + " wins");
-            this.playerQueue.clear();
-        }
-
         String temp = playerQueue.poll();
         playerQueue.add(temp);
         this.notifyAllObservers("It's " + playerQueue.peek() + "'s turn");
@@ -93,6 +88,13 @@ public class Server implements iObservable {
 
     public void removePlayerFromGameQueue(String name){
         this.playerQueue.remove(name);
+    }
+
+    public void checkWin() throws Exception {
+        if(this.playerQueue.size() == 1){
+            this.notifyAllObservers("game Over" + this.playerQueue.peek() + " wins");
+            this.playerQueue.clear();
+        }
     }
 
     public Boolean isTieQueueEmpty(){
