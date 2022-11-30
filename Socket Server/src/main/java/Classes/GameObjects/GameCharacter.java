@@ -3,6 +3,7 @@ package Classes.GameObjects;
 import Classes.Character;
 import Classes.Item;
 import Enumerators.eType;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +35,13 @@ public class GameCharacter extends Character {
             }
         }
         return null;
+    }
+
+    public String getJson(){
+        JSONObject character = new JSONObject();
+        character.put("name", this.getName());
+        character.put("texture", this.getCurrentTexture());
+        return character.toString();
     }
 
     public static class GameCharacterBuilder {
