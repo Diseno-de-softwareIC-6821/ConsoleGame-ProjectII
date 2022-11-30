@@ -92,7 +92,7 @@ public class Server implements iObservable {
 
     public void checkWin() throws Exception {
         if(this.playerQueue.size() == 1){
-            this.notifyAllObservers("game Over" + this.playerQueue.peek() + " wins");
+            this.notifyAllObservers("game Over " + this.playerQueue.peek() + " wins");
             this.playerQueue.clear();
         }
     }
@@ -102,12 +102,13 @@ public class Server implements iObservable {
     }
 
     public void addPlayerToTieQueue(String name) throws Exception {
+        this.tieQueue.add(name);
+
         if(this.checkSurrender()){
             this.notifyAllObservers("Game over");
             this.playerQueue.clear();
         }
 
-        this.tieQueue.add(name);
     }
 
     public void cancelTie() throws Exception {
