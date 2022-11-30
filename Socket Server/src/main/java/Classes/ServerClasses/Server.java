@@ -94,6 +94,8 @@ public class Server implements iObservable {
     public void checkWin() throws Exception {
         if(this.playerQueue.size() == 1){
             this.notifyAllObservers("game Over " + this.playerQueue.peek() + " wins");
+            //ads win to player
+            this.getPlayerByName(this.playerQueue.peek()).getPlayerStats().addWin();
             this.playerQueue.clear();
         }
     }
