@@ -1,1 +1,1 @@
-Command executed: setCharacteristics Daniel name already exists
+Command executed: setCharacteristics Pedri

@@ -13,7 +13,7 @@ public class Client  {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
-    private GameScreen gameScreen;
+    public GameScreen gameScreen;
 
     public Client() {
     }
@@ -54,18 +54,38 @@ public class Client  {
                 while ((inputLine = in.readLine()) != null) {
                     String[] newLine = inputLine.split(" ");
                     String command = newLine[0];
+                    System.out.println("COMMAND SENDED");
                     //meter funciones para que haga cosas
                     switch(command){
                         case "setCharacteristics" ->{
-                            this.gameScreen.actualizarTablaArmas(inputLine, "");
+                            if (newLine[1].equals("0")){
+                                System.out.println("TEST");
+                                this.gameScreen.flag = false;
+                            }
+                            else{
+                                System.out.println("SUCCESFULL");
+                                this.gameScreen.actualizarTablaArmas(inputLine, "");
+                                this.gameScreen.flag = true;
+                            }
+                            
+                        }
+                        
+                        case "attacking" ->{
+                            System.out.println("ENTERED ATTACKING");
+                            gameScreen.actualizarAttacking(inputLine);
+                        }
+                        
+                        case "attackedBy" ->{
+                            System.out.println("ENTERED ATTACKING");
+                            gameScreen.actualizarAttackedBy(inputLine);
                         }
                         
                         default ->{
                             if (inputLine.equals("0")){
-                                //menuScreen.registerName = false;
+                                
                             }
                             else{
-                                //menuScreen.registerName = true;
+                                
                                 //this.menuScreen.addPlayerConnected(inputLine);
                             }
                            

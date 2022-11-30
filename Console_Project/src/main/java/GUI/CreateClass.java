@@ -337,13 +337,15 @@ public class CreateClass extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "Welcome " + name);
                     //CHANGES ALL " " FOR "_" SERVER NEEDS IT
                     setCharacteristicsCommand = setCharacteristicsCommand.replace(' ', '_');
-                    name = name.replace(' ','_');
-                    setCharacteristicsCommand = "setCharacteristics " + name + " " + setCharacteristicsCommand + "]";
+                    setCharacteristicsCommand = setCharacteristicsCommand + "]";
+                    //setCharacteristicsCommand = "setCharacteristics " + name + " " + setCharacteristicsCommand + "]";
+                    /*name = name.replace(' ','_');
+                    
                     //        create a new client
                     System.out.println(setCharacteristicsCommand);
                     this.client = new Client();
                     client.startConnection("localhost", 8080);
-                    client.sendMessage(setCharacteristicsCommand);
+                    client.sendMessage(setCharacteristicsCommand);*/
                     dispose();
                 } 
                 catch (Exception ex) {
@@ -405,7 +407,8 @@ public class CreateClass extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSelectImgActionPerformed
 
     private void btnAutoSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoSelectActionPerformed
-        String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny_Wise\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
+        //String setCharacteristicsCommand = "setCharacteristics Daniel [{\"name\":\"Penny_Wise\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Glove\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
+        String setCharacteristicsCommand = "[{\"name\":\"Penny_Wise\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\",\"type\":\"MAGIABLANCA\",\"weapons\":[\"Globe\",\"Knife\",\"Pistol\",\"Grenade\",\"Magic\"]},{\"name\":\"Michael_Myers\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\MichaelMyers.jpg\",\"type\":\"MAGIANEGRA\",\"weapons\":[\"Knife\",\"Hands\",\"Shotgun\",\"Rocket_Launcher\",\"Sing\"]},{\"name\":\"Chayanne\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\",\"type\":\"HIERRO\",\"weapons\":[\"Fists\",\"Six-Pack\",\"Torero\",\"Smile\",\"Paquetote\"]},{\"name\":\"Toledo\",\"image\":\"src\\\\main\\\\java\\\\Images\\\\Toledo.jpg\",\"type\":\"ACIDO\",\"weapons\":[\"Estar_Ebrio\",\"El_Puro\",\"El_Chopo\",\"Rap\",\"Flow\"]}]";
         //this.client = new Client();
         try {
             //client.startConnection("localhost", 8080);
