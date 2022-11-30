@@ -28,6 +28,7 @@ public class DirectMessageCommand extends Command {
 
         try {
             server.notifyObserver(args[0], notification);
+            server.notifyObserver(args[args.length-1], notification);
         } catch (Exception e) {
             System.out.println("Direct message server error");
             return args[args.length-1] + ": " + "dm couldn't be sent";
