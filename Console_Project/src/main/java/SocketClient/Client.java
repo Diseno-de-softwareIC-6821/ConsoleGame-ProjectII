@@ -54,7 +54,7 @@ public class Client  {
                 while ((inputLine = in.readLine()) != null) {
                     String[] newLine = inputLine.split(" ");
                     String command = newLine[0];
-                    System.out.println("COMMAND SENDED");
+                    System.out.println("COMMAND SENDED: " + inputLine);
                     //meter funciones para que haga cosas
                     switch(command){
                         case "setCharacteristics" ->{
@@ -84,9 +84,13 @@ public class Client  {
                             System.out.println("ENTERED CHAT");
                             gameScreen.sendMessageChat(newLine[1].replace("_", " "));
                         }
+                        case "dm" ->{
+                            System.out.println("ENTERED DM CHAT");
+                            gameScreen.sendMessageChat(newLine[1].replace("_", " "));
+                        }
                         
                         default ->{
-                            gameScreen.sendMessageConsole(inputLine);
+                            //gameScreen.sendMessageConsole(inputLine);
                            
                         }
                     }
