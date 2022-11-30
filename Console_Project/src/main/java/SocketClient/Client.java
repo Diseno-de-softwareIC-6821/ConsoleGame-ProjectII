@@ -100,6 +100,14 @@ public class Client  {
                             System.out.println("ENTERED SKIP");
                             gameScreen.sendMessageConsole(inputLine);
                         }
+                        case "surrender" ->{
+                            System.out.println("ENTERED SURRENDER");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
+                        case "tie" ->{
+                            System.out.println("ENTERED TIE");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
                         default ->{
                             gameScreen.sendMessageConsole(inputLine);
                            
