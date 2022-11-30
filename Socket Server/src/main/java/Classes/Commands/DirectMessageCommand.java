@@ -19,7 +19,6 @@ public class DirectMessageCommand extends Command {
         //args[args.length-1] = nombre del jugador que envio el mensaje;
 
         StringBuilder message = new StringBuilder();
-        message.append(args[args.length-1]).append(" ");
 
         for (int i = 1; i < args.length-1; i++) {
             message.append(args[i]).append(" ");
