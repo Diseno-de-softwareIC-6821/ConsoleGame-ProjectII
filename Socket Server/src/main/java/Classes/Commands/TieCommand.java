@@ -27,6 +27,17 @@ public class TieCommand extends Command {
         }
 
         else{
+
+            if(server.isTieQueueEmpty()){
+                try{
+                    server.notifyObserver(args[args.length-1], "tie No_one_asked_for_a_tie");
+                }
+                catch (Exception e) {
+                    System.out.println("Tie server error");
+                }
+                return "tie " + args[args.length-1] + " no tie proposal";
+            }
+
             if(args[0].equalsIgnoreCase("y")){
                 try{
                     server.notifyAllObservers("tie " + args[args.length-1]+":_Accepted_the_tie");

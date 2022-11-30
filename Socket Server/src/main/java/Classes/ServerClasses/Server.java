@@ -89,6 +89,10 @@ public class Server implements iObservable {
         this.playerQueue.remove(name);
     }
 
+    public Boolean isTieQueueEmpty(){
+        return this.tieQueue.isEmpty();
+    }
+
     public void addPlayerToTieQueue(String name) throws Exception {
         if(this.checkSurrender()){
             this.notifyAllObservers("Game over");
