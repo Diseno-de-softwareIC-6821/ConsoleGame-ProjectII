@@ -34,6 +34,7 @@ public class CommandManger {
        addCommand("wildcard", new WildcardCommand());
        addCommand( "setCharacteristics", new SetPlayerCharacteristics());
        addCommand("stats", new StatisticsCommand());
+       addCommand("logs", new LogsCommand());
    }
 
 }

@@ -21,6 +21,7 @@ public class SurrenderCommand extends Command {
 
             this.server.notifyAllObservers("surrender " + args[args.length-1] +":_"+ "surrendered");
             this.server.checkWin();
+            player.getPlayerStats().addSurrenderedGame();
         } catch (Exception e) {
             System.out.println("Surrender server error");
         }
