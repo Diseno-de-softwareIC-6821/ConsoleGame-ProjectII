@@ -94,7 +94,7 @@ public class Client  {
                         }
                         case "info" ->{
                             System.out.println("ENTERED INFO");
-                            gameScreen.selectedInfoUpdate(newLine[1].replace("_", " "));
+                            gameScreen.selectedInfoUpdate(inputLine);
                         }
                         
                         default ->{

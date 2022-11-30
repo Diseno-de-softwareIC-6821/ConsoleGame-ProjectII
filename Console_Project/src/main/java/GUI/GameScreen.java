@@ -119,7 +119,7 @@ public class GameScreen extends javax.swing.JDialog {
     }
     
     public void actualizarTablaArmas(String JSON, String warriorName){
-         JSONParser.parseWeapons(tUserStats1, JSON, warriorName);
+         JSONParser.parseWeapons(tUserStats1, JSON, warriorName, lblActChar);
     }
     public void actualizarAttackedBy(String JSON){
          this.pintarImagen(this.lblAttackedByImg, JSONParser.parseAttackedBy(lblAttackedByText, lblAttackedByText1, 
