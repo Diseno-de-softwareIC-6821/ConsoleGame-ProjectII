@@ -24,9 +24,11 @@ public class Log {
     }
     private Log(){}
     public void startLog(String name){
-        SAVE_PATH = SAVE_PATH + name; //CONCATS THE NAME OF THE LOG FILE
+        //SAVE_PATH = SAVE_PATH + name; //CONCATS THE NAME OF THE LOG FILE
         this.name = name;
-        file = new File(SAVE_PATH);
+        //file = new File(SAVE_PATH);
+
+        file = new File(SAVE_PATH+name);
     }
     public void closeLog(){
         try {

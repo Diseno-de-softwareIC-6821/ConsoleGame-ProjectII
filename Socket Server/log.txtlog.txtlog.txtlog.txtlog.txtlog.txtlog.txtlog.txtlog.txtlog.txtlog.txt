@@ -1,1 +1,1 @@
-Command executed: setCharacteristics 123
+Command executed: setCharacteristics Daniel

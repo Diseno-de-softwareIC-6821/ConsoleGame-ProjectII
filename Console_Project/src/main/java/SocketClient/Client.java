@@ -108,6 +108,10 @@ public class Client  {
                             System.out.println("ENTERED TIE");
                             gameScreen.sendMessageConsole(inputLine);
                         }
+                        case "stats" ->{
+                            System.out.println("ENTERED STATS");
+                            gameScreen.updateMyStats(inputLine);
+                        }
                         default ->{
                             gameScreen.sendMessageConsole(inputLine);
                            

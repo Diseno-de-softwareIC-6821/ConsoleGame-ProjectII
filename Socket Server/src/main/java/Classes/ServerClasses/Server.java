@@ -22,6 +22,7 @@ public class Server implements iObservable {
         this.players  = new HashMap<>();
         this.playerQueue = new ArrayDeque<>();
         this.serverSocket = new ServerSocket(port);
+        this.tieQueue = new ArrayList<>();
 
     }
 
@@ -118,7 +119,7 @@ public class Server implements iObservable {
 
         ArrayList<String> playerQueueList = new ArrayList<>(this.playerQueue);
 
-        return playerQueueList.equals(this.tieQueue);
+        return (playerQueueList.containsAll(this.tieQueue) && this.tieQueue.containsAll(playerQueueList));
     }
 
     public void stop() throws Exception {

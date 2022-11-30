@@ -155,7 +155,10 @@ public class GameScreen extends javax.swing.JDialog {
         System.out.println("INFO TO PARSE: " + JSON);
         JSONParser.parseInfo(lblActChar, lblLifeActChar, tUserStats1, JSON);
     }
-   
+    
+    public void updateMyStats(String JSON){
+        JSONParser.parseStats(tUserStats, JSON);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,6 +226,7 @@ public class GameScreen extends javax.swing.JDialog {
                 {"Attacks:", null},
                 {"Success:", null},
                 {"Failed:", null},
+                {"Total Kills:", null},
                 {"Giveup:", null}
             },
             new String [] {
@@ -239,7 +243,7 @@ public class GameScreen extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tUserStats);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 208, 125));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 208, 140));
 
         tAgainstStats.setBackground(new java.awt.Color(0, 0, 0));
         tAgainstStats.setForeground(new java.awt.Color(51, 255, 0));
@@ -250,6 +254,7 @@ public class GameScreen extends javax.swing.JDialog {
                 {"Attacks:", null},
                 {"Success:", null},
                 {"Failed:", null},
+                {"Total Kills:", null},
                 {"Giveup:", null}
             },
             new String [] {
@@ -266,7 +271,7 @@ public class GameScreen extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tAgainstStats);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 208, 125));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 208, 140));
 
         taLog.setEditable(false);
         taLog.setBackground(new java.awt.Color(0, 0, 0));
@@ -351,7 +356,7 @@ public class GameScreen extends javax.swing.JDialog {
         });
         jScrollPane3.setViewportView(tRanking);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 208, 240));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 208, 230));
 
         pTeam.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -608,6 +613,13 @@ public class GameScreen extends javax.swing.JDialog {
                 }
             }
             case("tie")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("stats")->{
                 try {
                     client.sendMessage(consoleInp);
                 } catch (Exception ex) {

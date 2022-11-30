@@ -1,1 +1,1 @@
-Command executed: setCharacteristics aegasdgag
+Command executed: tie null accepted the tie

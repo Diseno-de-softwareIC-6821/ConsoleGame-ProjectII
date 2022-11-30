@@ -1,1 +1,1 @@
-Command executed: setCharacteristics null name already exists
+Command executed: stats {"wins":"0","surrenderedGames":"0","successfulAttacks":"1","totalAttacks":"1","failedAttacks":"0","totalKilledEnemies":"0","losses":"0"}

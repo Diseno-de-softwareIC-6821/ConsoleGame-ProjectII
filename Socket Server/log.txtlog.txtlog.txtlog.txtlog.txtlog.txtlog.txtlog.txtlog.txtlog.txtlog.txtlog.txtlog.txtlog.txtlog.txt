@@ -1,1 +1,1 @@
-Command executed: setCharacteristics DAdasdsa
+Command executed: setCharacteristics Daniel

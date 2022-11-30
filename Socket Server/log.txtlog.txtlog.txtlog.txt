@@ -1,1 +1,1 @@
-Command executed: setCharacteristics Daniel name already exists
+Command executed: stats {"wins":"0","surrenderedGames":"0","successfulAttacks":"0","totalAttacks":"0","failedAttacks":"0","totalKilledEnemies":"0","losses":"0"}

@@ -1,1 +1,1 @@
-Command executed: setCharacteristics null
+Command executed: setCharacteristics 

@@ -1,1 +1,1 @@
-Command executed: setCharacteristics sdadasfasfas
+Command executed: setCharacteristics Max

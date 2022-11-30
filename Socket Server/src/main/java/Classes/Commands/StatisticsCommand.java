@@ -13,7 +13,7 @@ public class StatisticsCommand extends Command {
     public String execute(String[] args, Player player) {
         // args[length-1] = nombre del jugador que envio el mensaje
 
-        String notification = "statistics " + args[args.length-1] + ":_" + player.getPlayerStats().getJsonStats().replace(" ", "_");
+        String notification = "stats " + player.getPlayerStats().getJsonStats().replace(" ", "_");
 
         try {
             server.notifyObserver(args[args.length-1], notification);

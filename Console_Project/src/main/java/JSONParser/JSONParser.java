@@ -121,6 +121,17 @@ public class JSONParser {
         }  
     }
     
+    public static void parseStats(JTable stats, String JSON){
+        JSONObject objectJSON = new JSONObject(JSON.split(" ")[1]);
+        stats.setValueAt(objectJSON.getString("wins"), 0, 1);
+        stats.setValueAt(objectJSON.getString("losses"), 1, 1);
+        stats.setValueAt(objectJSON.getString("totalAttacks"), 2, 1);
+        stats.setValueAt(objectJSON.getString("successfulAttacks"), 3, 1);
+        stats.setValueAt(objectJSON.getString("failedAttacks"), 4, 1);
+        stats.setValueAt(objectJSON.getString("totalKilledEnemies"), 5, 1);
+        stats.setValueAt(objectJSON.getString("surrenderedGames"), 6, 1);
+    }
+    
      public static void main(String[] args) {
         String JSON = "{\"attacked\":\"Player 1\", \"warrior\":\"SUB ZERO\",\"element\":\"ICE\",\"weapon\":\"Ice Shoot\",\"damageTotal\":[{\"name\":\"name1\",\"damage\":\"VALUE1\"},{\"name\":\"name2\",\"damage\":\"VALUE2\"},{\"name\":\"name3\",\"damage\":\"VALUE3\"},{\"name\":\"name4\",\"damage\":\"VALUE4\"}],\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\"}";
         //String JSON = "{\"weapon\":\"Knife\",\"warrior\":\"Penny Wise\",\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\PennyWise.jpg\",\"attacked\":\"Daniel\",\"damageDone\":[{\"damage\":173,\"name\":\"Michael Myers\"},{\"damage\":91,\"name\":\"Chayanne\"},{\"damage\":121,\"name\":\"Penny Wise\"},{\"damage\":87,\"name\":\"Toledo\"}],\"element\":\"MAGIABLANCA\"}";
