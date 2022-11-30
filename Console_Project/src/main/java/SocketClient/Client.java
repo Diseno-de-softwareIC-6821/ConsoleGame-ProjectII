@@ -110,11 +110,15 @@ public class Client  {
                         }
                         case "stats" ->{
                             System.out.println("ENTERED STATS");
-                            gameScreen.updateMyStats(inputLine);
+                            gameScreen.updateMyStats(inputLine,1);
                         }
                         case "logs" ->{
                             System.out.println("ENTERED LOGS");
                             gameScreen.showLogsFile(inputLine);
+                        }
+                        case "statsReceived" ->{
+                            System.out.println("ENTERED STATS RECEIVED");
+                            gameScreen.updateMyStats(inputLine,2);
                         }
                         default ->{
                             gameScreen.sendMessageConsole(inputLine);

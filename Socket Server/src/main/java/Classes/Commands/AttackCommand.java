@@ -192,6 +192,15 @@ public class AttackCommand extends Command {
             System.out.println("Attack server error");
         }
 
+        //SEND STATS OF ATTACKED PERSON
+        String notification = "statsReceived " + server.getPlayerByName(args[0]).getPlayerStats().getJsonStats().replace(" ", "_");
+
+        try {
+            server.notifyObserver(args[args.length-1], notification);
+        } catch (Exception e) {
+            System.out.println("Statistics server error");
+        }
+
 
         // envia al atacado
         // <commando ejecutado> <jugador que ataco> {"personaje": "daño recibido"}

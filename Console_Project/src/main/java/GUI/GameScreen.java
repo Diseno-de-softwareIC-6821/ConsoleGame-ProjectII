@@ -171,8 +171,16 @@ public class GameScreen extends javax.swing.JDialog {
         JSONParser.parseInfo(lblActChar, lblLifeActChar, tUserStats1, JSON);
     }
     
-    public void updateMyStats(String JSON){
-        JSONParser.parseStats(tUserStats, JSON);
+    public void updateMyStats(String JSON, int table){
+        switch(table){
+            case 1 ->{
+                JSONParser.parseStats(tUserStats, JSON);
+            }
+            case 2 ->{
+                JSONParser.parseStats(tAgainstStats, JSON);
+            }
+        }
+        
     }
     
     public void showLogsFile(String JSON){
