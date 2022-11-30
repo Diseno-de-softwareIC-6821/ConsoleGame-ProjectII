@@ -16,7 +16,7 @@ public class SkipCommand extends Command {
         if(server.getCurrentTurn().equals(args[args.length-1])){
             try {
                 server.nextTurn();
-                server.notifyObserver(args[args.length-1], "Turn skipped");
+                server.notifyObserver(args[args.length-1], "skip Turn_skipped");
             } catch (Exception e) {
                 System.out.println("Skip server error");
             }
@@ -24,7 +24,7 @@ public class SkipCommand extends Command {
         }
         else{
             try {
-                server.notifyObserver(args[args.length-1], "It's not your turn");
+                server.notifyObserver(args[args.length-1], "skip It's_not_your_turn");
             } catch (Exception e) {
                 System.out.println("Skip server error");
             }

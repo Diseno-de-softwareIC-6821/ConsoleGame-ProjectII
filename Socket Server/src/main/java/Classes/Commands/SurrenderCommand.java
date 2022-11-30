@@ -15,10 +15,10 @@ public class SurrenderCommand extends Command {
 
         try {
 
-            this.server.notifyObserver(args[args.length-1], "You surrendered");
+            this.server.notifyObserver(args[args.length-1], "surrender You_surrendered");
             this.server.removePlayerFromGameQueue(args[args.length-1]);
 
-            server.notifyAllObservers("Player " + args[args.length-1] + " surrendered");
+            server.notifyAllObservers("surrender " + args[args.length-1] +":_"+ "surrendered");
         } catch (Exception e) {
             System.out.println("Surrender server error");
         }
