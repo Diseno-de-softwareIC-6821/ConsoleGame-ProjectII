@@ -3,6 +3,7 @@ package Classes.GameObjects;
 import Classes.Character;
 import Classes.Item;
 import Enumerators.eType;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -38,9 +39,19 @@ public class GameCharacter extends Character {
     }
 
     public String getJson(){
+        JSONArray weaponDamage = new JSONArray();
         JSONObject character = new JSONObject();
         character.put("name", this.getName());
         character.put("texture", this.getCurrentTexture());
+        character.put("health", this.getHealth());
+
+        for(Item item : this.getItems()){
+            GameWeapon weapon = (GameWeapon) item;
+            weaponDamage.put(weapon.getDamageList());
+        }
+
+        character.put("weaponDamage", weaponDamage);
+
         return character.toString();
     }
 

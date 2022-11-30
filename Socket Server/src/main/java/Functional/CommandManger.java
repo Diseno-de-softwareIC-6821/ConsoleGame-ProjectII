@@ -2,10 +2,8 @@ package Functional;
 
 import Classes.Abstract.Command;
 import Classes.Commands.*;
-import Classes.ServerClasses.Player;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class CommandManger {
    private HashMap <String, Command> commandsMap= new HashMap<>();
@@ -28,7 +26,7 @@ public class CommandManger {
        addCommand("attack", new AttackCommand());
        addCommand("chat", new ChatCommand());
        addCommand("dm", new DirectMessageCommand());
-       addCommand("info", new PlayerInformationCommand());
+       addCommand("info", new CharacterInformationCommand());
        addCommand("reload", new ReloadCommand());
        addCommand("skip", new SkipCommand());
        addCommand("surrender", new SurrenderCommand());
