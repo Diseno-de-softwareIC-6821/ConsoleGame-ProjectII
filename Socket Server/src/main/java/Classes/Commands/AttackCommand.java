@@ -4,6 +4,7 @@ import Classes.Abstract.Command;
 import Classes.GameObjects.GameCharacter;
 import Classes.GameObjects.GameWeapon;
 import Classes.ServerClasses.Player;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -36,9 +37,10 @@ public class AttackCommand extends Command {
         args[1] = args[1].replace("_", " ");
         args[2] = args[2].replace("_", " ");
 
-        Player attackedPlayer = this.server.getPlayerByName(args[0]);
+
 
         //Player validation
+        Player attackedPlayer = this.server.getPlayerByName(args[0]);
         if(attackedPlayer == null){
             try {
                 server.notifyObserver(args[args.length-1], "Player " + args[2] + " doesn't exist");
@@ -49,7 +51,8 @@ public class AttackCommand extends Command {
         }
 
         //Character validations
-        if(player.getCharacterByName(args[1]) == null){
+        GameCharacter attackingCharacter = player.getCharacterByName(args[1]);
+        if(attackingCharacter == null){
             // character validation
             try {
                 server.notifyObserver(args[args.length-1], "You don't have a character named " + args[0]);
@@ -58,7 +61,7 @@ public class AttackCommand extends Command {
             }
             return "attack " + args[1]+ " character doesn't exist for player " + args[args.length-1];
         }
-        if(player.getCharacterByName(args[1]).getHealth() <= 0){
+        if(attackingCharacter.getHealth() <= 0){
             // health validation
 
             try {
@@ -70,8 +73,8 @@ public class AttackCommand extends Command {
         }
 
         //Weapon validations
-        GameWeapon usedWeapon = (GameWeapon) player.getCharacterByName(args[1]).getItemByName(args[2]);
-        if(usedWeapon == null){
+        GameWeapon attackingWeapon = (GameWeapon) player.getCharacterByName(args[1]).getItemByName(args[2]);
+        if(attackingWeapon == null){
             try {
                 server.notifyObserver(args[args.length-1], "You don't have a weapon named " + args[1]);
             } catch (Exception e) {
@@ -79,7 +82,7 @@ public class AttackCommand extends Command {
             }
             return "attack "+ args[2]+ " weapon doesn't exist";
         }
-        if(!usedWeapon.isAvailable()){
+        if(!attackingWeapon.isAvailable()){
             try {
                 server.notifyObserver(args[args.length-1], "Weapon " + args[2] + " is not available "+ "for character " + args[1]);
             } catch (Exception e) {
@@ -90,13 +93,20 @@ public class AttackCommand extends Command {
 
 
         //Attack loop
+
+        JSONObject attackSummary = new JSONObject();
+        JSONArray damageLog = new JSONArray();
+
         HashMap<String, GameCharacter> attackedCharacters = attackedPlayer.getCharacters();
 
-        JSONObject damageLog = new JSONObject();
         double totalDamage = 0;
 
         for(GameCharacter character : attackedCharacters.values()){
-            double damage = usedWeapon.getDamage(character.getType());
+            JSONObject characterDamageDone = new JSONObject();
+
+            
+
+            double damage = attackingWeapon.getDamage(character.getType());
 
             int characterHealth = character.getHealth();
             int damageDone = (int)(characterHealth * damage);
@@ -109,12 +119,22 @@ public class AttackCommand extends Command {
             if (character.getHealth() <= 0) {
                 player.getPlayerStats().addKilledEnemy();
             }
-
-            damageLog.put(character.getName(), damageDone);
+            characterDamageDone.put("name", character.getName());
+            characterDamageDone.put("damage", damageDone);
+            
+            damageLog.put(characterDamageDone);
 
         }
-        usedWeapon.setAvailable(false);
 
+        attackSummary.put("attacked", args[0]);
+        attackSummary.put("warrior", args[1]);
+        attackSummary.put("element", attackingCharacter.getType());
+        attackSummary.put("weapon", args[2]);
+        attackSummary.put("damageDone", totalDamage);
+        attackSummary.put("warriorImg", attackingCharacter.getCurrentTexture());
+        attackSummary.put("damageDone", damageLog);
+
+        attackingWeapon.setAvailable(false);
 
 
         //Attack stats update
@@ -124,13 +144,20 @@ public class AttackCommand extends Command {
             player.getPlayerStats().addFailedAttack();
         }
 
-
-        String notification = "attack "+ args[args.length-1]+" "+damageLog;
+        String notification = "attack "+ attackSummary;
 
         try{
             this.server.nextTurn();
-            System.out.println("Attack notification: " + notification);
-            this.server.notifyObserver(args[0], notification);
+
+            //notify attacking player
+            String attackingPlayerNotification = "attacking " + attackSummary;
+            this.server.notifyObserver(args[0], attackingPlayerNotification);
+
+            //notify attacking player
+            String attackedPlayerNotification = "attackedBy " + attackSummary;
+            this.server.notifyObserver(args[args.length-1], attackedPlayerNotification);
+
+
         }
         catch (Exception e){
             System.out.println("Attack server error");
