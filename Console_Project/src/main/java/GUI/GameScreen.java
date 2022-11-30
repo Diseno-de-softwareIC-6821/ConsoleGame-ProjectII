@@ -518,15 +518,23 @@ public class GameScreen extends javax.swing.JDialog {
 
     private void EnterCommand(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterCommand
         //CODE TO SEND COMMAND
-        
         String consoleInp = tfEnterCommand.getText();
-        switch(consoleInp){
+        String[] command = tfEnterCommand.getText().split(" ");
+        switch(command[0]){
             case("MORITE")->{
                 dispose();
                 menuScreen.setVisible(true);
             }
             case("")->{
                 
+            }
+            case("attack")->{
+                try {
+                    client.sendMessage(consoleInp);
+                }
+                catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             case("testAttackedBy")->{
                 String JSON = "{\"attacked\":\"Player 1\", \"warrior\":\"SUB ZERO\",\"element\":\"ICE\",\"weapon\":\"Ice Shoot\",\"damageDone\":{\"W1\":[\"name1 hola\",\"30\"],\"W2\":[\"name2\",\"32\"],\"W3\":[\"name3\",\"33\"],\"W4\":[\"name4\",\"35\"]},\"warriorImg\":\"src\\\\main\\\\java\\\\Images\\\\Chayanne.jpg\"}";
@@ -538,13 +546,13 @@ public class GameScreen extends javax.swing.JDialog {
             }
             
             default->{
-                tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
+                /*tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
                 tfEnterCommand.setText("");
                 try {
                     client.sendMessage(consoleInp);
                 } catch (Exception ex) {
                     System.out.println("ERROR SENDING CONSOLE INPUT TO SERVER");
-                }
+                }*/
             }     
         }        
     }//GEN-LAST:event_EnterCommand

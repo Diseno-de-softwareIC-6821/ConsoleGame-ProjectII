@@ -54,6 +54,7 @@ public class Client  {
                 while ((inputLine = in.readLine()) != null) {
                     String[] newLine = inputLine.split(" ");
                     String command = newLine[0];
+                    System.out.println("COMMAND SENDED");
                     //meter funciones para que haga cosas
                     switch(command){
                         case "setCharacteristics" ->{
@@ -67,6 +68,16 @@ public class Client  {
                                 this.gameScreen.flag = true;
                             }
                             
+                        }
+                        
+                        case "attacking" ->{
+                            System.out.println("ENTERED ATTACKING");
+                            gameScreen.actualizarAttacking(inputLine);
+                        }
+                        
+                        case "attackedBy" ->{
+                            System.out.println("ENTERED ATTACKING");
+                            gameScreen.actualizarAttackedBy(inputLine);
                         }
                         
                         default ->{
