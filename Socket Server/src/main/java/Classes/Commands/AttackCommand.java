@@ -52,24 +52,29 @@ public class AttackCommand extends Command {
         }
         if(attackedPlayer == null){
             try {
-                server.notifyObserver(args[args.length-1], "Player " + args[2] + " doesn't exist");
+                server.notifyObserver(args[args.length-1], "Player " + args[0] + " doesn't exist");
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
-            System.out.println("Player " + args[2] + " doesn't exist");
-            return "attack " + args[args.length-1] + " player doesn't exist";
+            System.out.println("Player " + args[0] + " doesn't exist");
+            return "attack " + args[0] + " player doesn't exist";
         }
 
         //Character validations
         GameCharacter attackingCharacter = player.getCharacterByName(args[1]);
+
+        for(GameCharacter character: player.getCharacters().values()){
+            System.out.println(character.getName());
+        }
+
         if(attackingCharacter == null){
             // character validation
             try {
-                server.notifyObserver(args[args.length-1], "You don't have a character named " + args[0]);
+                server.notifyObserver(args[args.length-1], "You don't have a character named " + args[1]);
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
-            System.out.println("You don't have a character named " + args[0]);
+            System.out.println("You don't have a character named " + args[1]);
             return "attack " + args[1]+ " character doesn't exist for player " + args[args.length-1];
         }
         if(attackingCharacter.getHealth() <= 0){
@@ -88,11 +93,11 @@ public class AttackCommand extends Command {
         GameWeapon attackingWeapon = (GameWeapon) player.getCharacterByName(args[1]).getItemByName(args[2]);
         if(attackingWeapon == null){
             try {
-                server.notifyObserver(args[args.length-1], "You don't have a weapon named " + args[1]);
+                server.notifyObserver(args[args.length-1], "You don't have a weapon named " + args[2]);
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
-            System.out.println("Error: " + args[2] + " doesn't exist for player " + args[args.length-1]);
+            System.out.println("Error: " + args[2] + " doesn't exist in any character for player " + args[args.length-1]);
             return "attack "+ args[2]+ " weapon doesn't exist";
         }
         if(!attackingWeapon.isAvailable()){
