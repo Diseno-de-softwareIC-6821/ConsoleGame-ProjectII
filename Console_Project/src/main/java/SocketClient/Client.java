@@ -88,9 +88,17 @@ public class Client  {
                             System.out.println("ENTERED DM CHAT");
                             gameScreen.sendMessageChat(newLine[1].replace("_", " "));
                         }
+                        case "reload" ->{
+                            System.out.println("ENTERED RELOAD");
+                            gameScreen.sendMessageConsole(inputLine);
+                        }
+                        case "info" ->{
+                            System.out.println("ENTERED INFO");
+                            gameScreen.selectedInfoUpdate(newLine[1].replace("_", " "));
+                        }
                         
                         default ->{
-                            //gameScreen.sendMessageConsole(inputLine);
+                            gameScreen.sendMessageConsole(inputLine);
                            
                         }
                     }

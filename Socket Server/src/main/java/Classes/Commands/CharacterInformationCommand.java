@@ -27,7 +27,7 @@ public class CharacterInformationCommand extends Command {
             return args[args.length-1]+": "+ "info player not found";
         }
 
-        String notification = "info " + args[0] + " " + searchedCharacter.getJson();
+        String notification = "info " + searchedCharacter.getJson();
 
         try {
             server.notifyObserver(args[args.length-1], notification);
@@ -37,8 +37,8 @@ public class CharacterInformationCommand extends Command {
         }
 
 
-        //<comando> <nombre personaje buscado> <json de estadisticas>
-        // info elRisas {"name":"elRisas", "texure":"path", "health":100, weapons:[{name:"pistola", damage:[[0.4,0.3,...],[0.4,0.3,...]]},...]}
+        //<comando> <json de estadisticas>
+        // info {"name":"elRisas", "texure":"path", "health":100, weapons:[{name:"pistola", damage:[[0.4,0.3,...],[0.4,0.3,...]]},...]}
         return notification;
     }
 

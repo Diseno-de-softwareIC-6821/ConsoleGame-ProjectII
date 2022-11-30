@@ -151,6 +151,10 @@ public class GameScreen extends javax.swing.JDialog {
         taLog.setText(taLog.getText() + message + "\n");
         
     }
+    public void selectedInfoUpdate(String JSON){
+        System.out.println("INFO TO PARSE: " + JSON);
+        JSONParser.parseInfo(lblActChar, lblLifeActChar, tUserStats1, JSON);
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -575,8 +579,22 @@ public class GameScreen extends javax.swing.JDialog {
                     Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            case("reload")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("info")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             default->{
-                
+                sendMessageConsole("INVALID COMMAND");
             }     
         }
         tpConsole.setText(tpConsole.getText() + "\n" + consoleInp);
