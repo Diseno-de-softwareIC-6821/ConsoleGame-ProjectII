@@ -24,7 +24,7 @@ public class LogsCommand extends Command {
         JSONArray logsArray = new JSONArray();
         try {
             for(String s: Log.getLogs()){
-                logsArray.put(s+"\n");
+                logsArray.put(s);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
