@@ -25,8 +25,10 @@ public class DirectMessageCommand extends Command {
             message.append(args[i]).append(" ");
         }
 
+        String notification = "dm " + args[args.length-1] + ":_" + message.toString().replace(" ", "_");
+
         try {
-            server.notifyObserver(args[0], message.toString());
+            server.notifyObserver(args[0], notification);
         } catch (Exception e) {
             System.out.println("Direct message server error");
             return args[args.length-1] + ": " + "dm couldn't be sent";
@@ -34,7 +36,7 @@ public class DirectMessageCommand extends Command {
 
         //envia al receptor
         //<comando ejecutado> <nombre del emisor> mensaje
-
+        // dm esteban:_hola_como_estan
         return "dm " + message;
     }
 
