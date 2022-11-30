@@ -38,7 +38,7 @@ public class CharacterInformationCommand extends Command {
 
 
         //<comando> <nombre personaje buscado> <json de estadisticas>
-        // info elRisas {"name":"elRisas", "texure":"path", "health":100, [[0.2,0.3,0.7],[0.2,0.3,0.7],[0.2,0.3,0.7],...[0.2,0.3,0.7]]}
+        // info elRisas {"name":"elRisas", "texure":"path", "health":100, weapons:[{name:"pistola", damage:[[0.4,0.3,...],[0.4,0.3,...]]},...]}
         return notification;
     }
 

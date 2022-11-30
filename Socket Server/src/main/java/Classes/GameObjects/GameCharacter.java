@@ -39,18 +39,25 @@ public class GameCharacter extends Character {
     }
 
     public String getJson(){
-        JSONArray weaponDamage = new JSONArray();
+
         JSONObject character = new JSONObject();
         character.put("name", this.getName());
         character.put("texture", this.getCurrentTexture());
         character.put("health", this.getHealth());
 
+        JSONArray weapons = new JSONArray();
+
         for(Item item : this.getItems()){
             GameWeapon weapon = (GameWeapon) item;
-            weaponDamage.put(weapon.getDamageList());
+            JSONObject weaponJson = new JSONObject();
+
+            weaponJson.put("name", weapon.getName());
+            weaponJson.put("damage", weapon.getDamageList());
+
+            weapons.put(weaponJson);
         }
 
-        character.put("weaponDamage", weaponDamage);
+        character.put("weapons", weapons);
 
         return character.toString();
     }
