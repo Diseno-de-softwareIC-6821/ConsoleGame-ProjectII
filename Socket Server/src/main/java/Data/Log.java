@@ -3,10 +3,8 @@ package Data;
 import Classes.ServerClasses.Server;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.sql.Timestamp;
+import java.util.*;
 
 public class Log {
     private static String SAVE_PATH = "log/";
@@ -44,8 +42,14 @@ public class Log {
     }
     public void print(String message) throws IOException {
         if (file != null) {
+            ArrayList<String> fileContent = getLogs();
             pw = new PrintWriter(new FileWriter(file));
-            pw.println(message);
+            Date date = new Date();
+            Timestamp ts=new Timestamp(date.getTime());
+            for (String s: fileContent){
+                pw.println(s);
+            }
+            pw.println(ts.toString() + " " + message);
             pw.close();
         }
 

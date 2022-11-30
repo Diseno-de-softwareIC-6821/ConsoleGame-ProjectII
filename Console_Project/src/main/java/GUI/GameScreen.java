@@ -159,6 +159,10 @@ public class GameScreen extends javax.swing.JDialog {
     public void updateMyStats(String JSON){
         JSONParser.parseStats(tUserStats, JSON);
     }
+    
+    public void showLogsFile(String JSON){
+        JSONParser.parseLog(taLog, JSON);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -620,6 +624,13 @@ public class GameScreen extends javax.swing.JDialog {
                 }
             }
             case("stats")->{
+                try {
+                    client.sendMessage(consoleInp);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            case("logs")->{
                 try {
                     client.sendMessage(consoleInp);
                 } catch (Exception ex) {

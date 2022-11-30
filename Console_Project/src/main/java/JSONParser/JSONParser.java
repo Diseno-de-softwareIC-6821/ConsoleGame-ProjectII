@@ -8,6 +8,7 @@ import java.awt.Label;
 import java.util.Iterator;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -130,6 +131,15 @@ public class JSONParser {
         stats.setValueAt(objectJSON.getString("failedAttacks"), 4, 1);
         stats.setValueAt(objectJSON.getString("totalKilledEnemies"), 5, 1);
         stats.setValueAt(objectJSON.getString("surrenderedGames"), 6, 1);
+    }
+    
+    public static void parseLog(JTextArea taLog, String JSON){
+        JSONArray objectJSON = new JSONObject(JSON.split(" ")[1]).getJSONArray("logs");
+        for (int i = 0; i < objectJSON.length(); i++){
+            taLog.setText(taLog.getText() + objectJSON.getString(i));
+        }
+        
+        
     }
     
      public static void main(String[] args) {
