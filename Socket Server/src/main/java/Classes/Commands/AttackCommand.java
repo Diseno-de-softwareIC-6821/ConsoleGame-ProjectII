@@ -41,6 +41,14 @@ public class AttackCommand extends Command {
 
         //Player validation
         Player attackedPlayer = this.server.getPlayerByName(args[0]);
+        if(args[0].equals(args[args.length - 1])){
+            try {
+                this.server.notifyObserver(args[args.length-1], "You can't attack yourself");
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            return "attack " + args[args.length-1] + " can't attack yourself";
+        }
         if(attackedPlayer == null){
             try {
                 server.notifyObserver(args[args.length-1], "Player " + args[2] + " doesn't exist");
