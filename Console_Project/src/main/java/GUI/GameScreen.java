@@ -9,6 +9,7 @@ import SocketClient.Client;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -34,7 +35,8 @@ public class GameScreen extends javax.swing.JDialog {
     private static String warClass;
     private static String teamConfig;
     public boolean flag;
-    public int actCharacter = 1;
+    public HashMap<String, JLabel > teamName = new HashMap<>();
+    public HashMap<String, JLabel > teamLife = new HashMap<>();
     
     /**
      * Creates new form GameScreen
@@ -81,6 +83,7 @@ public class GameScreen extends javax.swing.JDialog {
         this.pintarImagen(this.lblTeam2, screenConfig[3]);
         this.pintarImagen(this.lblTeam3, screenConfig[5]);
         this.pintarImagen(this.lblTeam4, screenConfig[7]);
+
         //this.pintarImagen(this.lblAttackingImg, "src\\main\\java\\Images\\PennyWiseAttack.jpg");
         //this.pintarImagen(this.lblAttackedByImg, "src\\main\\java\\Images\\Lucy.jpg");
         this.pintarImagen(this.lblAttackingDamageCircle, "src\\main\\java\\Images\\RedCircle.png");
@@ -89,6 +92,18 @@ public class GameScreen extends javax.swing.JDialog {
         lblNameChar2.setText(screenConfig[2]);
         lblNameChar3.setText(screenConfig[4]);
         lblNameChar4.setText(screenConfig[6]);
+        
+        //HELPS TO UPDATE ACT CHAR ON GUI
+        teamName.put(screenConfig[0], this.lblNameChar1);
+        teamName.put(screenConfig[2], this.lblNameChar2);
+        teamName.put(screenConfig[4], this.lblNameChar3);
+        teamName.put(screenConfig[6], this.lblNameChar4);
+        
+        teamLife.put(screenConfig[0], this.lblLifeChar1);
+        teamLife.put(screenConfig[2], this.lblLifeChar2);
+        teamLife.put(screenConfig[4], this.lblLifeChar3);
+        teamLife.put(screenConfig[6], this.lblLifeChar4);
+
     }
 
     //METHODS DEFINED TO USE IN THE GUI
@@ -124,7 +139,7 @@ public class GameScreen extends javax.swing.JDialog {
     public void actualizarAttackedBy(String JSON){
          this.pintarImagen(this.lblAttackedByImg, JSONParser.parseAttackedBy(lblAttackedByText, lblAttackedByText1, 
                 lblAttackedByStats1, lblAttackedByStats2, lblAttackedByStats3, lblAttackedByStats4, lblLifeChar1,
-                lblLifeChar2, lblLifeChar3, lblLifeChar4, lblAttackedByImg, JSON));
+                lblLifeChar2, lblLifeChar3, lblLifeChar4, lblAttackedByImg, teamName, teamLife, lblActChar, lblLifeActChar, JSON));
     }
     public void actualizarAttacking(String JSON){
          this.pintarImagen(this.lblAttackingImg, JSONParser.parseAttacking(lblAttackingText1, lblAttackingText2, 

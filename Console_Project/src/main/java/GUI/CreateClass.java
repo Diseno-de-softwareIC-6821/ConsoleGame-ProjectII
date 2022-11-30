@@ -330,23 +330,18 @@ public class CreateClass extends javax.swing.JDialog {
                     //SENDING INFO TO SERVER
                     
                     JOptionPane.showMessageDialog(null, "Class #" + warriorCount + " created succesfully");
-                    //while(!registerName){
-                    String name = JOptionPane.showInputDialog("Type your user name please");
-                    //client.sendMessage(name);
-                    //}
-                    JOptionPane.showMessageDialog(null, "Welcome " + name);
                     //CHANGES ALL " " FOR "_" SERVER NEEDS IT
                     setCharacteristicsCommand = setCharacteristicsCommand.replace(' ', '_');
                     setCharacteristicsCommand = setCharacteristicsCommand + "]";
-                    //setCharacteristicsCommand = "setCharacteristics " + name + " " + setCharacteristicsCommand + "]";
-                    /*name = name.replace(' ','_');
-                    
-                    //        create a new client
-                    System.out.println(setCharacteristicsCommand);
-                    this.client = new Client();
-                    client.startConnection("localhost", 8080);
-                    client.sendMessage(setCharacteristicsCommand);*/
                     dispose();
+                     GameScreen createGameScreen; 
+                    try {
+                        //gameScreenConfig = "Penny Wise-src\\main\\java\\Images\\PennyWise.jpg-Michael Myers-src\\main\\java\\Images\\MichaelMyers.jpg-Chayanne-src\\main\\java\\Images\\Chayanne.jpg-Toledo-src\\main\\java\\Images\\Toledo.jpg-";
+                        createGameScreen = new GameScreen(new javax.swing.JDialog(), true, setCharacteristicsCommand, gameScreenConfig);
+                        createGameScreen.setVisible(true);
+                    } catch (Exception ex) {
+                        Logger.getLogger(CreateClass.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } 
                 catch (Exception ex) {
                     System.out.println("ERROR SENDING CHARACTERISTICS TO SERVER");
