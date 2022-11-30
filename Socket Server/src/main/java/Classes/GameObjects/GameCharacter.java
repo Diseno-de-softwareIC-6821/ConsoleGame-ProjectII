@@ -43,7 +43,7 @@ public class GameCharacter extends Character {
         JSONObject character = new JSONObject();
         character.put("name", this.getName());
         character.put("texture", this.getCurrentTexture());
-        character.put("health", this.getHealth());
+        character.put("health", Integer.toString(this.getHealth()));
 
         JSONArray weapons = new JSONArray();
 

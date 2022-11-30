@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class JSONParser {
     
     
-    public static void parseWeapons(JTable tableParse, String JSON, String warriorName){
+    public static void parseWeapons(JTable tableParse, String JSON, String warriorName, JLabel lblActChar){
         JSONArray classJSON = new JSONArray(JSON.split(" ")[1].replace("_", " "));
         //System.out.println(classJSON.toString());
         //System.out.println(classJSON.toString());
@@ -26,6 +26,7 @@ public class JSONParser {
             JSONObject actClass = classJSON.getJSONObject(i);
             String actName = actClass.getString("name");
             if (actName.equals(warriorName) || warriorName.equals("")){
+                lblActChar.setText(actName);
                 Iterator<String> it = actClass.keys();
                 int k = 0;
                 while(it.hasNext()){
@@ -100,10 +101,24 @@ public class JSONParser {
     }
     
     public static void parseInfo(JLabel lblActChar, JLabel lblLifeActChar, JTable tableParse, String JSON){
-        JSONObject objectJSON = new JSONObject(JSON);
+        JSONObject objectJSON = new JSONObject(JSON.split(" ")[1].replace("_", " "));
         lblActChar.setText(objectJSON.getString("name"));
         lblLifeActChar.setText(objectJSON.getString("health"));
-        parseWeapons(tableParse, objectJSON.getJSONArray("weapons").toString(), objectJSON.getString("name"));
+        
+        JSONArray classJSON = objectJSON.getJSONArray("weapons");
+        //System.out.println(classJSON.toString());
+        //System.out.println(classJSON.toString());
+        for (int i = 0; i < classJSON.length(); i++){
+            JSONObject actClass = classJSON.getJSONObject(i);
+            String weaponName = actClass.getString("name");
+            tableParse.setValueAt(weaponName, i, 0);
+            //System.out.println(weaponName);
+            JSONArray actDamages = actClass.getJSONArray("damage");
+            for (int j = 0; j < 10; j++){
+                //System.out.println(actDamages.get(j));
+                tableParse.setValueAt(actDamages.get(j), i, j+1);
+            }
+        }  
     }
     
      public static void main(String[] args) {

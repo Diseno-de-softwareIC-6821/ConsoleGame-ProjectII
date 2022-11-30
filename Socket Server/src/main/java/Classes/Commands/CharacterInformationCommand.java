@@ -14,7 +14,7 @@ public class CharacterInformationCommand extends Command {
     public String execute(String[] args, Player player) {
         // args[0] = nombre del personaje buscado
         // args[length-1] = nombre del jugador que envio el mensaje
-
+        args[0] = args[0].replace("_", " ");
         GameCharacter searchedCharacter = player.getCharacterByName(args[0]);
 
         if (searchedCharacter == null) {
@@ -27,7 +27,7 @@ public class CharacterInformationCommand extends Command {
             return args[args.length-1]+": "+ "info player not found";
         }
 
-        String notification = "info " + searchedCharacter.getJson();
+        String notification = "info " + searchedCharacter.getJson().replace(" ", "_");
 
         try {
             server.notifyObserver(args[args.length-1], notification);
