@@ -47,15 +47,17 @@ public class AttackCommand extends Command {
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
+            System.out.println("You can't attack yourself");
             return "attack " + args[args.length-1] + " can't attack yourself";
         }
         if(attackedPlayer == null){
             try {
                 server.notifyObserver(args[args.length-1], "Player " + args[2] + " doesn't exist");
             } catch (Exception e) {
-                System.out.println("Attack server error");
+                System.out.println("Error: " + e.getMessage());
             }
-            return "0";
+            System.out.println("Player " + args[2] + " doesn't exist");
+            return "attack " + args[args.length-1] + " player doesn't exist";
         }
 
         //Character validations
@@ -65,8 +67,9 @@ public class AttackCommand extends Command {
             try {
                 server.notifyObserver(args[args.length-1], "You don't have a character named " + args[0]);
             } catch (Exception e) {
-                System.out.println("Attack server error");
+                System.out.println("Error: " + e.getMessage());
             }
+            System.out.println("You don't have a character named " + args[0]);
             return "attack " + args[1]+ " character doesn't exist for player " + args[args.length-1];
         }
         if(attackingCharacter.getHealth() <= 0){
@@ -75,8 +78,9 @@ public class AttackCommand extends Command {
             try {
                 server.notifyObserver(args[args.length-1], "Character " + args[1] + " is dead");
             } catch (Exception e) {
-                System.out.println("Attack server error");
+                System.out.println("Error: " + e.getMessage());
             }
+            System.out.println("Character " + args[1] + " is dead");
             return "attack " + args[1]+ " character is dead for player " + args[args.length-1];
         }
 
@@ -86,16 +90,18 @@ public class AttackCommand extends Command {
             try {
                 server.notifyObserver(args[args.length-1], "You don't have a weapon named " + args[1]);
             } catch (Exception e) {
-                System.out.println("Attack server error");
+                System.out.println("Error: " + e.getMessage());
             }
+            System.out.println("Error: " + args[2] + " doesn't exist for player " + args[args.length-1]);
             return "attack "+ args[2]+ " weapon doesn't exist";
         }
         if(!attackingWeapon.isAvailable()){
             try {
                 server.notifyObserver(args[args.length-1], "Weapon " + args[2] + " is not available "+ "for character " + args[1]);
             } catch (Exception e) {
-                System.out.println("Attack server error");
+                System.out.println("Error: " + e.getMessage());
             }
+            System.out.println("Weapon " + args[2] + " is not available "+ "for character " + args[1]);
             return "attack "+args[args.length-1]+" "+args[1]+" "+args[2]+" weapon not available for player "+args[args.length-1];
         }
 
@@ -175,6 +181,7 @@ public class AttackCommand extends Command {
         // envia al atacado
         // <commando ejecutado> <jugador que ataco> {"personaje": "daño recibido"}
         // attack daniel {"Michael Myers":79,"Chayanne":57,"Penny Wise":68,"Toledo":23}
+        System.out.println(notification);
         return notification;
     }
 }
